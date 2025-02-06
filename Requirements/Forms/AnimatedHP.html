@@ -1,0 +1,199 @@
+<html lang="en">
+
+<head>
+     
+    <meta charset="UTF-8">
+     
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Scholarship Portal</title>
+     
+    <link rel="stylesheet" href="css/style.css">
+      <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-image: url('https://webartdevelopers.com/blog/wpcontent/uploads/2019/02/Animated-Ripples-Background-HTML-CSS.gif');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .welcome-text {
+            font-size: 32px;
+            font-weight: bold;
+            color: white;
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            animation: fadeBlur 3s ease-in-out forwards, glow 2s infinite alternate;
+        }
+
+        @keyframes fadeBlur {
+            0% {
+                opacity: 0;
+                filter: blur(10px);
+            }
+
+            50% {
+                opacity: 0.5;
+                filter: blur(5px);
+            }
+
+            100% {
+                opacity: 1;
+                filter: blur(0);
+            }
+        }
+
+        @keyframes glow {
+            0% {
+                text-shadow: 0 0 10px #ff1493;
+            }
+
+            100% {
+                text-shadow: 0 0 20px #ff4500;
+            }
+        }
+
+        .college-logo {
+            width: 150px;
+            height: auto;
+            margin-bottom: 20px;
+            animation: float 3s ease-in-out infinite, rotateLogo 6s linear infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes rotateLogo {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .menu-toggle {
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            transition: transform 0.4s ease-in-out;
+        }
+
+        .menu-toggle div {
+            width: 30px;
+            height: 3px;
+            background-color: #ff1493;
+            margin: 5px 0;
+            transition: transform 0.4s, background-color 0.3s;
+        }
+
+        .menu-toggle:hover div {
+            background-color: #ff4500;
+        }
+
+        .menu-toggle.open div:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .menu-toggle.open div:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.open div:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        .sidenav {
+            height: 100vh;
+            width: 250px;
+            background-color: #333;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+            position: fixed;
+            left: -250px;
+            top: 0;
+            transition: left 0.3s ease-in-out;
+        }
+
+        .sidenav.open {
+            left: 0;
+        }
+
+        .sidenav a {
+            color: white;
+            text-decoration: none;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .sidenav a:hover {
+            background-color: #575757;
+            transform: translateX(5px);
+        }
+    </style>
+</head>
+
+<body>
+      <!-- Menu Toggle Button -->
+      <div class="menu-toggle" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+
+      <!-- Side Navigation -->
+      <div class="sidenav">
+            <h2>Menu</h2>
+            <a href="#home">Home</a>
+            <a href="#register">Register</a>
+            <a href="#contact">Contact</a>
+            <a href="#login">Login</a>
+          </div>
+
+      <!-- Welcome Text -->
+      <div class="welcome-text">Welcome to SDNB Scholarship Portal</div>
+
+      <!-- Logo -->
+      <img src="https://www.srivelelectrical.com/assets/images/client21.png" alt="College Logo" class="college-logo">
+
+     
+    <script>
+        function toggleMenu() {
+            document.querySelector('.sidenav').classList.toggle('open');
+            document.querySelector('.menu-toggle').classList.toggle('open');
+        }
+    </script>
+</body>
+
+</html>

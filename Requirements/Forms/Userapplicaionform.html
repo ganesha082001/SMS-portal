@@ -1,0 +1,807 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scholarship Application Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        h1 {
+            text-align: center;
+            margin: 20px 0;
+            color: #2c3e50;
+        }
+        .navigation {
+            display: flex;
+            justify-content: center;
+            background-color: #2c3e50;
+            padding: 10px 0;
+        }
+     .navigation a {
+            text-decoration: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            color: white;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .navigation a.active {
+            background-color: #18bc9c;
+            color: white;
+        }
+        .navigation a:hover {
+            background-color: #16a085;
+        }
+  .form-section {
+            display: none;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+        }
+        .form-section.active {
+            display: block;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #34495e;
+        }
+        input, select {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #bdc3c7;
+            border-radius: 5px;
+            box-sizing: border-box;
+            background-color: #f9f9f9;
+            font-size: 14px;
+        }
+        input:focus, select:focus {
+            border-color: #18bc9c;
+            outline: none;
+            box-shadow: 0 0 5px rgba(24, 188, 156, 0.5);
+        }
+        input[type="file"] {
+            padding: 5px;
+        }
+        button {
+            background-color: #18bc9c;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #16a085;
+        }
+        #uploadProof {
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Scholarship Application Form</h1>
+    <div class="navigation">
+        <a href="#" onclick="showSection('personal-details', event)" id="link-personal-details" class="active">Personal Details</a>
+        <a href="#" onclick="showSection('educational-details', event)" id="link-educational-details">Educational Details</a>
+        <a href="#" onclick="showSection('scholarship-details', event)" id="link-scholarship-details">Scholarship Details</a>
+    </div>
+    <form>
+        <div id="personal-details" class="form-section active">
+            <h2>Personal Details</h2>
+            <form>
+        <label for="fullName">Enter Full Name:</label><br>
+        <input type="text" id="fullName" name="fullName" style="text-transform: uppercase;" placeholder="e.g SREYA S"required>
+   <br><br>
+        <label for="email">Email Address:</label><br>
+        <input type="email" id="email"name="email"placeholder="example@domain.com" required>
+        <br><br
+  <label for="dob">Date of Birth:</label>
+      <input type="date" id="dob" name="dob" required>
+  <label for="student mobile">Student Mobile Number:</label>
+   <input type="text" id="mobile" name="mobile" placeholder="Enter your 10-digit mobile number"maxlength="10" oninput="validateMobileNumber(this) required> <span id="mobileError" class="error"></span>
+  <label for="community">Community:</label><select id="community" name="community" required>
+<option value="">-- Select One--</option>
+ <option value="oc">OC</option>
+<option value="bc/bcm">BC/BCM</option>
+ <option value="sc/st/sca">SC/ST/SCA</option>
+<option value="mbc/dnc">MBC/DNC</option>
+  </select>
+ <label for="rollNo">Roll Number:</label>
+ <input type="text" id="rollNo" name="rollNo"  required> <script>
+                                                             function updateBatch() {
+                                                                 const startYear = parseInt(document.getElementById("startYear").value);
+                                                                 const duration = 4;
+                                                                 if (!isNaN(startYear)) {
+                                                                     document.getElementById("batch").value = `${startYear}-${startYear + duration - 1}`;
+                                                                 } else {
+                                                                     document.getElementById("batch").value = "";
+                                                                 }
+                                                             }
+ </script>
+  <form>
+    <label for="startYear">Start Year:</label>
+    <input type="number" id="startYear" name="startYear" placeholder="e.g., 2023" oninput="updateBatch()" required>
+    <br><br>
+    <label for="batch">Batch:</label>
+    <input type="text" id="batch" name="batch" placeholder="Calculated automatically" readonly>
+    <br><br>
+  <script>
+      function updateDepartments() {
+          const shift = document.getElementById("shift").value;
+          document.getElementById("department-ug-aided").style.display = "none";
+          document.getElementById("department-ug-sfs").style.display = "none";
+          document.getElementById("department-pg").style.display = "none";
+          if (shift === "UG-Aided") {
+              document.getElementById("department-ug-aided").style.display = "block";
+          } else if (shift === "UG-SFS") {
+              document.getElementById("department-ug-sfs").style.display = "block";
+          } else if (shift === "PG") {
+              document.getElementById("department-pg").style.display = "block";
+          }
+      }
+  </script>
+  <style>
+    .department-select {
+      display: none;
+    }
+  </style>
+<label for="shift">Shift:</label>
+    <select id="shift" name="shift" required onchange="updateDepartments()">
+      <option value="" disabled selected>Select Shift</option>
+      <option value="UG-Aided">UG-Aided</option>
+      <option value="UG-SFS">UG-SFS</option>
+      <option value="PG">PG</option>
+    </select>
+    <br><br>
+    <div id="department-ug-aided" class="department-select">
+      <label for="department-ug-aided-select">Department UG-Aided:</label>
+      <select id="department-ug-aided-select" name="department-ug-aided">
+        <option value="" disabled selected>Select Department</option>
+        <option value="Department of Tamil">Department of Tamil</option>
+        <option value="Department of Hindi">Department of Hindi</option>
+        <option value="Department of Sanskrit">Department of Sanskrit</option>
+        <option value="B.A. English">B.A. English</option>
+        <option value="B.A. History and Tourism">B.A. History and Tourism</option>
+        <option value="B.A. Economics">B.A. Economics</option>
+        <option value="B.Sc. Mathematics">B.Sc. Mathematics</option>
+        <option value="B.Sc. Statistics">B.Sc. Statistics</option>
+        <option value="B.Sc. Physics">B.Sc. Physics</option>
+        <option value="B.Sc. Chemistry">B.Sc. Chemistry</option>
+        <option value="B.Sc. Plant Biology & Plant Biotechnology">B.Sc. Plant Biology & Plant Biotechnology</option>
+        <option value="B.Sc. Computer Science">B.Sc. Computer Science</option>
+        <option value="Department of Commerce">Department of Commerce</option>
+        <option value="Physical Education">Physical Education</option>
+      </select>
+    </div>
+ <div id="department-ug-sfs" class="department-select">
+      <label for="department-ug-sfs-select">Department UG-SFS:</label>
+      <select id="department-ug-sfs-select" name="department-ug-sfs">
+        <option value="" disabled selected>Select Department</option>
+        <option value="Library">Library</option>
+        <option value="Department of Physical Education">Department of Physical Education</option>
+        <option value="B.Sc. Computer Science with Cognitive System">B.Sc. Computer Science with Cognitive System</option>
+        <option value="B.Com Computer Applications">B.Com Computer Applications</option>
+        <option value="B.Sc. Computer Science with Artificial Intelligence">B.Sc. Computer Science with Artificial Intelligence</option>
+        <option value="B.Sc. Computer Science with Data Science">B.Sc. Computer Science with Data Science</option>
+        <option value="Tamil">Tamil</option>
+        <option value="B.A. English (SFS)">B.A. English (SFS)</option>
+        <option value="Hindi">Hindi</option>
+        <option value="French">French</option>
+        <option value="Sanskrit">Sanskrit</option>
+        <option value="Department of Business Administration">Department of Business Administration</option>
+        <option value="Department of B.C.A">Department of B.C.A</option>
+        <option value="B.Sc. Computer Science">B.Sc. Computer Science</option>
+        <option value="B.Sc. Mathematics">B.Sc. Mathematics</option>
+        <option value="B.Com (General)">B.Com (General)</option>
+        <option value="Department of B.Com. (Corporate Secretaryship)">Department of B.Com. (Corporate Secretaryship)</option>
+        <option value="B.Com (Accounting & Finance)">B.Com (Accounting & Finance)</option>
+        <option value="Department of B.Com (Honours)">Department of B.Com (Honours)</option>
+        <option value="B.Com (Information Systems Management)">B.Com (Information Systems Management)</option>
+        <option value="B.Com (Professional Accounting)">B.Com (Professional Accounting)</option>
+        <option value="B.Com (Banking & Insurance Management)">B.Com (Banking & Insurance Management)</option>
+        <option value="B.Sc. Psychology">B.Sc. Psychology</option>
+        <option value="B.Sc. Visual Communication">B.Sc. Visual Communication</option>
+        <option value="B.Sc. Clinical Nutrition & Dietetics">B.Sc. Clinical Nutrition & Dietetics</option>
+        <option value="B.Sc. Nutrition Food Service Management & Dietetics">B.Sc. Nutrition Food Service Management & Dietetics</option>
+      </select>
+    </div>
+    <div id="department-pg" class="department-select">
+      <label for="department-pg-select">Department PG:</label>
+      <select id="department-pg-select" name="department-pg">
+        <option value="" disabled selected>Select Department</option>
+        <option value="M.A English">M.A English</option>
+        <option value="M.Sc Counselling Psychology">M.Sc Counselling Psychology</option>
+        <option value="M.A Economics">M.A Economics</option>
+        <option value="M.A Tamil">M.A Tamil</option>
+        <option value="M.Sc Physics">M.Sc Physics</option>
+        <option value="M.Sc Chemistry">M.Sc Chemistry</option>
+        <option value="M.Com (General)">M.Com (General)</option>
+        <option value="M.Com (Corporate Secretaryship)">M.Com (Corporate Secretaryship)</option>
+        <option value="M.Com (Accounting & Finance)">M.Com (Accounting & Finance)</option>
+        <option value="M.Sc Applicable Mathematics">M.Sc Applicable Mathematics</option>
+        <option value="M.Sc Computer Science">M.Sc Computer Science</option>
+        <option value="Research Dept of Statistics">Research Dept of Statistics</option>
+        <option value="M.Sc Home Science - Food Science, Nutrition & Dietetics">M.Sc Home Science - Food Science, Nutrition & Dietetics</option>
+        <option value="PG Department of Plant Biology & Plant Biotechnology">PG Department of Plant Biology & Plant Biotechnology</option>
+        <option value="Department of Human Resource Management">Department of Human Resource Management</option>
+        <option value="Department of Social Work">Department of Social Work</option>
+        <option value="M.A Journalism and Communication">M.A Journalism and Communication</option>
+      </select>
+    </div>
+<label for="section">Section:</label>
+<select id="section" name="section" required>
+<option value="">-- Select Section --</option>
+<option value="A">A</option>
+ <option value="B">B</option>
+<option value="C">C</option>
+ <option value="D">D</option>
+ <option value="None">None</option> </select>
+<label for="hostel">Hostel or Day Scholar?</label>
+<select id="hostel" name="hostel">
+ <option value="">-- Select One--</option>
+ <option value="hostel">Hostel</option>
+<option value="dayscholar">Day Scholar</option>
+ </select>
+<label for="year">Year of Study:</label>
+ <select id="year" name="Year of study" required>
+<option value="">-- Select Year--</option>
+<option value="first year">First year</option>
+<option value="second year">Second year</option>
+ <option value="third year">Third year</option>
+  </select>
+  <label for="adharCardNo">Aadhar Card Number:</label>
+ <input type="text" id="adharCardNo" name="adharCardNo"  placeholder="Enter your 12-digit aadhar number"maxlength="12"required>
+ <label for="mobileLinkedWithAdhar">Mobile Number Linked with Aadhar:</label>
+ <input type="tel" id="mobileLinkedWithAdhar" name="mobileLinkedWithAdhar"   placeholder="Enter your 10-digit mobile number"maxlength="10"
+   required>
+  <label for="firstGraduate">Is First Graduate?</label>
+            <select id="firstGraduate" name="firstGraduate">
+ <option value="">-- Select One--</option>
+<option value="yes">Yes</option>
+ <option value="no">No</option>
+ </select>
+<label for="schoolType">School Type (Government or Private):</label>
+ <select id="schoolType" name="schoolType">
+<option value="">-- Select One--</option>
+ <option value="government">Government</option>
+ <option value="private">Private</option>
+  <option value="government-aided(english medium)">Government-Aided(english medium)</option>
+<option value="government-aided(tamil medium)">Government-Aided(tamil medium)</option>
+ </select>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Part-Time Job Form</title>
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <form id="jobForm">
+        <label for="partTimeJob">Is the Student Working Any Part-Time Job?</label>
+        <select id="partTimeJob" name="partTimeJob">
+            <option value="">-- Select One --</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select>
+        <div id="uploadProof" class="hidden">
+            <label for="partTimeJobProof">Upload Proof of Part-Time Job (if applicable):</label>
+            <input type="file" id="partTimeJobProof" name="partTimeJobProof">
+        </div>
+        <br>
+    </form>
+<script>
+    const partTimeJob = document.getElementById('partTimeJob');
+    const uploadProof = document.getElementById('uploadProof');
+    partTimeJob.addEventListener('change', function () {
+        if (this.value === 'yes') {
+            uploadProof.classList.remove('hidden');
+        } else {
+            uploadProof.classList.add('hidden');
+        }
+    });
+</script>
+          </form>
+        </div>
+        <div id="educational-details" class="form-section">
+            <h2>Educational Details</h2>
+              <form id="academicForm">
+    <label for="academicYear">Select Academic Year:</label>
+    <select id="academicYear" name="academicYear" required>
+      <option value="">--Select Year--</option>
+      <option value="UG First Year">UG - First Year</option>
+      <option value="UG Second Year">UG - Second Year</option>
+      <option value="UG Third Year">UG - Third Year</option>
+      <option value="PG First Year">PG - First Year</option>
+      <option value="PG Second Year">PG - Second Year</option>
+    </select>
+    <div id="inputContainer"></div>
+  </form>
+  <script>
+      const academicYear = document.getElementById("academicYear");
+      const inputContainer = document.getElementById("inputContainer");
+      academicYear.addEventListener("change", function () {
+          inputContainer.innerHTML = "";
+          let label, inputId;
+          switch (this.value) {
+              case "UG First Year":
+                  label = "12th %:";
+                  inputId = "marks12";
+                  break;
+              case "UG Second Year":
+                  label = "1st Year %:";
+                  inputId = "prevYearMarks";
+                  break;
+              case "UG Third Year":
+                  label = "2nd Year %:";
+                  inputId = "prevYearMarks";
+                  break;
+              case "PG First Year":
+                  label = "UG %:";
+                  inputId = "ugMarks";
+                  break;
+              case "PG Second Year":
+                  label = "PG 1st Year %:";
+                  inputId = "prevPGMarks";
+                  break;
+              default:
+                  inputContainer.innerHTML = "";
+                  return;
+          }
+          inputContainer.innerHTML = `
+        <label for="${inputId}">${label}</label>
+        <input type="number" id="${inputId}" name="${inputId}" placeholder="Enter %" min="0" max="100" step="0.01" required>
+      `;
+      });
+      document.getElementById("academicForm").addEventListener("submit", function (event) {
+          const inputs = document.querySelectorAll("input[type='number']");
+          for (let input of inputs) {
+              const value = parseFloat(input.value);
+              if (isNaN(value) || value < 0 || value > 100) {
+                  alert("Please enter a valid percentage between 0 and 100.");
+                  event.preventDefault();
+                  return;
+              }
+          }
+      });
+  </script>
+  <script>
+      function toggleSingleParentStatus() {
+          const isSingleParent = document.querySelector('input[name="isSingleParent"]:checked').value;
+          const parentTypeDiv = document.getElementById("parentTypeDiv");
+          const motherDetails = document.getElementById("motherDetails");
+          const fatherDetails = document.getElementById("fatherDetails");
+          if (isSingleParent === "yes") {
+              parentTypeDiv.style.display = "block";
+              motherDetails.style.display = "none";
+              fatherDetails.style.display = "none";
+          } else {
+              parentTypeDiv.style.display = "none";
+              motherDetails.style.display = "block";
+              fatherDetails.style.display = "block";
+          }
+      }
+      function toggleParentDetails() {
+          const parentType = document.querySelector('input[name="parentType"]:checked').value;
+          const motherDetails = document.getElementById("motherDetails");
+          const fatherDetails = document.getElementById("fatherDetails");
+          if (parentType === "Mother") {
+              motherDetails.style.display = "block";
+              fatherDetails.style.display = "none";
+          } else if (parentType === "Father") {
+              fatherDetails.style.display = "block";
+              motherDetails.style.display = "none";
+          }
+      }
+  </script>
+  <style>
+    .hidden {
+      display: none;
+    }
+    .form-section {
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+<label for="umisNo">UMIS Number:</label>
+ <input type="text" id="umisNo" name="umisNo"  placeholder="Enter your 10-digit umis number"maxlength="10"
+required>
+  <style>
+    .hidden {
+      display: none;
+    }
+  </style>
+  <script>
+      function toggleVisibility(selectElement, targetId, inputId) {
+          const targetElement = document.getElementById(targetId);
+          const inputElement = document.getElementById(inputId);
+          if (selectElement.value === "yes") {
+              targetElement.style.display = "block";
+              inputElement.setAttribute("required", "required");
+          } else {
+              targetElement.style.display = "none";
+              inputElement.removeAttribute("required");
+          }
+      }
+  </script>
+    <label for="communityCert">Do you have a Community Certificate?</label>
+    <select id="communityCert" name="communityCert" onchange="toggleVisibility(this, 'communityUpload', 'communityFile')">
+ <option value="">--Select an option--</option>
+      <option value="yes">Yes</option>
+   <option value="no">No</option>
+    </select>
+    <div id="communityUpload" class="hidden">
+      <label for="communityFile">Upload your Community Certificate:</label>
+      <input type="file" id="communityFile" name="communityFile" accept=".pdf,.jpg,.jpeg,.png">
+    </div>
+    <br><br>
+ <script>
+     function handleIncomeCertificateChange() {
+         const dropdown = document.getElementById("income-certificate-dropdown");
+         const issueDateSection = document.getElementById("issue-date-section");
+         const uploadSection = document.getElementById("upload-section");
+         const selectedValue = dropdown.value;
+         if (selectedValue === "yes") {
+             issueDateSection.style.display = "block";
+             uploadSection.style.display = "none";
+         } else {
+             issueDateSection.style.display = "none";
+             uploadSection.style.display = "none";
+             document.getElementById("issue-date").value = "";
+             document.getElementById("file-upload").value = "";
+         }
+     }
+     function validateIssueDate() {
+         const issueDateInput = document.getElementById("issue-date").value;
+         const uploadSection = document.getElementById("upload-section");
+         const currentDate = new Date();
+         const issueDate = new Date(issueDateInput);
+         if (!issueDateInput) {
+             alert("Please enter the issue date of your income certificate.");
+             return false;
+         }
+         if (issueDate > currentDate) {
+             alert("The issue date cannot be in the future.");
+             return false;
+         }
+         const twelveMonthsAgo = new Date();
+         twelveMonthsAgo.setMonth(currentDate.getMonth() - 12);
+         if (issueDate < twelveMonthsAgo) {
+             alert("The income certificate is too old. It must be issued within the last 1 year.");
+             return false;
+         }
+         uploadSection.style.display = "block";
+         return true;
+     }
+     function validateIncomeCertificate() {
+         const fileInput = document.getElementById("file-upload");
+         const file = fileInput.files[0];
+         if (!file) {
+             alert("Please upload your income certificate.");
+             return false;
+         }
+         const validExtensions = ["application/pdf", "image/jpeg", "image/png"];
+         if (!validExtensions.includes(file.type)) {
+             alert("Invalid file type. Please upload a PDF, JPEG, or PNG file.");
+             fileInput.value = ""; // Reset the file input
+             return false;
+         }
+         alert("Income certificate uploaded successfully.");
+         return true;
+     }
+     function validateForm() {
+         const dropdown = document.getElementById("income-certificate-dropdown").value;
+         if (dropdown === "yes") {
+             if (!validateIssueDate()) {
+                 return false;
+             }
+         }
+         return validateIncomeCertificate();
+     }
+ </script>
+    <style>
+        #issue-date-section, #upload-section {
+            display: none;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <form onsubmit="return validateForm();">
+        <label for="income-certificate-dropdown">Do you have an income certificate?</label>
+        <select id="income-certificate-dropdown" name="income_certificate" onchange="handleIncomeCertificateChange()" required>
+            <option value="">-- Select --</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select>
+        <div id="issue-date-section">
+            <label for="issue-date">Enter Issue Date of Income Certificate:</label>
+            <input type="date" id="issue-date" name="issue_date" onchange="validateIssueDate()">
+        </div>
+        <div id="upload-section">
+            <label for="file-upload">Upload Income Certificate:</label>
+            <input type="file" id="file-upload" name="income_certificate_file" accept=".pdf,.jpg,.jpeg,.png">
+        </div>
+           </form>
+        </div>
+        <div id="scholarship-details" class="form-section">
+            <h2>Scholarship Details</h2>
+<label for="separate">Is your parent separated?</label>
+<select id="separate" name="separate" required>
+    <option value="">--Select an option--</option>
+    <option value="yes">Yes</option>
+    <option value="no">No</option>
+</select>
+<br><br>
+<div id="separateProof" class="hidden">
+    <label for="separateProofInput">Upload proof of separation (if applicable):</label>
+    <input type="file" id="separateProofInput" name="separate_proof">
+</div>
+<br>
+<label for="sick">Is your parent sick?</label>
+<select id="sick" name="sick" required>
+    <option value="">--Select an option--</option>
+    <option value="yes">Yes</option>
+    <option value="no">No</option>
+</select>
+<br><br>
+<div id="sickProof" class="hidden">
+    <label for="sickProofInput">Upload proof of sickness (if applicable):</label>
+    <input type="file" id="sickProofInput" name="sick_proof">
+</div>
+<br>
+<label for="death">Has your parent passed away?</label>
+<select id="death" name="death" required>
+    <option value="">--Select an option--</option>
+    <option value="yes">Yes</option>
+    <option value="no">No</option>
+</select>
+<br><br>
+<div id="deathProof" class="hidden">
+    <label for="deathProofInput">Upload death certificate (if applicable):</label>
+    <input type="file" id="deathProofInput" name="death_proof">
+</div>
+<br>
+<form id="scholarshipForm">
+    <label for="previousScholarship">Have you received a scholarship before?</label>
+    <select id="previousScholarship" name="previousScholarship">
+        <option value="">-- Select One --</option>
+        <option value="yes">Yes</option>
+        <option value="no">No</option>
+    </select>
+    <div id="scholarshipDetails" class="hidden">
+        <label for="scholarName">Name of the Scholarship:</label>
+        <input type="text" id="scholarName" name="scholarName">
+        <label for="scholarAmount">Amount of the Scholarship:</label>
+        <input type="text" id="scholarAmount" name="scholarAmount">
+        <label for="receiptUpload">Upload Receipt of Scholarship:</label>
+        <input type="file" id="receiptUpload" name="receiptUpload">
+    </div>
+</form>
+<style>
+  .hidden {
+    display: none;
+  }
+</style>
+<label for="siblings">Siblings (Study / Work):</label>
+<textarea id="siblings" name="siblings" class="form-textarea" rows="3"></textarea>
+<div class="form-section">
+  <label>Is the student from a single-parent household?</label><br>
+  <select name="isSingleParent" onchange="toggleSingleParentStatus()" required>
+    <option value="">-- Select --</option>
+    <option value="yes">Yes</option>
+    <option value="no">No</option>
+  </select>
+</div>
+<div id="parentTypeDiv" class="form-section hidden">
+  <label>If yes, which parent?</label><br>
+  <select name="parentType" onchange="toggleParentDetails()">
+    <option value="">-- Select --</option>
+    <option value="Mother">Mother</option>
+    <option value="Father">Father</option>
+    <option value="Both">Both</option>
+  </select>
+</div>
+<div id="motherDetails" class="hidden">
+  <h3>Mother's Details</h3>
+  <label for="motherName">Name:</label>
+  <input type="text" id="motherName" name="motherName" placeholder="Enter mother's name">
+  <br><br>
+  <label for="motherOccupation">Occupation:</label>
+  <select id="motherOccupation" name="motherOccupation">
+    <option value="">-- Select Occupation --</option>
+    <option value="private">Private</option>
+    <option value="government">Government</option>
+    <option value="gov-ex service">Gov-Ex Service</option>
+    <option value="others">Others</option>
+  </select>
+  <br><br>
+  <label for="motherIncome">Annual Income:</label>
+  <input type="number" id="motherIncome" name="motherIncome" placeholder="Enter mother's income" min="0">
+</div>
+<div id="fatherDetails" class="hidden">
+  <h3>Father's Details</h3>
+  <label for="fatherName">Name:</label>
+  <input type="text" id="fatherName" name="fatherName" placeholder="Enter father's name">
+  <br><br>
+  <label for="fatherOccupation">Occupation:</label>
+  <select id="fatherOccupation" name="fatherOccupation">
+    <option value="">-- Select Occupation --</option>
+    <option value="private">Private</option>
+    <option value="government">Government</option>
+    <option value="gov-ex service">Gov-Ex Service</option>
+    <option value="others">Others</option>
+  </select>
+  <br><br>
+  <label for="fatherIncome">Annual Income:</label>
+  <input type="number" id="fatherIncome" name="fatherIncome" placeholder="Enter father's income" min="0">
+</div>
+<div id="guardianDetails" class="hidden">
+  <h3>Guardian's Details</h3>
+  <label for="guardianName">Name:</label>
+  <input type="text" id="guardianName" name="guardianName" placeholder="Enter guardian's name" required>
+  <br><br>
+  <label for="guardianOccupation">Occupation:</label>
+  <select id="guardianOccupation" name="guardianOccupation">
+    <option value="">-- Select Occupation --</option>
+    <option value="private">Private</option>
+    <option value="government">Government</option>
+    <option value="gov-ex service">Gov-Ex Service</option>
+    <option value="others">Others</option>
+  </select>
+  <br><br>
+  <label for="guardianIncome">Annual Income:</label>
+  <input type="number" id="guardianIncome" name="guardianIncome" placeholder="Enter guardian's income" min="0" required>
+</div>
+<div id="singleParentProof" class="hidden">
+  <h3>Proof of Single Parent</h3>
+  <label for="proofFile">Upload Proof:</label>
+  <input type="file" id="proofFile" name="proofFile" accept=".jpg, .jpeg, .png, .pdf">
+  <p>Please upload a valid document as proof of single parent status (e.g., legal certificate).</p>
+  <br><br>
+</div>
+<script>
+    function toggleSingleParentStatus() {
+        const isSingleParent = document.querySelector('select[name="isSingleParent"]').value;
+        const parentTypeDiv = document.getElementById('parentTypeDiv');
+        const singleParentProof = document.getElementById('singleParentProof');
+        const motherDetails = document.getElementById('motherDetails');
+        const fatherDetails = document.getElementById('fatherDetails');
+        const guardianDetails = document.getElementById('guardianDetails');
+        if (isSingleParent === 'yes') {
+            parentTypeDiv.classList.remove('hidden');
+            singleParentProof.classList.remove('hidden');
+            motherDetails.classList.add('hidden');
+            fatherDetails.classList.add('hidden');
+            guardianDetails.classList.add('hidden');
+        } else {
+            parentTypeDiv.classList.add('hidden');
+            singleParentProof.classList.add('hidden');
+            motherDetails.classList.remove('hidden');
+            fatherDetails.classList.remove('hidden');
+            guardianDetails.classList.add('hidden');
+            resetParentTypeSelection();
+        }
+    }
+    function toggleParentDetails() {
+        const parentType = document.querySelector('select[name="parentType"]').value;
+        const motherDetails = document.getElementById('motherDetails');
+        const fatherDetails = document.getElementById('fatherDetails');
+        const guardianDetails = document.getElementById('guardianDetails');
+        if (parentType === 'Mother') {
+            motherDetails.classList.remove('hidden');
+            fatherDetails.classList.add('hidden');
+            guardianDetails.classList.add('hidden');
+        } else if (parentType === 'Father') {
+            fatherDetails.classList.remove('hidden');
+            motherDetails.classList.add('hidden');
+            guardianDetails.classList.add('hidden');
+        } else if (parentType === 'Both') {
+            guardianDetails.classList.remove('hidden');
+            motherDetails.classList.add('hidden');
+            fatherDetails.classList.add('hidden');
+        }
+    }
+    function resetParentTypeSelection() {
+        document.querySelector('select[name="parentType"]').value = '';
+    }
+</script>
+<style>
+    .form-textarea {
+        width: 100%;
+        height: 75px;
+        border: 1px solid #ccc;
+        padding: 8px;
+        box-sizing: border-box;
+        font-size: 14px;
+        resize: vertical;
+    }
+    .hidden {
+        display: none;
+    }
+</style>
+<script>
+    const separateDropdown = document.getElementById('separate');
+    const separateProofDiv = document.getElementById('separateProof');
+    separateDropdown.addEventListener('change', function () {
+        if (this.value === 'yes') {
+            separateProofDiv.classList.remove('hidden');
+        } else {
+            separateProofDiv.classList.add('hidden');
+        }
+    });
+    const sickDropdown = document.getElementById('sick');
+    const sickProofDiv = document.getElementById('sickProof');
+    sickDropdown.addEventListener('change', function () {
+        if (this.value === 'yes') {
+            sickProofDiv.classList.remove('hidden');
+        } else {
+            sickProofDiv.classList.add('hidden');
+        }
+    });
+    const deathDropdown = document.getElementById('death');
+    const deathProofDiv = document.getElementById('deathProof');
+    deathDropdown.addEventListener('change', function () {
+        if (this.value === 'yes') {
+            deathProofDiv.classList.remove('hidden');
+        } else {
+            deathProofDiv.classList.add('hidden');
+        }
+    });
+    const previousScholarshipDropdown = document.getElementById('previousScholarship');
+    const scholarshipDetailsDiv = document.getElementById('scholarshipDetails');
+    previousScholarshipDropdown.addEventListener('change', function () {
+        if (this.value === 'yes') {
+            scholarshipDetailsDiv.classList.remove('hidden');
+        } else {
+            scholarshipDetailsDiv.classList.add('hidden');
+        }
+    });
+</script>
+<div class="footer" id="form-footer">
+        <p>All sections completed! You can now submit your application.</p>
+        <p>For any queries, contact us at: <a href="mailto:scholarship@example.com">scholarship@example.com</a></p>
+        <button type="button" onclick="submitForm()">Submit Application</button>
+    </div>
+</div>
+    <script>
+        function showSection(sectionId, event) {
+            event.preventDefault(); // Prevent the default anchor behavior
+            const sections = document.querySelectorAll('.form-section');
+            sections.forEach(section => section.classList.remove('active'));
+            const links = document.querySelectorAll('.navigation a');
+            links.forEach(link => link.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
+            document.getElementById(`link-${sectionId}`).classList.add('active');
+        }
+        function updateBatch() {
+            const startYear = parseInt(document.getElementById("startYear").value);
+            const duration = 4;
+            if (!isNaN(startYear)) {
+                document.getElementById("batch").value = `${startYear}-${startYear + duration - 1}`;
+            } else {
+                document.getElementById("batch").value = "";
+            }
+        }
+        function togglePartTimeProof() {
+            const partTimeJob = document.getElementById('partTimeJob').value;
+            const uploadProof = document.getElementById('uploadProof');
+            uploadProof.style.display = partTimeJob === 'yes' ? 'block' : 'none';
+        }
+    </script>
+</body>
+</html>
