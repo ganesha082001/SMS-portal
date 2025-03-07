@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\scholarship_portal_server.props" />
+</Project>

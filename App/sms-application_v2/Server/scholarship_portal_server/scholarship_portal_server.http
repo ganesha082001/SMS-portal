@@ -1,0 +1,6 @@
+@scholarship_portal_server_HostAddress = http://localhost:3006
+
+GET {{scholarship_portal_server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
