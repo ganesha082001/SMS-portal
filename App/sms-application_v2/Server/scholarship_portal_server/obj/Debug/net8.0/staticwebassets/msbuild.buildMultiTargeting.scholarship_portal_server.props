@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\scholarship_portal_server.props" />
+</Project>

@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "WkPqdrzXSQ1DlLDOiK7Ohy4gtA71stcxgv9aWqWq4p4=",
+  "Source": "scholarship_portal_server",
+  "BasePath": "_content/scholarship_portal_server",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}
