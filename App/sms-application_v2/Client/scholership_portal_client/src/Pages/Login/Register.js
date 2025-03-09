@@ -214,7 +214,7 @@ const StudentRegistration = () => {
       handleReset();
 
       showNotification("Registration successful! Please login with your new credentials.", "success");
-      window.location.href = '/login';
+      window.location.href = '/';
     })
     .catch(error => {
       setIsLoading(false);
