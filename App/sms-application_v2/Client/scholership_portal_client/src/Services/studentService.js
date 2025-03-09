@@ -6,7 +6,7 @@ class StudentService {
         const responseCode = localStorage.getItem('responseCode');
         if (!role || !responseCode) {
             alert('Login expired. Please login again.');
-            window.location.href = '/login';
+            window.location.href = '/';
             throw new Error('Login expired');
         }
     }

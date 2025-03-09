@@ -43,15 +43,15 @@ const StudentHeader = () => {
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
-                <Nav.Link href="/home">Home</Nav.Link>
+                <Nav.Link href="/student/home">Home</Nav.Link>
                 <NavDropdown title="Scholarships" id="collapsible-nav-dropdown">
-                  <NavDropdown.Item href="/ScholarshipLayout">View Scholarships</NavDropdown.Item>
+                  <NavDropdown.Item href="/student/scholarshiplist">View Scholarships</NavDropdown.Item>
                   <NavDropdown.Divider />
                   <NavDropdown.Item href="">
                     Check Status
                   </NavDropdown.Item>
                 </NavDropdown>
-                <Nav.Link href="/ProfileUpdateForm">Profile</Nav.Link>
+                <Nav.Link href="/student/profile">Profile</Nav.Link>
                 <Nav.Link href="">About</Nav.Link>
                 <Nav.Link href="">Contact</Nav.Link>
               </Nav>
@@ -62,7 +62,7 @@ const StudentHeader = () => {
                 <IconButton color="inherit">
                   <AccountCircleIcon />
                 </IconButton>
-                <Nav.Link href="/logout" onClick={handleLogout}>Logout</Nav.Link>
+                <Nav.Link href="/" onClick={handleLogout}>Logout</Nav.Link>
               </Nav>
             </Navbar.Collapse>
           </Container>
