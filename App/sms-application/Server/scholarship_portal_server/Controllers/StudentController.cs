@@ -2,37 +2,33 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 using scholarship_portal_server.Models;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
 using System.Text.RegularExpressions;
 
 namespace scholarship_portal_server.Controllers
 {
+    [Authorize]
     [Route("/[controller]")]
     [ApiController]
     public class StudentController : ControllerBase
     {
         private readonly ScholarshipPortalContext _context;
         private readonly IConfiguration _configuration;
+        private readonly TokenService _tokenService;
 
-        public StudentController(ScholarshipPortalContext context, IConfiguration configuration)
+        public StudentController(ScholarshipPortalContext context, IConfiguration configuration, TokenService tokenService)
         {
             _context = context;
             _configuration = configuration;
+            _tokenService = tokenService;
         }
 
-        // create a controller method to get all students
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Student>>> GetStudents()
         {
             return await _context.Students.Where(s => !s.isDeleted).ToListAsync();
         }
 
-        // create a controller method to get a student by id
-        // add a condition to check isdeleted. If isdeleted is true, return not found
         [HttpGet("{id}")]
         public async Task<ActionResult<Student>> GetStudent(Guid id)
         {
@@ -44,7 +40,6 @@ namespace scholarship_portal_server.Controllers
             return student;
         }
 
-        // return a student profile
         [HttpGet("profile/{id}")]
         public async Task<ActionResult<object>> GetStudentProfile(Guid id)
         {
@@ -64,7 +59,6 @@ namespace scholarship_portal_server.Controllers
             };
         }
 
-        // create a controller method to create a student
         [HttpPost("register")]
         public async Task<ActionResult<Student>> CreateStudent(Student student)
         {
@@ -94,7 +88,6 @@ namespace scholarship_portal_server.Controllers
             return Regex.IsMatch(phoneNumber, @"^\+?[1-9]\d{1,14}$");
         }
 
-        // create a controller method to update a student
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateStudent(Guid id, Student student)
         {
@@ -107,22 +100,6 @@ namespace scholarship_portal_server.Controllers
             return NoContent();
         }
 
-        // create a controller method to authenticate a student
-        [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginModel loginModel)
-        {
-            var student = await _context.Students
-                .FirstOrDefaultAsync(s => s.studentusername == loginModel.Username && s.studentpassword == loginModel.Password);
-
-            if (student == null)
-            {
-                return Unauthorized(new { responseCode = "denied" });
-            }
-
-            return Ok(new { responseCode = "allowed", id = student.StudentId });
-        }
-
-        // create a controller method to delete a student
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteStudent(Guid id)
         {
@@ -135,11 +112,5 @@ namespace scholarship_portal_server.Controllers
             await _context.SaveChangesAsync();
             return NoContent();
         }
-    }
-
-    public class LoginModel
-    {
-        public required string Username { get; set; }
-        public required string Password { get; set; }
     }
 }

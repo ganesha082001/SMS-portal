@@ -1,5 +1,37 @@
 [
   {
+    "ContainingType": "scholarship_portal_server.Controllers.AuthController",
+    "Method": "StaffLogin",
+    "RelativePath": "Auth/login/staff",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "loginModel",
+        "Type": "scholarship_portal_server.Controllers.LoginModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "scholarship_portal_server.Controllers.AuthController",
+    "Method": "StudentLogin",
+    "RelativePath": "Auth/login/student",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "loginModel",
+        "Type": "scholarship_portal_server.Controllers.LoginModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "scholarship_portal_server.Controllers.DropdownController",
     "Method": "GetDropdownGroups",
     "RelativePath": "Dropdown",
@@ -384,22 +416,6 @@
       {
         "Name": "id",
         "Type": "System.Guid",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "scholarship_portal_server.Controllers.StudentController",
-    "Method": "Login",
-    "RelativePath": "Student/login",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "loginModel",
-        "Type": "scholarship_portal_server.Controllers.LoginModel",
         "IsRequired": true
       }
     ],

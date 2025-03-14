@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Form, Button, Tabs, Tab, Spinner, ToastContainer, Toast } from 'react-bootstrap';
+import { Container, Form, Button, Spinner } from 'react-bootstrap';
 import { 
   TextField, 
   FormControlLabel, 
@@ -9,7 +9,14 @@ import {
   Avatar,
   Typography,
   Paper,
-  Box
+  Box,
+  Snackbar,
+  Alert,
+  useMediaQuery,
+  useTheme,
+  Grid,
+  Divider,
+  Fade
 } from '@mui/material';
 import { 
   Visibility, 
@@ -18,23 +25,35 @@ import {
   Lock, 
   AdminPanelSettings, 
   School,
-  Refresh
+  Refresh,
+  Login as LoginIcon,
+  ArrowForward
 } from '@mui/icons-material';
+import StudentService from '../../Services/studentService';
 
 const Login = () => {
-  const [key, setKey] = useState('student');
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isTablet = useMediaQuery(theme.breakpoints.down('md'));
+  
+  const [activeRole, setActiveRole] = useState('student');
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [captchaValue, setCaptchaValue] = useState('');
   const [userCaptchaInput, setUserCaptchaInput] = useState('');
   const [captchaError, setCaptchaError] = useState(false);
-  const [notification, setNotification] = useState({ show: false, message: '', type: 'success' });
+  const [alert, setAlert] = useState({
+    open: false,
+    message: '',
+    severity: 'success'
+  });
   
   const [formData, setFormData] = useState({
     studentUsername: '',
     studentPassword: '',
     adminUsername: '',
-    adminPassword: ''
+    adminPassword: '',
+    rememberMe: false
   });
 
   // Generate a random captcha string
@@ -49,34 +68,46 @@ const Login = () => {
     setCaptchaError(false);
   };
 
-  // Generate captcha on component mount
+  // Generate captcha on component mount and role change
   useEffect(() => {
     generateCaptcha();
-  }, []);
+  }, [activeRole]);
 
-  const showNotification = (message, type = 'success') => {
-    setNotification({
-      show: true,
+  const showAlert = (message, severity = 'success') => {
+    setAlert({
+      open: true,
       message,
-      type
+      severity
     });
-    
-    // Auto hide after 5 seconds
-    setTimeout(() => {
-      setNotification(prev => ({...prev, show: false}));
-    }, 5000);
+  };
+
+  const handleCloseAlert = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setAlert({...alert, open: false});
   };
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, checked, type } = e.target;
     setFormData({
       ...formData,
-      [name]: value
+      [name]: type === 'checkbox' ? checked : value
     });
   };
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
+  };
+
+  const switchRole = (role) => {
+    setActiveRole(role);
+    // Reset password fields when switching roles
+    setFormData(prev => ({
+      ...prev,
+      studentPassword: '',
+      adminPassword: ''
+    }));
   };
 
   const validateCaptcha = () => {
@@ -85,21 +116,45 @@ const Login = () => {
       return true;
     } else {
       setCaptchaError(true);
+      showAlert('Incorrect CAPTCHA. Please try again.', 'error');
       return false;
     }
+  };
+
+  const validateForm = () => {
+    const isStudent = activeRole === 'student';
+    const username = isStudent ? formData.studentUsername : formData.adminUsername;
+    const password = isStudent ? formData.studentPassword : formData.adminPassword;
+    
+    if (!username.trim()) {
+      showAlert(`Please enter a valid ${isStudent ? 'username' : 'admin ID'}.`, 'error');
+      return false;
+    }
+    
+    if (!password) {
+      showAlert('Please enter your password.', 'error');
+      return false;
+    }
+    
+    return true;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
   
+    // Validate form
+    if (!validateForm()) {
+      return;
+    }
+    
     // Validate captcha
     if (!validateCaptcha()) {
       return;
     }
   
-    if (key === 'student') {
+    if (activeRole === 'student') {
       handleStudentSubmit();
-    } else if (key === 'admin') {
+    } else if (activeRole === 'admin') {
       handleAdminSubmit();
     }
   };
@@ -108,45 +163,44 @@ const Login = () => {
     // Simulate loading state
     setIsLoading(true);
 
-    // remove admin fields from form data
+    // Student login payload
     const payloadData = {
       username: formData.studentUsername,
       password: formData.studentPassword
     };
 
-    // Here you would handle student form submission logic
-    console.log('Student form submitted:', payloadData);
-  
-    // API call
-    fetch('http://localhost:3006/Student/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'accept': '*/*'
-      },
-      body: JSON.stringify(payloadData)
-    })
-    .then(response => response.json())
-    .then(data => {
-      setIsLoading(false);
-      if (data.responseCode === "allowed") {
-        // Handle successful login
-        // add response code and role to local storage
-        localStorage.setItem('role', 'student');
-        localStorage.setItem('responseCode', data.responseCode);
-        window.location.href = `/student/home?route=${data.id}`;
-      } else {
-        // Handle invalid login
-        showNotification("Invalid login. Please check your credentials and try again.", "error");
-      }
-      generateCaptcha(); // Reset captcha after submission
-    })
-    .catch(error => {
-      setIsLoading(false);
-      console.error('Error during login:', error);
-      showNotification("An error occurred. Please try again.", "error");
-      generateCaptcha(); // Reset captcha after submission
-    });
+    StudentService.studentLogin(formData.studentUsername,formData.studentPassword )
+      .then(data => {
+        setIsLoading(false);
+        if (data.responseCode === "allowed") {
+          // Handle successful login
+          showAlert('Login successful! Redirecting to dashboard...', 'success');
+          
+          // Save to localStorage if remember me is checked
+          if (formData.rememberMe) {
+            localStorage.setItem('savedUsername', formData.studentUsername);
+          }
+          
+          // Add response code and role to local storage
+          localStorage.setItem('role', 'student');
+          localStorage.setItem('responseCode', data.responseCode);
+          
+          // Redirect after a short delay to show success message
+          setTimeout(() => {
+            window.location.href = `/student/home?route=${data.id}`;
+          }, 1500);
+        } else {
+          // Handle invalid login
+          showAlert("Invalid login. Please check your credentials and try again.", "error");
+          generateCaptcha();
+        }
+      })
+      .catch(error => {
+        setIsLoading(false);
+        console.error('Error during login:', error);
+        showAlert("An error occurred. Please check your connection and try again.", "error");
+        generateCaptcha();
+      });
   };
   
   const handleAdminSubmit = () => {
@@ -159,9 +213,6 @@ const Login = () => {
       password: formData.adminPassword
     };
 
-    // Here you would handle admin form submission logic
-    console.log('Admin form submitted:', payloadData);
-
     // API call
     fetch('http://localhost:3006/Staffs/login', {
       method: 'POST',
@@ -171,26 +222,42 @@ const Login = () => {
       },
       body: JSON.stringify(payloadData)
     })
-    .then(response => response.json())
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
     .then(data => {
       setIsLoading(false);
       if (data.responseCode === "allowed") {
         // Handle successful login
-        // add response code and role to local storage
+        showAlert('Login successful! Redirecting to dashboard...', 'success');
+        
+        // Save to localStorage if remember me is checked
+        if (formData.rememberMe) {
+          localStorage.setItem('savedAdminUsername', formData.adminUsername);
+        }
+        
+        // Add response code and role to local storage
         localStorage.setItem('role', 'admin');
         localStorage.setItem('responseCode', data.responseCode);
-        window.location.href = `/staff/home?route=${data.id}`;
+        
+        // Redirect after a short delay to show success message
+        setTimeout(() => {
+          window.location.href = `/staff/home?route=${data.id}`;
+        }, 1500);
       } else {
         // Handle invalid login
-        showNotification("Invalid login. Please check your credentials and try again.", "error");
+        showAlert("Invalid login. Please check your credentials and try again.", "error");
+        generateCaptcha();
       }
-      generateCaptcha(); // Reset captcha after submission
     })
     .catch(error => {
       setIsLoading(false);
       console.error('Error during login:', error);
-      showNotification("An error occurred. Please try again.", "error");
-      generateCaptcha(); // Reset captcha after submission
+      showAlert("An error occurred. Please check your connection and try again.", "error");
+      generateCaptcha();
     });
   };
 
@@ -200,296 +267,406 @@ const Login = () => {
     window.location.href = '/register';
   };
 
+  // Load saved username from localStorage if available
+  useEffect(() => {
+    const savedStudentUsername = localStorage.getItem('savedUsername');
+    const savedAdminUsername = localStorage.getItem('savedAdminUsername');
+    
+    if (savedStudentUsername) {
+      setFormData(prev => ({
+        ...prev,
+        studentUsername: savedStudentUsername,
+        rememberMe: true
+      }));
+    }
+    
+    if (savedAdminUsername) {
+      setFormData(prev => ({
+        ...prev,
+        adminUsername: savedAdminUsername,
+        rememberMe: true
+      }));
+    }
+  }, []);
+
   return (
-    <Container className="d-flex justify-content-center align-items-center min-vh-100">
-      {/* Notification Toast */}
-      <ToastContainer position="top-end" className="p-3" style={{ zIndex: 1500 }}>
-        <Toast 
-          show={notification.show} 
-          onClose={() => setNotification(prev => ({...prev, show: false}))}
-          bg={notification.type === 'success' ? 'success' : 'danger'}
-          delay={5000}
-          autohide
+    <Container className="d-flex justify-content-center align-items-center" style={{ minHeight: '100vh', padding: isMobile ? '1rem' : '2rem' }}>
+      {/* Snackbar Alerts */}
+      <Snackbar
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        open={alert.open}
+        autoHideDuration={6000}
+        onClose={handleCloseAlert}
+      >
+        <Alert
+          onClose={handleCloseAlert}
+          severity={alert.severity}
+          variant="filled"
+          sx={{ width: '100%' }}
         >
-          <Toast.Header closeButton>
-            <strong className="me-auto">
-              {notification.type === 'success' ? 'Success' : 'Error'}
-            </strong>
-          </Toast.Header>
-          <Toast.Body className="text-white">
-            {notification.message}
-          </Toast.Body>
-        </Toast>
-      </ToastContainer>
+          {alert.message}
+        </Alert>
+      </Snackbar>
       
       <Paper 
         elevation={12} 
         sx={{ 
           width: '100%', 
-          maxWidth: 450, 
+          maxWidth: isTablet ? 500 : 800,
           overflow: 'hidden',
           borderRadius: 3,
-          transition: 'all 0.3s ease',
-          '&:hover': {
-            transform: 'translateY(-5px)',
-            boxShadow: '0 16px 70px -12px rgba(0,0,0,0.3)'
-          }
+          display: 'flex',
+          flexDirection: isTablet ? 'column' : 'row',
         }}
       >
-        {/* Header with Avatar */}
+        {/* Left side - Branding/Info Column */}
         <Box 
           sx={{ 
-            display: 'flex', 
-            flexDirection: 'column', 
+            width: isTablet ? '100%' : '40%',
+            background: 'rgb(168, 5, 11)',
+            color: 'white',
+            padding: 3,
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
             alignItems: 'center',
-            background: 'linear-gradient(45deg,rgb(168, 5, 11) 30%, rgb(168, 5, 11) 90%)',
-            py: 3
+            textAlign: 'center'
           }}
         >
-          <Avatar 
-            sx={{ 
-              bgcolor: 'white', 
-              width: 56, 
-              height: 56,
-              boxShadow: '0 4px 20px rgba(0,0,0,0.1)'
-            }}
-          >
-            {key === 'student' ? 
-              <School sx={{ color: '#2196F3' }} /> :
-              <AdminPanelSettings sx={{ color: '#2196F3' }} />
-            }
-          </Avatar>
-          <Typography variant="h5" sx={{ color: 'white', mt: 2, fontWeight: 'bold' }}>
-            {key === 'student' ? 'Student Login' : 'Admin Login'}
-          </Typography>
-        </Box>
-
-        {/* Tab Navigation */}
-        <Tabs
-          id="login-tabs"
-          activeKey={key}
-          onSelect={(k) => setKey(k)}
-          className="mb-3"
-          fill
-        >
-          <Tab eventKey="student" title={
-            <div className="d-flex align-items-center" >
-              <School sx={{ mr: 1, fontSize: 20 }} />
-              <span style={{textAlign: 'center'}}>Student</span>
-            </div>
-          } />
-          <Tab eventKey="admin" title={
-            <div className="d-flex align-items-center">
-              <AdminPanelSettings sx={{ mr: 1, fontSize: 20 }} />
-              <span>Admin</span>
-            </div>
-          } />
-        </Tabs>
-
-        {/* Form */}
-        <div className="px-4 py-4">
-          <Form onSubmit={handleSubmit}>
-            {key === 'student' ? (
-              <>
-                <TextField
-                  label="Username"
-                  variant="outlined"
-                  fullWidth
-                  margin="normal"
-                  name="studentUsername"
-                  value={formData.studentUsername}
-                  onChange={handleInputChange}
-                  required
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <Person />
-                      </InputAdornment>
-                    ),
-                  }}
-                />
-                <TextField
-                  label="Password"
-                  variant="outlined"
-                  fullWidth
-                  margin="normal"
-                  name="studentPassword"
-                  type={showPassword ? 'text' : 'password'}
-                  value={formData.studentPassword}
-                  onChange={handleInputChange}
-                  required
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <Lock />
-                      </InputAdornment>
-                    ),
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <IconButton
-                          aria-label="toggle password visibility"
-                          onClick={togglePasswordVisibility}
-                          edge="end"
-                        >
-                          {showPassword ? <VisibilityOff /> : <Visibility />}
-                        </IconButton>
-                      </InputAdornment>
-                    ),
-                  }}
-                />
-              </>
-            ) : (
-              <>
-                <TextField
-                  label="Admin ID"
-                  variant="outlined"
-                  fullWidth
-                  margin="normal"
-                  name="adminUsername"
-                  value={formData.adminUsername}
-                  onChange={handleInputChange}
-                  required
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <AdminPanelSettings />
-                      </InputAdornment>
-                    ),
-                  }}
-                />
-                <TextField
-                  label="Password"
-                  variant="outlined"
-                  fullWidth
-                  margin="normal"
-                  name="adminPassword"
-                  type={showPassword ? 'text' : 'password'}
-                  value={formData.adminPassword}
-                  onChange={handleInputChange}
-                  required
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <Lock />
-                      </InputAdornment>
-                    ),
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <IconButton
-                          aria-label="toggle password visibility"
-                          onClick={togglePasswordVisibility}
-                          edge="end"
-                        >
-                          {showPassword ? <VisibilityOff /> : <Visibility />}
-                        </IconButton>
-                      </InputAdornment>
-                    ),
-                  }}
-                />
-              </>
-            )}
-            
-            {/* CAPTCHA for Login */}
-            <Box sx={{ mt: 3, mb: 2 }}>
-              <Typography variant="subtitle2" gutterBottom><strong>CAPTCHA Verification</strong></Typography>
-              
-              <Box sx={{ 
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                p: 2,
-                bgcolor: '#f5f5f5',
-                borderRadius: 1,
-                mb: 2,
-                fontFamily: 'monospace',
-                fontWeight: 'bold',
-                fontSize: '1.2rem',
-                letterSpacing: '0.5em',
-                color: '#333',
-                textDecoration: 'line-through',
-                position: 'relative',
-                overflow: 'hidden',
-                '&::before': {
-                  content: '""',
-                  position: 'absolute',
-                  top: '0',
-                  left: '0',
-                  width: '100%',
-                  height: '100%',
-                  background: 'linear-gradient(45deg, rgba(255,255,255,0.1) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.1) 75%, transparent 75%, transparent)',
-                  backgroundSize: '4px 4px',
-                }
-              }}>
-                {captchaValue}
-                <IconButton onClick={generateCaptcha} size="small">
-                  <Refresh />
-                </IconButton>
-              </Box>
-              
-              <TextField
-                label="Enter CAPTCHA"
-                variant="outlined"
-                fullWidth
-                margin="normal"
-                value={userCaptchaInput}
-                onChange={(e) => setUserCaptchaInput(e.target.value)}
-                error={captchaError}
-                helperText={captchaError ? "Incorrect CAPTCHA. Please try again." : ""}
-                required
-              />
-            </Box>
-
-            <FormControlLabel
-              control={<Checkbox color="primary" />}
-              label="Remember me"
-              sx={{ mt: 1, mb: 3 }}
-            />
-
-            <Button
-              variant="primary"
-              size="lg"
-              type="submit"
-              disabled={isLoading}
-              className="w-100 mb-3"
-              style={{ 
-                background: 'linear-gradient(45deg,rgb(168, 5, 11) 30%, rgb(168, 5, 11) 90%)',
-                borderColor: 'transparent',
-                boxShadow: '0 3px 5px 2px rgba(33, 203, 243, .3)'
+          <Box sx={{ mb: 4 }}>
+            {/* Logo/School emblem could go here */}
+            <Avatar 
+              sx={{ 
+                bgcolor: 'white', 
+                width: 80, 
+                height: 80,
+                margin: '0 auto',
+                mb: 2
               }}
             >
-              {isLoading ? (
-                <>
-                  <Spinner
-                    as="span"
-                    animation="border"
-                    size="sm"
-                    role="status"
-                    aria-hidden="true"
-                    className="me-2"
-                  />
-                  Processing...
-                </>
-              ) : 'Log In'}
-            </Button>
-
-            <div className="d-flex justify-content-between align-items-center mt-3">
-              <a href="#" className="text-decoration-none">
-                Forgot Password?
-              </a>
-              
-              {/* Only show register option for Student tab */}
-              {key === 'student' && (
-                <Button 
-                  variant="outline-primary" 
-                  onClick={handleRegisterClick}
-                  className="ms-2"
+              {activeRole === 'student' ? 
+                <School sx={{ color: 'rgb(168, 5, 11)', fontSize: 45 }} /> :
+                <AdminPanelSettings sx={{ color: 'rgb(168, 5, 11)', fontSize: 45 }} />
+              }
+            </Avatar>
+            <Typography variant="h4" sx={{ fontWeight: 700, mb: 1 }}>
+              Welcome
+            </Typography>
+            <Typography variant="body1" sx={{ opacity: 0.9 }}>
+              Please sign in to continue to your
+            </Typography>
+            <Typography variant="body1" sx={{ opacity: 0.9 }}>
+              {activeRole === 'student' ? 'Student' : 'Administration'} Portal
+            </Typography>
+          </Box>
+          
+          {/* Role Toggle Buttons */}
+          <Box sx={{ width: '100%', mt: 3 }}>
+            <Typography variant="subtitle2" sx={{ mb: 2, opacity: 0.9 }}>
+              SIGN IN AS:
+            </Typography>
+            <Grid container spacing={2}>
+              <Grid item xs={6}>
+                <Button
+                  variant={activeRole === 'student' ? 'contained' : 'outlined'}
+                  fullWidth
+                  onClick={() => switchRole('student')}
+                  sx={{
+                    bgcolor: activeRole === 'student' ? 'white' : 'transparent',
+                    color: activeRole === 'student' ? 'rgb(168, 5, 11)' : 'white',
+                    borderColor: 'white',
+                    '&:hover': {
+                      bgcolor: activeRole === 'student' ? 'white' : 'rgba(255,255,255,0.1)',
+                      borderColor: 'white'
+                    }
+                  }}
+                  startIcon={<School />}
                 >
-                  Register
+                  Student
                 </Button>
-              )}
-            </div>
-          </Form>
-        </div>
+              </Grid>
+              <Grid item xs={6}>
+                <Button
+                  variant={activeRole === 'admin' ? 'contained' : 'outlined'}
+                  fullWidth
+                  onClick={() => switchRole('admin')}
+                  sx={{
+                    bgcolor: activeRole === 'admin' ? 'white' : 'transparent',
+                    color: activeRole === 'admin' ? 'rgb(168, 5, 11)' : 'white',
+                    borderColor: 'white',
+                    '&:hover': {
+                      bgcolor: activeRole === 'admin' ? 'white' : 'rgba(255,255,255,0.1)',
+                      borderColor: 'white'
+                    }
+                  }}
+                  startIcon={<AdminPanelSettings />}
+                >
+                  Admin
+                </Button>
+              </Grid>
+            </Grid>
+          </Box>
+          
+          {!isTablet && (
+            <Box sx={{ mt: 'auto', pt: 4, width: '100%' }}>
+              <Divider sx={{ bgcolor: 'rgba(255,255,255,0.2)', mb: 3 }} />
+              <Typography variant="body2" sx={{ opacity: 0.7 }}>
+                © 2025 University Portal System
+              </Typography>
+              <Typography variant="body2" sx={{ opacity: 0.7 }}>
+                All rights reserved
+              </Typography>
+            </Box>
+          )}
+        </Box>
+        
+        {/* Right side - Login Form */}
+        <Box 
+          sx={{ 
+            width: isTablet ? '100%' : '60%', 
+            p: isTablet ? 3 : 4,
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center'
+          }}
+        >
+          <Fade in={true} timeout={500}>
+            <Box>
+              <Typography variant="h5" sx={{ fontWeight: 600, mb: 1, color: 'rgb(168, 5, 11)' }}>
+                {activeRole === 'student' ? 'Student Login' : 'Admin Login'}
+              </Typography>
+              <Typography variant="body2" sx={{ mb: 4, color: 'text.secondary' }}>
+                Enter your credentials to access your account
+              </Typography>
+              
+              <Form onSubmit={handleSubmit}>
+                {activeRole === 'student' ? (
+                  <>
+                    <TextField
+                      label="Username"
+                      variant="outlined"
+                      fullWidth
+                      name="studentUsername"
+                      value={formData.studentUsername}
+                      onChange={handleInputChange}
+                      required
+                      sx={{ mb: 3 }}
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <Person />
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+                    <TextField
+                      label="Password"
+                      variant="outlined"
+                      fullWidth
+                      name="studentPassword"
+                      type={showPassword ? 'text' : 'password'}
+                      value={formData.studentPassword}
+                      onChange={handleInputChange}
+                      required
+                      sx={{ mb: 3 }}
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <Lock />
+                          </InputAdornment>
+                        ),
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <IconButton
+                              aria-label="toggle password visibility"
+                              onClick={togglePasswordVisibility}
+                              edge="end"
+                            >
+                              {showPassword ? <VisibilityOff /> : <Visibility />}
+                            </IconButton>
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+                  </>
+                ) : (
+                  <>
+                    <TextField
+                      label="Admin ID"
+                      variant="outlined"
+                      fullWidth
+                      name="adminUsername"
+                      value={formData.adminUsername}
+                      onChange={handleInputChange}
+                      required
+                      sx={{ mb: 3 }}
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <AdminPanelSettings />
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+                    <TextField
+                      label="Password"
+                      variant="outlined"
+                      fullWidth
+                      name="adminPassword"
+                      type={showPassword ? 'text' : 'password'}
+                      value={formData.adminPassword}
+                      onChange={handleInputChange}
+                      required
+                      sx={{ mb: 3 }}
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <Lock />
+                          </InputAdornment>
+                        ),
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <IconButton
+                              aria-label="toggle password visibility"
+                              onClick={togglePasswordVisibility}
+                              edge="end"
+                            >
+                              {showPassword ? <VisibilityOff /> : <Visibility />}
+                            </IconButton>
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+                  </>
+                )}
+                
+                {/* CAPTCHA */}
+                <Box 
+                  sx={{ 
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 2,
+                    mb: 3
+                  }}
+                >
+                  <Box sx={{ 
+                    display: 'flex', 
+                    alignItems: 'center',
+                    p: 1.5,
+                    bgcolor: '#f5f5f5',
+                    borderRadius: 1,
+                    fontFamily: 'monospace',
+                    fontWeight: 'bold',
+                    fontSize: '1.1rem',
+                    letterSpacing: '0.3em',
+                    color: '#333',
+                    border: captchaError ? '1px solid #f44336' : '1px solid #e0e0e0',
+                    position: 'relative',
+                    width: isTablet ? '50%' : '40%',
+                    height: '45px',
+                    justifyContent: 'center'
+                  }}>
+                    {captchaValue}
+                    <IconButton 
+                      onClick={generateCaptcha} 
+                      size="small" 
+                      sx={{ position: 'absolute', right: 4, top: '50%', transform: 'translateY(-50%)' }}
+                    >
+                      <Refresh fontSize="small" />
+                    </IconButton>
+                  </Box>
+                  <TextField
+                    label="Enter CAPTCHA"
+                    variant="outlined"
+                    size="small"
+                    fullWidth
+                    value={userCaptchaInput}
+                    onChange={(e) => setUserCaptchaInput(e.target.value)}
+                    error={captchaError}
+                    helperText={captchaError ? "Incorrect CAPTCHA" : ""}
+                    required
+                  />
+                </Box>
+
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
+                  <FormControlLabel
+                    control={
+                      <Checkbox 
+                        color="primary" 
+                        name="rememberMe"
+                        checked={formData.rememberMe}
+                        onChange={handleInputChange}
+                        sx={{ 
+                          color: 'rgb(168, 5, 11)',
+                          '&.Mui-checked': {
+                            color: 'rgb(168, 5, 11)',
+                          }
+                        }}
+                      />
+                    }
+                    label="Remember me"
+                  />
+                  <a href="#" className="text-decoration-none" style={{ color: 'rgb(168, 5, 11)' }}>
+                    Forgot Password?
+                  </a>
+                </Box>
+
+                <Button
+                  variant="contained"
+                  type="submit"
+                  disabled={isLoading}
+                  fullWidth
+                  sx={{ 
+                    bgcolor: 'rgb(168, 5, 11)',
+                    py: 1.5,
+                    mb: 3,
+                    '&:hover': {
+                      bgcolor: 'rgb(138, 5, 11)',
+                    }
+                  }}
+                >
+                  {isLoading ? (
+                    <>
+                      <Spinner
+                        as="span"
+                        animation="border"
+                        size="sm"
+                        role="status"
+                        aria-hidden="true"
+                        className="me-2"
+                      />
+                      Processing...
+                    </>
+                  ) : (
+                    <>
+                      Sign In <ArrowForward sx={{ ml: 1 }} />
+                    </>
+                  )}
+                </Button>
+                
+                {/* Only show register option for Student role */}
+                {activeRole === 'student' && (
+                  <Box sx={{ textAlign: 'center' }}>
+                    <Typography variant="body2" display="inline" sx={{ mr: 1 }}>
+                      Don't have an account?
+                    </Typography>
+                    <Button 
+                      variant="text" 
+                      onClick={handleRegisterClick}
+                      sx={{ 
+                        color: 'rgb(168, 5, 11)',
+                        textTransform: 'none',
+                        fontWeight: 600
+                      }}
+                    >
+                      Register Now
+                    </Button>
+                  </Box>
+                )}
+              </Form>
+            </Box>
+          </Fade>
+        </Box>
       </Paper>
     </Container>
   );

@@ -11,6 +11,7 @@ using System.Text.RegularExpressions;
 
 namespace scholarship_portal_server.Controllers
 {
+    [Authorize]
     [Route("/[controller]")]
     [ApiController]
     public class StaffsController : ControllerBase
@@ -24,17 +25,48 @@ namespace scholarship_portal_server.Controllers
             _configuration = configuration;
         }
 
-        // create a controller method to get all staffs
+        private bool ValidateToken()
+        {
+            var token = Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+            if (token == null)
+                return false;
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Key"]);
+            try
+            {
+                tokenHandler.ValidateToken(token, new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ClockSkew = TimeSpan.Zero
+                }, out SecurityToken validatedToken);
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Staff>>> GetStaffs()
         {
+            if (!ValidateToken())
+                return Unauthorized();
+
             return await _context.Staffs.ToListAsync();
         }
 
-        // create a controller method to get a staff by id
         [HttpGet("{id}")]
         public async Task<ActionResult<Staff>> GetStaff(Guid id)
         {
+            if (!ValidateToken())
+                return Unauthorized();
+
             var staff = await _context.Staffs.FindAsync(id);
             if (staff == null)
             {
@@ -43,10 +75,12 @@ namespace scholarship_portal_server.Controllers
             return staff;
         }
 
-        // return a staff profile
         [HttpGet("profile/{id}")]
         public async Task<ActionResult<object>> GetStaffProfile(Guid id)
         {
+            if (!ValidateToken())
+                return Unauthorized();
+
             var staff = await _context.Staffs.FindAsync(id);
             if (staff == null)
             {
@@ -65,6 +99,9 @@ namespace scholarship_portal_server.Controllers
         [HttpPost]
         public async Task<ActionResult<Staff>> PostStaff(Staff staff)
         {
+            if (!ValidateToken())
+                return Unauthorized();
+
             if (string.IsNullOrEmpty(staff.staffName) || string.IsNullOrEmpty(staff.StaffUsername) || string.IsNullOrEmpty(staff.StaffPassword))
             {
                 return BadRequest("Staff name, username, and password are required.");
@@ -91,10 +128,12 @@ namespace scholarship_portal_server.Controllers
             return Regex.IsMatch(phoneNumber, @"^\+?[1-9]\d{1,14}$");
         }
 
-        // create a controller method to update a staff
         [HttpPut("{id}")]
         public async Task<IActionResult> PutStaff(Guid id, Staff staff)
         {
+            if (!ValidateToken())
+                return Unauthorized();
+
             if (id != staff.Id)
             {
                 return BadRequest();
@@ -102,14 +141,14 @@ namespace scholarship_portal_server.Controllers
             _context.Entry(staff).State = EntityState.Modified;
             await _context.SaveChangesAsync();
             return NoContent();
-
         }
 
-        // create a controller method to delete a staff by id 
-        // Delete should send the isdeleted value as true
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteStaff(Guid id)
         {
+            if (!ValidateToken())
+                return Unauthorized();
+
             var staff = await _context.Staffs.FindAsync(id);
             if (staff == null)
             {
@@ -120,25 +159,26 @@ namespace scholarship_portal_server.Controllers
             return NoContent();
         }
 
-        // create a controller method to authenticate a staff
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginModel loginModel)
         {
             var staff = await _context.Staffs
                 .FirstOrDefaultAsync(s => s.StaffUsername == loginModel.Username && s.StaffPassword == loginModel.Password);
 
-            if (staff == null || staff.isDeleted )
+            if (staff == null || staff.isDeleted)
             {
                 return Unauthorized(new { responseCode = "denied" });
             }
 
-            return Ok(new { responseCode = "allowed", id = staff.Id, privilage=staff.staffPrivilageId });
+            return Ok(new { responseCode = "allowed", id = staff.Id, privilage = staff.staffPrivilageId });
         }
 
-        // create a controller to set privilage to a staff by id
         [HttpPut("setprivilage/{id}")]
         public async Task<IActionResult> SetPrivilage(Guid id, Staff staff)
         {
+            if (!ValidateToken())
+                return Unauthorized();
+
             if (id != staff.Id)
             {
                 return BadRequest();
@@ -148,10 +188,12 @@ namespace scholarship_portal_server.Controllers
             return NoContent();
         }
 
-        // create a controller to get privilage 
         [HttpGet("getprivilage/{id}")]
         public async Task<ActionResult<object>> GetPrivilage(Guid id)
         {
+            if (!ValidateToken())
+                return Unauthorized();
+
             var staff = await _context.Staffs.FindAsync(id);
             if (staff == null)
             {
@@ -163,5 +205,4 @@ namespace scholarship_portal_server.Controllers
             };
         }
     }
-
 }
