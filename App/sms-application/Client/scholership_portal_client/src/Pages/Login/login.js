@@ -30,6 +30,8 @@ import {
   ArrowForward
 } from '@mui/icons-material';
 import StudentService from '../../Services/studentService';
+import SessionStorageUtil from '../../Session/SessionStorageUtils';
+import StaffService from '../../Services/staffService';
 
 const Login = () => {
   const theme = useTheme();
@@ -159,110 +161,96 @@ const Login = () => {
     }
   };
 
-  const handleStudentSubmit = () => {
-    // Simulate loading state
-    setIsLoading(true);
+    const handleStudentSubmit = () => {
+      // Simulate loading state
+      setIsLoading(true);
 
-    // Student login payload
-    const payloadData = {
-      username: formData.studentUsername,
-      password: formData.studentPassword
-    };
+      // Student login payload
+      const payloadData = {
+        username: formData.studentUsername,
+        password: formData.studentPassword
+      };
 
-    StudentService.studentLogin(formData.studentUsername,formData.studentPassword )
-      .then(data => {
-        setIsLoading(false);
-        if (data.responseCode === "allowed") {
-          // Handle successful login
-          showAlert('Login successful! Redirecting to dashboard...', 'success');
-          
-          // Save to localStorage if remember me is checked
-          if (formData.rememberMe) {
-            localStorage.setItem('savedUsername', formData.studentUsername);
+      StudentService.studentLogin(formData.studentUsername,formData.studentPassword )
+        .then(data => {
+          setIsLoading(false);
+          if (data.responseCode === "allowed") {
+            // Handle successful login
+            showAlert('Login successful! Redirecting to dashboard...', 'success');
+            
+            // Save to localStorage if remember me is checked
+            if (formData.rememberMe) {
+              localStorage.setItem('savedUsername', formData.studentUsername);
+            }
+            
+            // Add response code and role to session storage
+            SessionStorageUtil.setAppData({
+              role: 'student',
+              responseCode: data.responseCode,
+              userID: data.id,
+              activeToken: data.token
+            });
+
+            // Redirect after a short delay to show success message
+            setTimeout(() => {
+              window.location.href = `/student/home`;
+            }, 1500);
+          } else {
+            // Handle invalid login
+            showAlert("Invalid login. Please check your credentials and try again.", "error");
+            generateCaptcha();
           }
-          
-          // Add response code and role to local storage
-          localStorage.setItem('role', 'student');
-          localStorage.setItem('responseCode', data.responseCode);
-          
-          // Redirect after a short delay to show success message
-          setTimeout(() => {
-            window.location.href = `/student/home?route=${data.id}`;
-          }, 1500);
-        } else {
-          // Handle invalid login
-          showAlert("Invalid login. Please check your credentials and try again.", "error");
+        })
+        .catch(error => {
+          setIsLoading(false);
+          console.error('Error during login:', error);
+          showAlert("An error occurred. Please check your connection and try again.", "error");
           generateCaptcha();
-        }
-      })
-      .catch(error => {
-        setIsLoading(false);
-        console.error('Error during login:', error);
-        showAlert("An error occurred. Please check your connection and try again.", "error");
-        generateCaptcha();
-      });
-  };
-  
-  const handleAdminSubmit = () => {
-    // Simulate loading state
-    setIsLoading(true);
-
-    // Admin login payload
-    const payloadData = {
-      username: formData.adminUsername,
-      password: formData.adminPassword
+        });
     };
+    const handleAdminSubmit = () => {
+      // Simulate loading state
+      setIsLoading(true);
 
-    // API call
-    fetch('http://localhost:3006/Staffs/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'accept': '*/*'
-      },
-      body: JSON.stringify(payloadData)
-    })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return response.json();
-    })
-    .then(data => {
-      setIsLoading(false);
-      if (data.responseCode === "allowed") {
-        // Handle successful login
-        showAlert('Login successful! Redirecting to dashboard...', 'success');
-        
-        // Save to localStorage if remember me is checked
-        if (formData.rememberMe) {
-          localStorage.setItem('savedAdminUsername', formData.adminUsername);
-        }
-        
-        // Add response code and role to local storage
-        localStorage.setItem('role', 'admin');
-        localStorage.setItem('responseCode', data.responseCode);
-        
-        // Redirect after a short delay to show success message
-        setTimeout(() => {
-          window.location.href = `/staff/home?route=${data.id}`;
-        }, 1500);
-      } else {
-        // Handle invalid login
-        showAlert("Invalid login. Please check your credentials and try again.", "error");
-        generateCaptcha();
-      }
-    })
-    .catch(error => {
-      setIsLoading(false);
-      console.error('Error during login:', error);
-      showAlert("An error occurred. Please check your connection and try again.", "error");
-      generateCaptcha();
-    });
-  };
+      StaffService.staffLogin(formData.adminUsername,formData.adminPassword )
+        .then(data => {
+          setIsLoading(false);
+          if (data.responseCode === "allowed") {
+            // Handle successful login
+            showAlert('Login successful! Redirecting to dashboard...', 'success');
+            
+            // Save to localStorage if remember me is checked
+            if (formData.rememberMe) {
+              localStorage.setItem('savedUsername', formData.studentUsername);
+            }
+            
+            // Add response code and role to session storage
+            SessionStorageUtil.setAppData({
+              role: 'staff',
+              responseCode: data.responseCode,
+              userID: data.id,
+              activeToken: data.token
+            });
 
-  // Function to handle registration button click
-  const handleRegisterClick = () => {
+            // Redirect after a short delay to show success message
+            setTimeout(() => {
+              window.location.href = `/staff/home`;
+            }, 1500);
+          } else {
+            // Handle invalid login
+            showAlert("Invalid login. Please check your credentials and try again.", "error");
+            generateCaptcha();
+          }
+        })
+        .catch(error => {
+          setIsLoading(false);
+          console.error('Error during login:', error);
+          showAlert("An error occurred. Please check your connection and try again.", "error");
+          generateCaptcha();
+        });
+    };
+  
+    const handleRegisterClick = () => {
     // Redirect to registration page/component
     window.location.href = '/register';
   };

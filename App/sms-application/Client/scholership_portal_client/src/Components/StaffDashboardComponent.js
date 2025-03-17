@@ -629,7 +629,7 @@ const StaffDashboardComponent = () => {
       </Grid>
 
       {/* Latest Applications and Upcoming Events */}
-      <Grid container spacing={3}>
+      {/* <Grid container spacing={3}>
         <Grid item xs={12} md={8}>
           <Card 
             sx={{ 
@@ -785,7 +785,7 @@ const StaffDashboardComponent = () => {
             </CardContent>
           </Card>
         </Grid>
-      </Grid>
+      </Grid> */}
     </>
 
   );
@@ -796,14 +796,14 @@ const StaffDashboardComponent = () => {
         <Typography variant="h6" component="h2" fontWeight="bold">
           Scholarship Applications
         </Typography>
-        <Button 
+        {/* <Button 
           variant="contained" 
           color="primary" 
           startIcon={<FilterIcon />} 
           onClick={handleFilterClick}
         >
           Filter
-        </Button>
+        </Button> */}
       </Box>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} size="medium">
@@ -812,7 +812,7 @@ const StaffDashboardComponent = () => {
               <TableCell sx={{ fontWeight: 'bold' }}>Student</TableCell>
               <TableCell sx={{ fontWeight: 'bold' }}>Course</TableCell>
               <TableCell sx={{ fontWeight: 'bold' }}>Type</TableCell>
-              <TableCell sx={{ fontWeight: 'bold' }}>Amount</TableCell>
+              {/* <TableCell sx={{ fontWeight: 'bold' }}>Amount</TableCell> */}
               <TableCell sx={{ fontWeight: 'bold' }}>Status</TableCell>
               <TableCell sx={{ fontWeight: 'bold' }} align="right">Actions</TableCell>
             </TableRow>
@@ -828,7 +828,7 @@ const StaffDashboardComponent = () => {
                 </TableCell>
                 <TableCell>{app.course}</TableCell>
                 <TableCell>{app.type}</TableCell>
-                <TableCell>{app.amount}</TableCell>
+                {/* <TableCell>{app.amount}</TableCell> */}
                 <TableCell>
                   <Chip 
                     label={app.status} 
@@ -891,79 +891,82 @@ const StaffDashboardComponent = () => {
     </>
   );
 
-  const renderProgramsTab = () => (
-    <>
-      <Box sx={{ mb: 3, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Typography variant="h6" component="h2" fontWeight="bold">
-          Scholarship Programs
-        </Typography>
-        <Button 
-          variant="contained" 
-          color="primary" 
-          startIcon={<AddIcon />} 
-          onClick={handleNewScholarship}
-        >
-          New Program
-        </Button>
-      </Box>
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} size="medium">
-          <TableHead>
-            <TableRow>
-              <TableCell sx={{ fontWeight: 'bold' }}>Name</TableCell>
-              <TableCell sx={{ fontWeight: 'bold' }}>Eligibility</TableCell>
-              <TableCell sx={{ fontWeight: 'bold' }}>Amount</TableCell>
-              <TableCell sx={{ fontWeight: 'bold' }}>Deadline</TableCell>
-              <TableCell sx={{ fontWeight: 'bold' }}>Status</TableCell>
-              <TableCell sx={{ fontWeight: 'bold' }} align="right">Actions</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {programs.map((program) => (
-              <TableRow key={program.id}>
-                <TableCell>{program.name}</TableCell>
-                <TableCell>{program.eligibility}</TableCell>
-                <TableCell>{program.amount}</TableCell>
-                <TableCell>{program.deadline}</TableCell>
-                <TableCell>
-                  <Chip 
-                    label={program.status} 
-                    size="small"
-                    sx={{ 
-                      backgroundColor: getStatusColor(program.status).bg,
-                      color: getStatusColor(program.status).color,
-                      fontWeight: 'medium',
-                      borderRadius: 1
-                    }} 
-                  />
-                </TableCell>
-                <TableCell align="right">
-                  <Tooltip title="Edit">
-                    <IconButton 
-                      size="small" 
-                      sx={{ mr: 1 }}
-                    >
-                      <EditIcon fontSize="small" />
-                    </IconButton>
-                  </Tooltip>
-                  <Tooltip title="Delete">
-                    <IconButton 
-                      size="small" 
-                      sx={{ color: '#f44336' }}
-                      onClick={() => handleDeleteProgram(program)}
-                    >
-                      <DeleteIcon fontSize="small" />
-                    </IconButton>
-                  </Tooltip>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </>
-  );
+  // const renderProgramsTab = () => (
+  //   <>
+  //     <Box sx={{ mb: 3, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+  //       <Typography variant="h6" component="h2" fontWeight="bold">
+  //         Scholarship Programs
+  //       </Typography>
+  //       <Button 
+  //         variant="contained" 
+  //         color="primary" 
+  //         startIcon={<AddIcon />} 
+  //         onClick={handleNewScholarship}
+  //       >
+  //         New Program
+  //       </Button>
+  //     </Box>
+  //     <TableContainer component={Paper}>
+  //       <Table sx={{ minWidth: 650 }} size="medium">
+  //         <TableHead>
+  //           <TableRow>
+  //             <TableCell sx={{ fontWeight: 'bold' }}>Name</TableCell>
+  //             <TableCell sx={{ fontWeight: 'bold' }}>Eligibility</TableCell>
+  //             <TableCell sx={{ fontWeight: 'bold' }}>Amount</TableCell>
+  //             <TableCell sx={{ fontWeight: 'bold' }}>Deadline</TableCell>
+  //             <TableCell sx={{ fontWeight: 'bold' }}>Status</TableCell>
+  //             <TableCell sx={{ fontWeight: 'bold' }} align="right">Actions</TableCell>
+  //           </TableRow>
+  //         </TableHead>
+  //         <TableBody>
+  //           {programs.map((program) => (
+  //             <TableRow key={program.id}>
+  //               <TableCell>{program.name}</TableCell>
+  //               <TableCell>{program.eligibility}</TableCell>
+  //               <TableCell>{program.amount}</TableCell>
+  //               <TableCell>{program.deadline}</TableCell>
+  //               <TableCell>
+  //                 <Chip 
+  //                   label={program.status} 
+  //                   size="small"
+  //                   sx={{ 
+  //                     backgroundColor: getStatusColor(program.status).bg,
+  //                     color: getStatusColor(program.status).color,
+  //                     fontWeight: 'medium',
+  //                     borderRadius: 1
+  //                   }} 
+  //                 />
+  //               </TableCell>
+  //               <TableCell align="right">
+  //                 <Tooltip title="Edit">
+  //                   <IconButton 
+  //                     size="small" 
+  //                     sx={{ mr: 1 }}
+  //                   >
+  //                     <EditIcon fontSize="small" />
+  //                   </IconButton>
+  //                 </Tooltip>
+  //                 <Tooltip title="Delete">
+  //                   <IconButton 
+  //                     size="small" 
+  //                     sx={{ color: '#f44336' }}
+  //                     onClick={() => handleDeleteProgram(program)}
+  //                   >
+  //                     <DeleteIcon fontSize="small" />
+  //                   </IconButton>
+  //                 </Tooltip>
+  //               </TableCell>
+  //             </TableRow>
+  //           ))}
+  //         </TableBody>
+  //       </Table>
+  //     </TableContainer>
+  //   </>
+  // );
 
+  const renderProgramsTab = () => (
+    window.location.href = '/staff/Scholarshiplist'
+  );
   const renderEventsTab = () => (
     <>
       <Box sx={{ mb: 3, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -1024,9 +1027,9 @@ const StaffDashboardComponent = () => {
               <Typography variant="body1" gutterBottom>
                 <strong>Type:</strong> {selectedApplication.type}
               </Typography>
-              <Typography variant="body1" gutterBottom>
+              {/* <Typography variant="body1" gutterBottom>
                 <strong>Amount:</strong> {selectedApplication.amount}
-              </Typography>
+              </Typography> */}
               <Typography variant="body1" gutterBottom>
                 <strong>GPA:</strong> {selectedApplication.gpa}
               </Typography>

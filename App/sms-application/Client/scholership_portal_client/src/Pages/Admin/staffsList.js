@@ -29,44 +29,11 @@ import EditIcon from '@mui/icons-material/Edit';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import StaffHeader from '../../Components/StaffHeader';
-
-// Mock data service (replace with actual API calls)
-const StaffService = {
-  getStaff: () => {
-    const staffData = localStorage.getItem('staffData');
-    return staffData ? JSON.parse(staffData) : [];
-  },
-  
-  createStaff: (staffMember) => {
-    const staffData = StaffService.getStaff();
-    const newStaff = {
-      ...staffMember,
-      Staff_id: staffData.length + 1,
-      Staff_Privilage_id: 1, // Default to 'New'
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString(),
-      is_deleted: false
-    };
-    staffData.push(newStaff);
-    localStorage.setItem('staffData', JSON.stringify(staffData));
-    return newStaff;
-  },
-  
-  updateStaff: (updatedStaff) => {
-    const staffData = StaffService.getStaff();
-    const index = staffData.findIndex(staff => staff.Staff_id === updatedStaff.Staff_id);
-    if (index !== -1) {
-      staffData[index] = {
-        ...updatedStaff,
-        updated_at: new Date().toISOString()
-      };
-      localStorage.setItem('staffData', JSON.stringify(staffData));
-    }
-    return updatedStaff;
-  }
-};
+import StaffService from '../../Services/staffService'; // Import the updated staff service
 
 // Privilege Options
 const PRIVILEGE_OPTIONS = [
@@ -77,60 +44,137 @@ const PRIVILEGE_OPTIONS = [
 ];
 
 // Stats data - could be connected to real data
-const statsData = [
-  { title: "Total Staff", count: 138, change: "+12% from last month", icon: "👥", color: "#B71C1C" },
-  { title: "Active Privileges", count: 4, value: "₹38.5 Lakhs", icon: "🔑", color: "#1976D2" },
-  { title: "New Staff", count: 42, change: "+18% from previous month", icon: "✓", color: "#388E3C" },
-  { title: "Budget Allocated", count: "₹24.5L", remaining: "₹14.8 Lakhs", icon: "₹", color: "#FF9800" }
-];
+// const statsData = [
+//   { title: "Total Staff", count: 138, change: "+12% from last month", icon: "👥", color: "#B71C1C" },
+//   { title: "Active Privileges", count: 4, value: "₹38.5 Lakhs", icon: "🔑", color: "#1976D2" },
+//   { title: "New Staff", count: 42, change: "+18% from previous month", icon: "✓", color: "#388E3C" },
+//   { title: "Budget Allocated", count: "₹24.5L", remaining: "₹14.8 Lakhs", icon: "₹", color: "#FF9800" }
+// ];
 
 const StaffManagement = () => {
   const [staffList, setStaffList] = useState([]);
   const [selectedStaff, setSelectedStaff] = useState(null);
+  const [privilage, setPrivilage] = useState([]);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [newStaffForm, setNewStaffForm] = useState({
-    staff_name: '',
-    Staff_enroll_Id: '',
-    Staff_Phone_Number: '',
-    staff_password: ''
+    staffName: '',
+    staffId: '',
+    staffPhone: '',
+    staffPassword: '',
+    staffUsername: '',
+    staffPrivilageId: 1,
+    isDeleted: false,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
   });
+  const [formErrors, setFormErrors] = useState({});
+  const [showPassword, setShowPassword] = useState(false);
 
   // Load staff data on component mount
-  useEffect(() => {
-    setStaffList(StaffService.getStaff());
+   useEffect(() => {
+     const fetchStaffData = async () => {
+       try {
+         const data = await StaffService.getStaff();
+         setStaffList(data);
+       } catch (error) {
+         console.error('Error fetching staff data:', error);
+       }
+   };
+
+   const getPrivilage = async () => {
+      try {
+        const data = await StaffService.getPrivilage();
+        setPrivilage(data.staffPrivilageId);
+      } catch (error) {
+        console.error('Error fetching privilage data:', error);
+      }
+    };
+
+    fetchStaffData();
+    getPrivilage();
   }, []);
 
   // Handler for input changes in forms
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setNewStaffForm(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    
+    // Validation for phone number - only allow digits
+    if (name === 'staffPhone') {
+      const digits = value.replace(/\D/g, '');
+      const isValidStart = /^[6-9]/.test(digits);
+      setFormErrors(prev => ({
+        ...prev,
+        staffPhone: (digits.length !== 10 || !isValidStart) && digits.length > 0 ? 'Phone number must be 10 digits and start with 6-9' : ''
+      }));
+      setNewStaffForm(prev => ({
+        ...prev,
+        [name]: digits
+      }));
+    } else {
+      setNewStaffForm(prev => ({
+        ...prev,
+        [name]: value
+      }));
+    }
+  };
+
+  // Validate form fields
+  const validateForm = () => {
+    const errors = {};
+    if (!newStaffForm.staffUsername.trim()) {
+      errors.staffUsername = 'Username is required';
+    }
+    if (!newStaffForm.staffPassword.trim()) {
+      errors.staffPassword = 'Password is required';
+    }
+    if (!newStaffForm.staffPhone.trim()) {
+      errors.staffPhone = 'Phone number is required';
+    } else if (!/^\d{10}$/.test(newStaffForm.staffPhone)) {
+      errors.staffPhone = 'Phone number must be 10 digits';
+    }
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
   };
 
   // Create new staff member
-  const handleCreateStaff = () => {
-    const newStaff = StaffService.createStaff(newStaffForm);
-    setStaffList([...staffList, newStaff]);
-    setIsAddModalOpen(false);
-    setNewStaffForm({
-      staff_name: '',
-      Staff_enroll_Id: '',
-      Staff_Phone_Number: '',
-      staff_password: ''
-    });
+  const handleCreateStaff = async () => {
+    if (!validateForm()) {
+      return;
+    }
+    try {
+      const newStaff = await StaffService.createNewStaff(newStaffForm);
+      setStaffList([...staffList, newStaff]);
+      setIsAddModalOpen(false);
+      setNewStaffForm({
+        staffName: '',
+        staffId: '',
+        staffPhone: '',
+        staffPassword: '',
+        staffUsername: '',
+        staffPrivilageId: 1,
+        isDeleted: false,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+      });
+      setFormErrors({});
+    } catch (error) {
+      console.error('Error creating staff:', error);
+    }
   };
 
   // Edit staff member
-  const handleEditStaff = () => {
-    const updatedStaff = StaffService.updateStaff(selectedStaff);
-    const updatedList = staffList.map(staff => 
-      staff.Staff_id === updatedStaff.Staff_id ? updatedStaff : staff
-    );
-    setStaffList(updatedList);
-    setIsEditModalOpen(false);
+  const handleEditStaff = async () => {
+    try {
+      const updatedStaff = await StaffService.updateStaffDetails(selectedStaff);
+      const updatedList = staffList.map(staff => 
+        staff.id === updatedStaff.id ? updatedStaff : staff
+      );
+      setStaffList(updatedList);
+      setIsEditModalOpen(false);
+    } catch (error) {
+      console.error('Error updating staff:', error);
+    }
   };
 
   // Open edit modal
@@ -140,32 +184,33 @@ const StaffManagement = () => {
   };
 
   // Privilege change handler with confirmation
-  const handlePrivilegeChange = (staff, newPrivilege) => {
-    const confirmed = window.confirm(`Are you sure you want to change privilege for ${staff.staff_name}?`);
+  const handlePrivilegeChange = async (staff, newPrivilege) => {
+    const confirmed = window.confirm(`Are you sure you want to change privilege for ${staff.staffName}?`);
     if (confirmed) {
-      const updatedStaff = {
-        ...staff,
-        Staff_Privilage_id: newPrivilege
-      };
-      const updatedStaffMember = StaffService.updateStaff(updatedStaff);
-      const updatedList = staffList.map(s => 
-        s.Staff_id === updatedStaffMember.Staff_id ? updatedStaffMember : s
-      );
-      setStaffList(updatedList);
+      try {
+        const updatedStaff = {
+          ...staff,
+          staffPrivilageId: newPrivilege
+        };
+        const updatedStaffMember = await StaffService.updateStaffPrivilege(updatedStaff.id ,newPrivilege);
+        const updatedList = staffList.map(s => 
+          s.id === updatedStaffMember.staff.id ? updatedStaffMember.staff : s
+        );
+        setStaffList(updatedList);
+      } catch (error) {
+        console.error('Error updating staff privilege:', error);
+      }
     }
   };
 
   return (
     <div style={{ backgroundColor: "#f5f5f5", minHeight: "100vh" }}>
-
-<Row>
+      <Row>
         <StaffHeader />
-        </Row>
+      </Row>
       <Container fluid="lg" style={{ marginTop: '2rem' }}>
-
-
         {/* Stats Cards */}
-        <Row className="mb-4">
+        {/* <Row className="mb-4">
           {statsData.map((stat, index) => (
             <Col key={index} xs={12} md={6} lg={3} className="mb-3">
               <Card style={{ borderRadius: "10px", borderTop: `4px solid ${stat.color}` }}>
@@ -213,7 +258,7 @@ const StaffManagement = () => {
               </Card>
             </Col>
           ))}
-        </Row>
+        </Row> */}
 
         {/* Staff Management Section */}
         <Card sx={{ mt: 4, mb: 4, boxShadow: 2, borderRadius: 2 }}>
@@ -238,7 +283,7 @@ const StaffManagement = () => {
               <Table>
                 <TableHead sx={{ backgroundColor: '#f5f5f5' }}>
                   <TableRow>
-                    <TableCell>ID</TableCell>
+                    {/* <TableCell>ID</TableCell> */}
                     <TableCell>Name</TableCell>
                     <TableCell>Enrollment ID</TableCell>
                     <TableCell>Phone Number</TableCell>
@@ -257,24 +302,32 @@ const StaffManagement = () => {
                     </TableRow>
                   ) : (
                     staffList.map((staff) => (
-                      <TableRow key={staff.Staff_id} hover>
-                        <TableCell>{staff.Staff_id}</TableCell>
-                        <TableCell>{staff.staff_name}</TableCell>
-                        <TableCell>{staff.Staff_enroll_Id}</TableCell>
-                        <TableCell>{staff.Staff_Phone_Number}</TableCell>
+                      <TableRow key={staff.id} hover>
+                        { /* <TableCell>{staff.id}</TableCell>  */ }
+                        <TableCell>{staff.staffName}</TableCell>
+                        <TableCell>{staff.staffId}</TableCell>
+                        <TableCell>{staff.staffPhone}</TableCell>
                         <TableCell>
-                          <Select
-                            value={staff.Staff_Privilage_id}
-                            onChange={(e) => handlePrivilegeChange(staff, e.target.value)}
-                            size="small"
-                            sx={{ minWidth: 120 }}
-                          >
-                            {PRIVILEGE_OPTIONS.map((priv) => (
-                              <MenuItem key={priv.id} value={priv.id}>
-                                {priv.name}
-                              </MenuItem>
-                            ))}
-                          </Select>
+                          {privilage === 2 ? (
+                            <Select
+                              value={staff.staffPrivilageId}
+                              onChange={(e) => {
+                                handlePrivilegeChange(staff, e.target.value);
+                              }}
+                              size="small"
+                              sx={{ minWidth: 120 }}
+                            >
+                              {PRIVILEGE_OPTIONS.map((priv) => (
+                                <MenuItem key={priv.id} value={priv.id}>
+                                  {priv.name}
+                                </MenuItem>
+                              ))}
+                            </Select>
+                          ) : (
+                            <Typography variant="body2">
+                              {PRIVILEGE_OPTIONS.find((priv) => priv.id === staff.staffPrivilageId)?.name}
+                            </Typography>
+                          )}
                         </TableCell>
                         <TableCell>
                           <IconButton 
@@ -285,15 +338,15 @@ const StaffManagement = () => {
                             <EditIcon />
                           </IconButton>
                         </TableCell>
-                      </TableRow>
-                    ))
-                  )}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </Card.Body>
-        </Card>
-      </Container>
+                        </TableRow>
+                        ))
+                        )}
+                        </TableBody>
+                        </Table>
+                        </TableContainer>
+                        </Card.Body>
+                        </Card>
+                        </Container>
 
       {/* Add Staff Modal */}
       <Dialog 
@@ -313,41 +366,67 @@ const StaffManagement = () => {
         </DialogTitle>
         <DialogContent sx={{ mt: 2 }}>
           <TextField
-            name="staff_name"
+            name="staffName"
             label="Staff Name"
             fullWidth
             margin="normal"
-            value={newStaffForm.staff_name}
+            value={newStaffForm.staffName}
             onChange={handleInputChange}
             variant="outlined"
           />
           <TextField
-            name="Staff_enroll_Id"
+            name="staffId"
             label="Enrollment ID"
             fullWidth
             margin="normal"
-            value={newStaffForm.Staff_enroll_Id}
+            value={newStaffForm.staffId}
             onChange={handleInputChange}
             variant="outlined"
           />
           <TextField
-            name="Staff_Phone_Number"
+            name="staffUsername"
+            label="Username"
+            fullWidth
+            margin="normal"
+            value={newStaffForm.staffUsername}
+            onChange={handleInputChange}
+            variant="outlined"
+            error={!!formErrors.staffUsername}
+            helperText={formErrors.staffUsername}
+          />
+          <TextField
+            name="staffPhone"
             label="Phone Number"
             fullWidth
             margin="normal"
-            value={newStaffForm.Staff_Phone_Number}
+            value={newStaffForm.staffPhone}
             onChange={handleInputChange}
             variant="outlined"
+            error={!!formErrors.staffPhone}
+            helperText={formErrors.staffPhone}
+            inputProps={{ maxLength: 10, pattern: "[0-9]*" }}
           />
           <TextField
-            name="staff_password"
+            name="staffPassword"
             label="Password"
-            type="password"
             fullWidth
             margin="normal"
-            value={newStaffForm.staff_password}
+            type={showPassword ? "text" : "password"}
+            value={newStaffForm.staffPassword}
             onChange={handleInputChange}
             variant="outlined"
+            error={!!formErrors.staffPassword}
+            helperText={formErrors.staffPassword}
+            InputProps={{
+              endAdornment: (
+                <IconButton
+                  onClick={() => setShowPassword(!showPassword)}
+                  edge="end"
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              )
+            }}
           />
         </DialogContent>
         <DialogActions sx={{ p: 2, borderTop: '1px solid rgba(0, 0, 0, 0.12)' }}>
@@ -385,59 +464,70 @@ const StaffManagement = () => {
         </DialogTitle>
         <DialogContent sx={{ mt: 2 }}>
           <TextField
-            name="staff_name"
+            name="staffName"
             label="Staff Name"
             fullWidth
             margin="normal"
-            value={selectedStaff?.staff_name || ''}
+            value={selectedStaff?.staffName || ''}
             onChange={(e) => setSelectedStaff(prev => ({
               ...prev,
-              staff_name: e.target.value
+              staffName: e.target.value
             }))}
             variant="outlined"
           />
           <TextField
-            name="Staff_enroll_Id"
+            name="staffId"
             label="Enrollment ID"
             fullWidth
             margin="normal"
-            value={selectedStaff?.Staff_enroll_Id || ''}
+            value={selectedStaff?.staffId || ''}
             onChange={(e) => setSelectedStaff(prev => ({
               ...prev,
-              Staff_enroll_Id: e.target.value
+              staffId: e.target.value
             }))}
             variant="outlined"
           />
           <TextField
-            name="Staff_Phone_Number"
+            name="staffPhone"
             label="Phone Number"
             fullWidth
             margin="normal"
-            value={selectedStaff?.Staff_Phone_Number || ''}
+            value={selectedStaff?.staffPhone || ''}
             onChange={(e) => setSelectedStaff(prev => ({
               ...prev,
-              Staff_Phone_Number: e.target.value
+              staffPhone: e.target.value
             }))}
             variant="outlined"
           />
           <TextField
-            name="staff_password"
+            name="staffPassword"
             label="Password"
-            type="password"
             fullWidth
             margin="normal"
             placeholder="Leave blank to keep current password"
+            type={showPassword ? "text" : "password"}
+            value={selectedStaff?.staffPassword || ''}
             onChange={(e) => setSelectedStaff(prev => ({
               ...prev,
-              staff_password: e.target.value
+              staffPassword: e.target.value
             }))}
             variant="outlined"
+            InputProps={{
+              endAdornment: (
+                <IconButton
+                  onClick={() => setShowPassword(!showPassword)}
+                  edge="end"
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              )
+            }}
           />
           <Select
-            value={selectedStaff?.Staff_Privilage_id || 1}
+            value={selectedStaff?.staffPrivilageId || 1}
             onChange={(e) => setSelectedStaff(prev => ({
               ...prev,
-              Staff_Privilage_id: e.target.value
+              staffPrivilageId: e.target.value
             }))}
             fullWidth
             label="Privilege"

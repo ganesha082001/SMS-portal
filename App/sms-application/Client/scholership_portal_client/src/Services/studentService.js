@@ -1,19 +1,21 @@
+import SessionStorageUtil from "../Session/SessionStorageUtils";
+
 const baseURL = 'http://localhost:3006';
 
 
 class StudentService {
 
     static async gettoken() {
-        const token = localStorage.getItem('token');
+        const token = SessionStorageUtil.getParticularData('activeToken');
         return token;
     }
 
 
     static checkAuth() {
-        const role = localStorage.getItem('role');
-        const responseCode = localStorage.getItem('responseCode');
-        if (!role || !responseCode || responseCode == "denied") {
+        const responseCode = SessionStorageUtil.getParticularData('responseCode');
+        if ( responseCode && !responseCode === "allowed" ) {
             alert('Login expired. Please login again.');
+            SessionStorageUtil.clearAppData();
             window.location.href = '/';
             throw new Error('Login expired');
         }
@@ -54,8 +56,7 @@ class StudentService {
         if (!response.ok) {
             throw new Error('Failed to fetch student profile');
         }
-        const data = await response.json();
-        return data;
+        return await response.json();
     }
 
     // create a function to perform student registration

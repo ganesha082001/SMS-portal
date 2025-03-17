@@ -4,14 +4,15 @@ import { Navbar, Nav, NavDropdown, Card } from 'react-bootstrap';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import logo from '../asserts/logo.png';
+import SessionStorageUtil from '../Session/SessionStorageUtils'; // Adjust the path as necessary
 
 const StudentHeader = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   const handleLogout = () => {
-    localStorage.removeItem('responsecode');
-    localStorage.removeItem('role');
+    SessionStorageUtil.clearAppData();
+    window.location.href = '/';
   };
 
   return (

@@ -81,9 +81,9 @@ const ScholarshipList = () => {
           <Typography variant="h6" gutterBottom align="center" color="primary">
             Active Scholarships
           </Typography>
-          <Typography variant="subtitle2" gutterBottom>
+          {/* <Typography variant="subtitle2" gutterBottom>
             Start Date: 10th March 2025 | End Date: 30th April 2025
-          </Typography>
+          </Typography> */}
           <Divider sx={{ my: 1 }} />
           <Box
             id="scholarship-list"

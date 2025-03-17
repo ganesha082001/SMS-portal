@@ -1,18 +1,38 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { AppBar, Toolbar, Typography, Container, Box, useMediaQuery, useTheme, IconButton } from '@mui/material';
 import { Navbar, Nav, NavDropdown, Card } from 'react-bootstrap';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import logo from '../asserts/logo.png';
+import SessionStorageUtil from '../Session/SessionStorageUtils'; // Adjust the path as necessary
+import StaffService from '../Services/staffService'; // Adjust the path as necessary
 
 const StaffHeader = () => {
+
+      const [privilage, setPrivilage] = useState([]);
+    
+     useEffect(() => {
+  
+  
+     const getPrivilage = async () => {
+        try {
+          const data = await StaffService.getPrivilage();
+          setPrivilage(data.staffPrivilageId);
+        } catch (error) {
+          console.error('Error fetching privilage data:', error);
+        }
+      };
+  
+      getPrivilage();
+    }, []);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   const handleLogout = () => {
-    localStorage.removeItem('responseCode');
-    localStorage.removeItem('role');
+    SessionStorageUtil.clearAppData();
+    window.location.href = '/';
   };
+  
 
   return (
     <AppBar position="static" sx={{ bgcolor: '#9e1c2e', padding: '10px 0' }}>
@@ -44,6 +64,8 @@ const StaffHeader = () => {
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
                 <Nav.Link href="/staff/home">Home</Nav.Link>
+                {( privilage === 2 ) ? <Nav.Link href="/staff/stafflist">Manage Staffs</Nav.Link> : null}
+                <Nav.Link href="/staff/Scholarshiplist">Manage Scholarships</Nav.Link>
                 {/* <NavDropdown title="Scholarships" id="collapsible-nav-dropdown">
                   <NavDropdown.Item href="/ScholarshipLayout">View Scholarships</NavDropdown.Item>
                   <NavDropdown.Divider />

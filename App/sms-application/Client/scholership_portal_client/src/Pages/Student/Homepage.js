@@ -1,5 +1,5 @@
 // App.jsx
-import React from 'react';
+import React, {useState, useEffect } from 'react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Container, Grid, useMediaQuery } from '@mui/material';
@@ -10,6 +10,8 @@ import ScholarshipList from './Components/ScholarshipList';
 import CollegeInfo from './Components/CollegeInfo';
 import NotificationList from './Components/NotificationList';
 import './style.css';
+import StudentService from '../../Services/studentService';
+import SessionStorageUtil from '../../Session/SessionStorageUtils'; // Adjust the path as necessary
 import StudentHeader from '../../Components/StudentHeader';
 const theme = createTheme({
   palette: {
@@ -30,6 +32,25 @@ const theme = createTheme({
 
 function StudentHomepage() {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const [studentData, setStudentData] = useState(null);
+
+  useEffect(() => {
+    const fetchStudentData = async () => {
+      try {
+        const studentId = SessionStorageUtil.getParticularData('userID'); // Get the student ID from session storage
+        if (studentId) {
+          const data = await StudentService.getStudentProfile(studentId);
+          setStudentData(data);
+        } else {
+          console.error('No student ID found in session storage');
+        }
+      } catch (error) {
+        console.error('Error fetching student data:', error);
+      }
+    };
+
+    fetchStudentData();
+  }, []);
 
   return (
     <ThemeProvider theme={theme}>
@@ -40,11 +61,11 @@ function StudentHomepage() {
           text="New Scholarship Arrived - Last date to apply is 15th April 2025 • Congratulations to the 250 students who received scholarships last month!" 
           link="#scholarship-details" 
         />
-        <Container maxWidth="xl" className="main-container">
-          <WelcomeSection username="Mahalakshmi" />
+        <Container  className="main-container">
+          <WelcomeSection username={studentData?.studentName} />
           
           {isMobile ? (
-            <Grid container spacing={2}>
+            <Grid container spacing={1}>
               <Grid item xs={6}>
                 <ScholarshipList />
               </Grid>
