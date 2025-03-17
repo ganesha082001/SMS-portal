@@ -61,6 +61,10 @@ namespace scholarship_portal_server.Controllers
             return await _context.Staffs.ToListAsync();
         }
 
+        // to list the staffs that are awith privilage id 2 and 3 (admin and Active) and not deleted 
+
+
+
         [HttpGet("{id}")]
         public async Task<ActionResult<Staff>> GetStaff(Guid id)
         {
@@ -96,7 +100,7 @@ namespace scholarship_portal_server.Controllers
             };
         }
 
-        [HttpPost]
+        [HttpPost("new/")]
         public async Task<ActionResult<Staff>> PostStaff(Staff staff)
         {
             if (!ValidateToken())
@@ -140,7 +144,7 @@ namespace scholarship_portal_server.Controllers
             }
             _context.Entry(staff).State = EntityState.Modified;
             await _context.SaveChangesAsync();
-            return NoContent();
+            return Ok(staff);
         }
 
         [HttpDelete("{id}")]
@@ -174,18 +178,21 @@ namespace scholarship_portal_server.Controllers
         }
 
         [HttpPut("setprivilage/{id}")]
-        public async Task<IActionResult> SetPrivilage(Guid id, Staff staff)
+        public async Task<IActionResult> SetPrivilage(Guid id, int privilageId)
         {
             if (!ValidateToken())
                 return Unauthorized();
 
-            if (id != staff.Id)
+            var staff = await _context.Staffs.FindAsync(id);
+            if (staff == null)
             {
-                return BadRequest();
+                return NotFound();
             }
+
+            staff.staffPrivilageId = privilageId;
             _context.Entry(staff).State = EntityState.Modified;
             await _context.SaveChangesAsync();
-            return NoContent();
+            return Ok(new { staff });
         }
 
         [HttpGet("getprivilage/{id}")]
@@ -203,6 +210,20 @@ namespace scholarship_portal_server.Controllers
             {
                 staff.staffPrivilageId
             };
+        }
+
+
+        [HttpGet("activeStaffs")]
+        public async Task<ActionResult<IEnumerable<Staff>>> GetPrivilegedStaffs()
+        {
+            if (!ValidateToken())
+                return Unauthorized();
+
+            var privilegedStaffs = await _context.Staffs
+                .Where(s => (s.staffPrivilageId == 2 || s.staffPrivilageId == 3) && !s.isDeleted)
+                .ToListAsync();
+
+            return Ok(privilegedStaffs);
         }
     }
 }

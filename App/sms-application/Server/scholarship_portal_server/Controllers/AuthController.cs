@@ -41,7 +41,7 @@ namespace scholarship_portal_server.Controllers
             var staff = await _context.Staffs
                 .FirstOrDefaultAsync(s => s.StaffUsername == loginModel.Username && s.StaffPassword == loginModel.Password);
 
-            if (staff == null || staff.isDeleted)
+            if (staff == null || staff.isDeleted || staff.staffPrivilageId == 4)
             {
                 return Unauthorized(new { responseCode = "denied" });
             }

@@ -161,16 +161,177 @@
     ]
   },
   {
-    "ContainingType": "scholarship_portal_server.Controllers.StaffsController",
-    "Method": "GetStaffs",
-    "RelativePath": "Staffs",
+    "ContainingType": "scholarship_portal_server.Controllers.ScholarshipController",
+    "Method": "PostScholarship",
+    "RelativePath": "Scholarship",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "scholarship",
+        "Type": "scholarship_portal_server.Models.Scholarship",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "scholarship_portal_server.Models.Scholarship",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "scholarship_portal_server.Controllers.ScholarshipController",
+    "Method": "GetScholarships",
+    "RelativePath": "Scholarship",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[scholarship_portal_server.Models.Staff, scholarship_portal_server, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[scholarship_portal_server.Models.Scholarship, scholarship_portal_server, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "scholarship_portal_server.Controllers.ScholarshipController",
+    "Method": "GetScholarship",
+    "RelativePath": "Scholarship/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "scholarship_portal_server.Models.Scholarship",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "scholarship_portal_server.Controllers.ScholarshipController",
+    "Method": "PutScholarship",
+    "RelativePath": "Scholarship/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "scholarship",
+        "Type": "scholarship_portal_server.Models.Scholarship",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "scholarship_portal_server.Controllers.ScholarshipController",
+    "Method": "DeleteScholarship",
+    "RelativePath": "Scholarship/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "scholarship_portal_server.Controllers.ScholarshipController",
+    "Method": "GetNotifiableScholarships",
+    "RelativePath": "Scholarship/notify",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[scholarship_portal_server.Models.Scholarship, scholarship_portal_server, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "scholarship_portal_server.Controllers.ScholarshipController",
+    "Method": "GetScholarshipsByStaffId",
+    "RelativePath": "Scholarship/staff/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[scholarship_portal_server.Models.Scholarship, scholarship_portal_server, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "scholarship_portal_server.Controllers.ScholarshipController",
+    "Method": "GetScholarshipsByType",
+    "RelativePath": "Scholarship/type/{type}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "type",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[scholarship_portal_server.Models.Scholarship, scholarship_portal_server, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -182,21 +343,15 @@
   },
   {
     "ContainingType": "scholarship_portal_server.Controllers.StaffsController",
-    "Method": "PostStaff",
+    "Method": "GetStaffs",
     "RelativePath": "Staffs",
-    "HttpMethod": "POST",
+    "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [
-      {
-        "Name": "staff",
-        "Type": "scholarship_portal_server.Models.Staff",
-        "IsRequired": true
-      }
-    ],
+    "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "scholarship_portal_server.Models.Staff",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[scholarship_portal_server.Models.Staff, scholarship_portal_server, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -271,6 +426,26 @@
   },
   {
     "ContainingType": "scholarship_portal_server.Controllers.StaffsController",
+    "Method": "GetPrivilegedStaffs",
+    "RelativePath": "Staffs/activeStaffs",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[scholarship_portal_server.Models.Staff, scholarship_portal_server, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "scholarship_portal_server.Controllers.StaffsController",
     "Method": "GetPrivilage",
     "RelativePath": "Staffs/getprivilage/{id}",
     "HttpMethod": "GET",
@@ -303,6 +478,32 @@
   },
   {
     "ContainingType": "scholarship_portal_server.Controllers.StaffsController",
+    "Method": "PostStaff",
+    "RelativePath": "Staffs/new",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "staff",
+        "Type": "scholarship_portal_server.Models.Staff",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "scholarship_portal_server.Models.Staff",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "scholarship_portal_server.Controllers.StaffsController",
     "Method": "GetStaffProfile",
     "RelativePath": "Staffs/profile/{id}",
     "HttpMethod": "GET",
@@ -331,9 +532,9 @@
         "IsRequired": true
       },
       {
-        "Name": "staff",
-        "Type": "scholarship_portal_server.Models.Staff",
-        "IsRequired": true
+        "Name": "privilageId",
+        "Type": "System.Int32",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
