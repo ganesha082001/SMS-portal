@@ -194,6 +194,21 @@ class StaffService {
         return await response.json();
     }
 
+    // get list of scholarships
+    static async getactiveScholarships() {
+        this.checkAuth();
+        const token = await this.gettoken();
+        const response = await fetch(`${baseURL}/Scholarship/notify/`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        if (!response.ok) {
+            throw new Error('Failed to fetch scholarships');
+        }
+        return await response.json();
+    }
+
     // fetch scholarship by id
     static async getScholarship(scholarshipId) {
         this.checkAuth();

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   Card, 
   CardContent, 
@@ -15,7 +15,9 @@ import {
   Button,
   Grid,
   Chip,
-  IconButton
+  IconButton,
+  useMediaQuery,
+  useTheme
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import EventIcon from '@mui/icons-material/Event';
@@ -40,28 +42,98 @@ const enhancedNotificationData = notificationData.map(notification => ({
 }));
 
 const NotificationList = () => {
-  const [scrollPosition, setScrollPosition] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
   const [open, setOpen] = useState(false);
   const [selectedNotification, setSelectedNotification] = useState(null);
+  const [isPaused, setIsPaused] = useState(false);
+  const listContainerRef = useRef(null);
+  const listRef = useRef(null);
+  const cloneRef = useRef(null);
+  const theme = useTheme();
   
+  // Use media queries to adjust the component height based on screen size
+  const isXsScreen = useMediaQuery(theme.breakpoints.down('sm'));
+  const isSmScreen = useMediaQuery(theme.breakpoints.between('sm', 'md'));
+  const isMdScreen = useMediaQuery(theme.breakpoints.between('md', 'lg'));
+  
+  // Calculate responsive height based on screen size
+  const getResponsiveHeight = () => {
+    if (isXsScreen) return '200px';
+    if (isSmScreen) return '250px';
+    if (isMdScreen) return '300px';
+    return '350px'; // default for large screens
+  };
+
+  // Set up vertical marquee
   useEffect(() => {
-    if (!isPaused) {
-      const interval = setInterval(() => {
-        const listElement = document.getElementById('notification-list');
-        if (listElement) {
-          if (scrollPosition >= listElement.scrollHeight - listElement.clientHeight) {
-            setScrollPosition(0);
-          } else {
-            setScrollPosition(prev => prev + 1);
-          }
-          listElement.scrollTop = scrollPosition;
-        }
-      }, 50);
-      
-      return () => clearInterval(interval);
+    if (listRef.current && cloneRef.current) {
+      // Set up the marquee only when both elements are ready
+      setupMarquee();
     }
-  }, [scrollPosition, isPaused]);
+  }, []);
+
+  // Handle the marquee animation
+  const marqueeRef = useRef(null);
+  
+  const setupMarquee = () => {
+    // Start the animation
+    startMarquee();
+  };
+
+  const startMarquee = () => {
+    if (isPaused) return;
+    
+    let startTime;
+    let scrollTop = 0;
+    const scrollSpeed = 0.5; // pixels per frame - adjust for speed
+    
+    const scrollStep = (timestamp) => {
+      if (!startTime) startTime = timestamp;
+      
+      if (listContainerRef.current) {
+        const container = listContainerRef.current;
+        const originalList = listRef.current;
+        
+        if (!originalList) return;
+        
+        // Update scroll position
+        scrollTop += scrollSpeed;
+        container.scrollTop = scrollTop;
+        
+        // If we've scrolled past the original content, reset to continue the loop
+        if (scrollTop >= originalList.scrollHeight) {
+          scrollTop = 0;
+          container.scrollTop = 0;
+        }
+      }
+      
+      // Continue the animation loop
+      marqueeRef.current = requestAnimationFrame(scrollStep);
+    };
+    
+    marqueeRef.current = requestAnimationFrame(scrollStep);
+  };
+
+  const pauseMarquee = () => {
+    if (marqueeRef.current) {
+      cancelAnimationFrame(marqueeRef.current);
+      marqueeRef.current = null;
+    }
+  };
+
+  // Handle pausing and resuming the marquee
+  useEffect(() => {
+    if (isPaused) {
+      pauseMarquee();
+    } else {
+      startMarquee();
+    }
+    
+    return () => {
+      if (marqueeRef.current) {
+        cancelAnimationFrame(marqueeRef.current);
+      }
+    };
+  }, [isPaused]);
 
   const handleClickOpen = (notification) => {
     setSelectedNotification(notification);
@@ -74,38 +146,152 @@ const NotificationList = () => {
 
   return (
     <>
-      <Card elevation={3} sx={{ height: '100%' }}>
-        <CardContent>
-          <Typography variant="h6" gutterBottom align="center" color="primary">
-            Announcements
-          </Typography>
-          <Typography variant="subtitle2" gutterBottom>
-            Date: 5th April 2025 | Venue: Conference Hall
-          </Typography>
-          <Divider sx={{ my: 1 }} />
+      <Card 
+        elevation={3} 
+        sx={{ 
+          height: '350px',
+          display: 'flex',
+          flexDirection: 'column'
+        }}
+      >
+        <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', p: 2 }}>
+          
+          {/* Marquee container */}
           <Box
-            id="notification-list"
-            className="scrollable-list"
+            ref={listContainerRef}
+            sx={{
+              height: getResponsiveHeight(),
+              overflow: 'hidden',
+              position: 'relative',
+              flexGrow: 1,
+              '&::-webkit-scrollbar': {
+                width: '8px',
+              },
+              '&::-webkit-scrollbar-track': {
+                backgroundColor: '#f1f1f1',
+                borderRadius: '10px',
+              },
+              '&::-webkit-scrollbar-thumb': {
+                backgroundColor: theme.palette.primary.light,
+                borderRadius: '10px',
+                '&:hover': {
+                  backgroundColor: theme.palette.primary.main,
+                },
+              },
+            }}
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
           >
-            <List>
+            {/* Original list */}
+            <List 
+              ref={listRef}
+              disablePadding 
+              sx={{ 
+                width: '100%'
+              }}
+            >
               {enhancedNotificationData.map((notification, index) => (
                 <React.Fragment key={index}>
                   <ListItem 
                     alignItems="flex-start"
                     button 
                     onClick={() => handleClickOpen(notification)}
-                    sx={{ cursor: 'pointer' }}
+                    sx={{ 
+                      cursor: 'pointer',
+                      transition: 'background-color 0.2s',
+                      '&:hover': {
+                        backgroundColor: 'rgba(0, 0, 0, 0.04)',
+                      }
+                    }}
                   >
                     <ListItemText
-                      primary={`${index + 1}. ${notification.title}`}
+                      primary={
+                        <Typography variant="subtitle1" component="div" fontWeight="medium">
+                          {index + 1}. {notification.title}
+                        </Typography>
+                      }
                       secondary={
-                        <>
-                          <Typography variant="body2" component="span">
-                            Date: {notification.date} | Venue: {notification.venue}
-                          </Typography>
-                        </>
+                        <Box sx={{ mt: 0.5 }}>
+                          <Box component="span" sx={{ display: 'inline-flex', alignItems: 'center', mr: 2 }}>
+                            <EventIcon fontSize="small" sx={{ mr: 0.5, fontSize: '0.875rem' }} />
+                            <Typography variant="body2" component="span">
+                              {notification.date}
+                            </Typography>
+                          </Box>
+                          <Box component="span" sx={{ display: 'inline-flex', alignItems: 'center' }}>
+                            <LocationOnIcon fontSize="small" sx={{ mr: 0.5, fontSize: '0.875rem' }} />
+                            <Typography variant="body2" component="span">
+                              {notification.venue}
+                            </Typography>
+                          </Box>
+                          {notification.isRequired && (
+                            <Chip 
+                              label="Required" 
+                              size="small" 
+                              color="primary"
+                              sx={{ ml: 1, height: '20px', fontSize: '0.7rem' }} 
+                            />
+                          )}
+                        </Box>
+                      }
+                    />
+                  </ListItem>
+                  {index < enhancedNotificationData.length - 1 && <Divider />}
+                </React.Fragment>
+              ))}
+            </List>
+            
+            {/* Duplicated list for continuous scrolling */}
+            <List 
+              ref={cloneRef}
+              disablePadding 
+              sx={{ 
+                width: '100%'
+              }}
+            >
+              {enhancedNotificationData.map((notification, index) => (
+                <React.Fragment key={`clone-${index}`}>
+                  <ListItem 
+                    alignItems="flex-start"
+                    button 
+                    onClick={() => handleClickOpen(notification)}
+                    sx={{ 
+                      cursor: 'pointer',
+                      transition: 'background-color 0.2s',
+                      '&:hover': {
+                        backgroundColor: 'rgba(0, 0, 0, 0.04)',
+                      }
+                    }}
+                  >
+                    <ListItemText
+                      primary={
+                        <Typography variant="subtitle1" component="div" fontWeight="medium">
+                          {index + 1}. {notification.title}
+                        </Typography>
+                      }
+                      secondary={
+                        <Box sx={{ mt: 0.5 }}>
+                          <Box component="span" sx={{ display: 'inline-flex', alignItems: 'center', mr: 2 }}>
+                            <EventIcon fontSize="small" sx={{ mr: 0.5, fontSize: '0.875rem' }} />
+                            <Typography variant="body2" component="span">
+                              {notification.date}
+                            </Typography>
+                          </Box>
+                          <Box component="span" sx={{ display: 'inline-flex', alignItems: 'center' }}>
+                            <LocationOnIcon fontSize="small" sx={{ mr: 0.5, fontSize: '0.875rem' }} />
+                            <Typography variant="body2" component="span">
+                              {notification.venue}
+                            </Typography>
+                          </Box>
+                          {notification.isRequired && (
+                            <Chip 
+                              label="Required" 
+                              size="small" 
+                              color="primary"
+                              sx={{ ml: 1, height: '20px', fontSize: '0.7rem' }} 
+                            />
+                          )}
+                        </Box>
                       }
                     />
                   </ListItem>
@@ -124,6 +310,9 @@ const NotificationList = () => {
           onClose={handleClose}
           maxWidth="md"
           fullWidth
+          TransitionProps={{ 
+            timeout: 300 
+          }}
         >
           <DialogTitle sx={{ 
             bgcolor: 'primary.main', 

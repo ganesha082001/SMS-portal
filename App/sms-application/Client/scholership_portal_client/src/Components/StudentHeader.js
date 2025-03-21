@@ -5,7 +5,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import logo from '../asserts/logo.png';
 import SessionStorageUtil from '../Session/SessionStorageUtils'; // Adjust the path as necessary
-
+import LogoutIcon from '@mui/icons-material/Logout';
 const StudentHeader = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
@@ -37,13 +37,12 @@ const StudentHeader = () => {
           </Box>
         </Toolbar>
       </Container>
-      {/* Navigation bar */}
       <Card>
         <Navbar bg="light" expand="lg" className="shadow-sm" sticky="bottom">
           <Container>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
-              <Nav className="me-auto">
+              {/* <Nav className="me-auto">
                 <Nav.Link href="/student/home">Home</Nav.Link>
                 <NavDropdown title="Scholarships" id="collapsible-nav-dropdown">
                   <NavDropdown.Item href="/student/scholarshiplist">View Scholarships</NavDropdown.Item>
@@ -55,15 +54,9 @@ const StudentHeader = () => {
                 <Nav.Link href="/student/profile">Profile</Nav.Link>
                 <Nav.Link href="">About</Nav.Link>
                 <Nav.Link href="">Contact</Nav.Link>
-              </Nav>
+              </Nav> */}
               <Nav className="ms-auto">
-                <IconButton color="inherit">
-                  <NotificationsIcon />
-                </IconButton>
-                <IconButton color="inherit">
-                  <AccountCircleIcon />
-                </IconButton>
-                <Nav.Link href="/" onClick={handleLogout}>Logout</Nav.Link>
+                <Nav.Link href="/" onClick={handleLogout}><LogoutIcon/> Logout</Nav.Link>
               </Nav>
             </Navbar.Collapse>
           </Container>

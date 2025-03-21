@@ -68,6 +68,7 @@ const StudentRegistration = () => {
   const [captchaError, setCaptchaError] = useState(false);
   const [phoneError, setPhoneError] = useState(false);
   const [notification, setNotification] = useState({ show: false, message: '', type: '' });
+  const [emailError, setEmailError] = useState(false);
   
   const [registerData, setRegisterData] = useState({
     studentName: '',
@@ -108,7 +109,18 @@ const StudentRegistration = () => {
         ...registerData,
         [name]: digits
       });
-    } else {
+    }
+    // Validate for email - only allow valid email format
+    else if (name === 'studentEmail') {
+      const email = value.replace(/[^a-zA-Z0-9@.]/g, '');
+      const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      setEmailError(!emailPattern.test(email) && email.length > 0);
+      setRegisterData({
+      ...registerData,
+      [name]: email
+      });
+    }
+    else {
       setRegisterData({
         ...registerData,
         [name]: value
@@ -193,7 +205,7 @@ const StudentRegistration = () => {
     // Remove confirmPassword as it's not needed in the API
     delete registerPayload.confirmPassword;
     // Make the API call
-    fetch('http://localhost:3006/Student/register', {
+    fetch('http://localhost:3006/Auth/register', {
       method: 'POST',
       headers: {
         'accept': 'text/plain',
@@ -214,12 +226,14 @@ const StudentRegistration = () => {
       handleReset();
 
       showNotification("Registration successful! Please login with your new credentials.", "success");
-      window.location.href = '/';
+      setTimeout(() => {
+        window.location.href = '/';
+      }, 2000);
     })
     .catch(error => {
       setIsLoading(false);
       console.error('Error during registration:', error);
-      showNotification("Registration failed. Please try again later.", "error");
+      showNotification("Registration failed. Please try again later.".error, "error");
     });
   };
 
@@ -257,6 +271,9 @@ const StudentRegistration = () => {
               margin="normal"
               name="studentEmail"
               type="email"
+              error={emailError}
+              helperText={emailError ? "Please enter a valid Email address" : ""}
+            
               value={registerData.studentEmail}
               onChange={handleRegisterInputChange}
               required
@@ -497,7 +514,7 @@ const StudentRegistration = () => {
   return (
     <ThemeProvider theme={theme}>
       <Container maxWidth="lg" className="mt-4 mb-5">
-        <Button className='m-4' variant="primary" href="/login">
+        <Button className='m-4' variant="primary" href="/">
             <LoginIcon />
             Back to Login
         </Button>

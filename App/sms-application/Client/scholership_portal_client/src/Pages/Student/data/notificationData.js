@@ -58,20 +58,5 @@ export const notificationData = [
     title: "Scholarship Application Workshop",
     date: "8th April 2025",
     venue: "Seminar Hall"
-  },
-  {
-    title: "Alumni Mentorship Program",
-    date: "20th April 2025",
-    venue: "Virtual Meeting"
-  },
-  {
-    title: "Career Opportunities Seminar",
-    date: "25th April 2025",
-    venue: "Auditorium"
-  },
-  {
-    title: "Scholarship Interview Preparation",
-    date: "12th April 2025",
-    venue: "Career Center"
   }
 ];

@@ -11,6 +11,7 @@ import Register from './Pages/Login/Register';
 import DevelopmentPage from './Pages/development';
 import StaffManagement from './Pages/Admin/staffsList';
 import ScholarshipList from './Pages/Admin/ScholarshipListing';
+import ProfileUpdateFormNew from './Pages/Student/ProfileUpdate/ProfileUpdateForm';
 function App() {
   return (
     <Router>
@@ -21,7 +22,8 @@ function App() {
           <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/student/home" element={<StudentHomepage />} />
-          <Route path="/student/profile" element={<ProfileUpdateForm/>} />
+          <Route path="/student/profileold" element={<ProfileUpdateForm/>} />
+          <Route path="/student/profile" element={<ProfileUpdateFormNew/>} />
           <Route path="/student/scholarshiplist" element={<ScholarshipLayout/>} />
 
           {/* For staffs */}

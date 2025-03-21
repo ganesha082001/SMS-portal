@@ -4,7 +4,7 @@ import { Box, Link } from '@mui/material';
 
 const ScrollingAnnouncement = ({ text, link }) => {
   return (
-    <Box className="announcement-container">
+    <Box className="announcement-container" style={{ backgroundColor: 'DodgerBlue', color: 'white', padding: '10px' }}>
       <Link 
         href={link} 
         color="inherit" 
