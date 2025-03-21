@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using scholarship_portal_server.Models;
 
@@ -11,9 +12,11 @@ using scholarship_portal_server.Models;
 namespace scholarship_portal_server.Migrations
 {
     [DbContext(typeof(ScholarshipPortalContext))]
-    partial class ScholarshipPortalContextModelSnapshot : ModelSnapshot
+    [Migration("20250320170745_ProfileDetailsUpdaed")]
+    partial class ProfileDetailsUpdaed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -32,6 +32,32 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "scholarship_portal_server.Controllers.AuthController",
+    "Method": "CreateStudent",
+    "RelativePath": "Auth/register",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "student",
+        "Type": "scholarship_portal_server.Models.Student",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "scholarship_portal_server.Models.Student",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "scholarship_portal_server.Controllers.DropdownController",
     "Method": "GetDropdownGroups",
     "RelativePath": "Dropdown",
@@ -151,6 +177,198 @@
     "ReturnTypes": [
       {
         "Type": "System.Collections.Generic.IEnumerable\u00601[[scholarship_portal_server.Models.DropdownValue, scholarship_portal_server, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "scholarship_portal_server.Controllers.EducationalInfoController",
+    "Method": "PostEducationalInfo",
+    "RelativePath": "Education/EducationalInfo",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "educationalInfo",
+        "Type": "scholarship_portal_server.Models.EducationalInfo",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "scholarship_portal_server.Models.EducationalInfo",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "scholarship_portal_server.Controllers.EducationalInfoController",
+    "Method": "GetEducationalInfo",
+    "RelativePath": "Education/EducationalInfo/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "scholarship_portal_server.Models.EducationalInfo",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "scholarship_portal_server.Controllers.EducationalInfoController",
+    "Method": "PutEducationalInfo",
+    "RelativePath": "Education/EducationalInfo/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "educationalInfo",
+        "Type": "scholarship_portal_server.Models.EducationalInfo",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "scholarship_portal_server.Controllers.PersonalInfoController",
+    "Method": "GetPersonalInfo",
+    "RelativePath": "Personal/PersonalInfo",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[scholarship_portal_server.Models.PersonalInfo, scholarship_portal_server, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "scholarship_portal_server.Controllers.PersonalInfoController",
+    "Method": "PostPersonalInfo",
+    "RelativePath": "Personal/PersonalInfo",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "personalInfo",
+        "Type": "scholarship_portal_server.Models.PersonalInfo",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "scholarship_portal_server.Models.PersonalInfo",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "scholarship_portal_server.Controllers.PersonalInfoController",
+    "Method": "PutPersonalInfo",
+    "RelativePath": "Personal/PersonalInfo/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "personalInfo",
+        "Type": "scholarship_portal_server.Models.PersonalInfo",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "scholarship_portal_server.Controllers.PersonalInfoController",
+    "Method": "GetPersonalInfo",
+    "RelativePath": "Personal/PersonalInfo/checkProfileExist/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "scholarship_portal_server.Models.PersonalInfo",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "scholarship_portal_server.Controllers.PersonalInfoController",
+    "Method": "GetProfileInfo",
+    "RelativePath": "Personal/PersonalInfo/profile/{studentId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "studentId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "scholarship_portal_server.Models.ProfileInfoDTO",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -340,6 +558,79 @@
         "StatusCode": 200
       }
     ]
+  },
+  {
+    "ContainingType": "scholarship_portal_server.Controllers.ScholarshipInfoController",
+    "Method": "PostScholarshipInfo",
+    "RelativePath": "Scholarshipinfo/ScholarshipInfo",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "scholarshipInfo",
+        "Type": "scholarship_portal_server.Models.ScholarshipInfo",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "scholarship_portal_server.Models.ScholarshipInfo",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "scholarship_portal_server.Controllers.ScholarshipInfoController",
+    "Method": "GetScholarshipInfo",
+    "RelativePath": "Scholarshipinfo/ScholarshipInfo/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "scholarship_portal_server.Models.ScholarshipInfo",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "scholarship_portal_server.Controllers.ScholarshipInfoController",
+    "Method": "PutScholarshipInfo",
+    "RelativePath": "Scholarshipinfo/ScholarshipInfo/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "scholarshipInfo",
+        "Type": "scholarship_portal_server.Models.ScholarshipInfo",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
   },
   {
     "ContainingType": "scholarship_portal_server.Controllers.StaffsController",
@@ -632,6 +923,22 @@
     "Parameters": [
       {
         "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "scholarship_portal_server.Controllers.StudentController",
+    "Method": "CheckStudentInfoExists",
+    "RelativePath": "Student/profilecheck/{studentId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "studentId",
         "Type": "System.Guid",
         "IsRequired": true
       }

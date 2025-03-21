@@ -112,5 +112,19 @@ namespace scholarship_portal_server.Controllers
             await _context.SaveChangesAsync();
             return NoContent();
         }
+
+        // New method to check if PersonalInfo, EducationalInfo, and ScholarshipInfo exist for a student
+        [HttpGet("profilecheck/{studentId}")]
+        public async Task<ActionResult<object>> CheckStudentInfoExists(Guid studentId)
+        {
+            var personalInfoExists = await _context.PersonalInfo.AnyAsync(p => p.StudentId == studentId && !p.IsDeleted);
+            var educationalInfoExists = await _context.EducationalInfo.AnyAsync(e => e.StudentId == studentId && !e.IsDeleted);
+            var scholarshipInfoExists = await _context.ScholarshipsInfo.AnyAsync(s => s.StudentID == studentId && !s.IsDeleted);
+
+            return new
+            {
+                ProfileUpdateRequired = !(personalInfoExists && educationalInfoExists && scholarshipInfoExists)
+            };
+        }
     }
 }

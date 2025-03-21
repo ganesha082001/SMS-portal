@@ -21,7 +21,7 @@ namespace scholarship_portal_server.Controllers
         [HttpPost]
         public async Task<ActionResult<Scholarship>> PostScholarship(Scholarship scholarship)
         {
-            var existingScholarship = await _context.Scholarships.FirstOrDefaultAsync(s => s.ScholarshipTitle == scholarship.ScholarshipTitle);
+            var existingScholarship = await _context.Scholarships.FirstOrDefaultAsync(s => s.ScholarshipTitle == scholarship.ScholarshipTitle && !s.IsDeleted);
             if (existingScholarship != null)
             {
                 return BadRequest(new { responseCode = "denied", message = "Scholarship already exists" });
@@ -52,7 +52,7 @@ namespace scholarship_portal_server.Controllers
 
         // update scholarship by id
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutScholarship( Guid id, Scholarship scholarship)
+        public async Task<IActionResult> PutScholarship(Guid id, Scholarship scholarship)
         {
             if (id != scholarship.ScholarshipId)
             {
@@ -114,10 +114,39 @@ namespace scholarship_portal_server.Controllers
         [HttpGet("notify")]
         public async Task<ActionResult<IEnumerable<Scholarship>>> GetNotifiableScholarships()
         {
-            return await _context.Scholarships.Where(s => s.CanNotify && !s.IsDeleted).ToListAsync();
+
+            var scholarships = await _context.Scholarships
+                .Where(s => !s.IsDeleted)
+                .Include(s => s.ContactStaff)
+                .Select(s => new
+                {
+                    s.ScholarshipId,
+                    s.ScholarshipTitle,
+                    s.ScholarshipDescription,
+                    s.EligibilityCriteria,
+                    s.ApplicationStartDate,
+                    s.ApplicationEndDate,
+                    s.ScholarshipType,
+                    s.ContactStaffId,
+                    ContactStaff = new
+                    {
+                        s.ContactStaff.Id,
+                        s.ContactStaff.staffName,
+                        s.ContactStaff.staffId,
+                        s.ContactStaff.StaffPhone,
+                        s.ContactStaff.StaffUsername
+                    },
+                    s.CreatedAt,
+                    s.UpdatedAt,
+                    s.CanNotify,
+                    s.IsDeleted,
+                    s.IsSelfEnrollable,
+                    s.SelfEnrollUrl
+                })
+                .ToListAsync();
+
+            return Ok(scholarships);
         }
-
-
 
     }
 }
