@@ -220,6 +220,7 @@ const StudentInformationForm = () => {
     accountHolderName:'',
     accountNumber:'',
     ifscCode:'',
+    DOB:'',
   };
 
   const [formData, setFormData] = useState(defaultFormState);
@@ -593,7 +594,7 @@ const StudentInformationForm = () => {
           <input type="hidden" name="studentId" value={formData.studentId} />
           <input type="hidden" name="personalId" value={formData.personalId} />
           
-          <Grid item xs={12} md={12}>
+          <Grid item xs={12} md={6}>
             <FormControl fullWidth margin="normal">
               <InputLabel>Community</InputLabel>
               <Select
@@ -611,7 +612,18 @@ const StudentInformationForm = () => {
               </Select>
             </FormControl>
           </Grid>
-          
+          <Grid item xs={12} md={6} >
+          <TextField
+                  fullWidth
+                  label="DOB"
+                  type="date"
+                  value={formData.dob ? formData.dob.split('T')[0] : ''}
+                  onChange={handleChange('DOB')}
+                  margin="normal"
+                  InputLabelProps={{ shrink: true }}
+                  required
+                />
+          </Grid>
           <Grid item xs={12} md={6}>
             <TextField
               fullWidth

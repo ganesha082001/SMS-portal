@@ -24,6 +24,71 @@ import { CloudUpload, Visibility, Delete, Refresh } from '@mui/icons-material';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import StudentService from '../../../../Services/studentService';
 import SessionStorageUtil from '../../../../Session/SessionStorageUtils';
+const departmentOptions = {
+  "UG-Aided": [
+    "Department of Tamil",
+    "Department of Hindi",
+    "Department of Sanskrit",
+    "BA English",
+    "BA History and Tourism",
+    "BA Economics",
+    "BSc Mathematics",
+    "BSc Statistics",
+    "BSc Physics",
+    "BSc Chemistry",
+    "BSc Plant Biology and Plant Biotechnology",
+    "BSc Computer Science",
+    "Department of Commerce",
+    "Physical Education",
+  ],
+  "UG-SFS": [
+    "Library",
+    "Department of Physical Education",
+    "BSc Computer Science with Cognitive Systems",
+    "BCom Computer Application",
+    "BSc Computer Science with Artificial Intelligence",
+    "BSc Computer Science with Data Science",
+    "Tamil",
+    "BA English SFS",
+    "Hindi",
+    "French",
+    "Sanskrit",
+    "Department of Business Administration",
+    "Department of BCA",
+    "BSc Computer Science",
+    "BSc Mathematics",
+    "BCom General",
+    "Department of BCom (Corporate Secretaryship)",
+    "BCom (Accounting and Finance)",
+    "Department of BCom (Honours)",
+    "BCom (Information Systems Management)",
+    "BCom (Professional Accounting)",
+    "BCom (Banking and Insurance Management)",
+    "BSc Psychology",
+    "BSc Visual Communication",
+    "BSc Clinical Nutrition and Dietetics",
+    "BSc Nutrition Food Service Management and Dietetics",
+  ],
+  PG: [
+    "MA English",
+    "MSc Counselling Psychology",
+    "MA Economics",
+    "MA Tamil",
+    "MSc Physics",
+    "MSc Chemistry",
+    "MCom General",
+    "MCom (Corporate Secretaryship)",
+    "MCom (Accounting and Finance)",
+    "MSc Applicable Mathematics",
+    "MSc Computer Science",
+    "Research Dept of Statistics",
+    "MSc Home Science - Food Science, Nutrition and Dietetics",
+    "PG Dept of Plant Biology and Plant Biotechnology",
+    "Dept of Human Resource Management",
+    "Dept of Social Work",
+    "MA Journalism and Communication",
+  ],
+};
 
 // FileUploader component remains unchanged
 const FileUploader = ({ 
@@ -219,7 +284,7 @@ const EducationalInformationForm = () => {
     isFirstGraduate: 'false',
     firstGraduateFilePath: '',
     schoolType: '',
-    umiStudentNumber: '',
+    umisStudentNumber: '',
     department: '',
     previousYearMarks: '',
   };
@@ -310,7 +375,6 @@ const EducationalInformationForm = () => {
     if (field === 'courseType' || field === 'startYear') {
       updateBatch(field === 'courseType' ? value : formData.courseType, field === 'startYear' ? value : formData.startYear);
     }
-
     // Clear associated file paths when changing radio buttons to 'false'
     if (field === 'isFirstGraduate' && value === 'false') {
       setFormData((prevFormData) => ({
@@ -511,7 +575,7 @@ const EducationalInformationForm = () => {
             />
           </Grid>
           
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} md={6}>
             <TextField
               fullWidth
               label="Batch"
@@ -525,7 +589,7 @@ const EducationalInformationForm = () => {
             />
           </Grid>
           
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} md={6}>
             <FormControl fullWidth margin="normal">
               <InputLabel>Shift</InputLabel>
               <Select
@@ -542,23 +606,23 @@ const EducationalInformationForm = () => {
             </FormControl>
           </Grid>
           <Grid item xs={12} md={6}>
-                      <FormControl fullWidth margin="normal">
-                        <InputLabel>Current Year</InputLabel>
-                        <Select
-                          name="currentYear"
-                          value={formData.currentYear}
-                          onChange={handleChange('currentYear')}
-                          label="Current Year"
-                        >
-                          <MenuItem value="">Select One</MenuItem>
-                          <MenuItem value="UG1styear">UG 1st year</MenuItem>
-                          <MenuItem value="UG2ndyear">UG 2nd Year</MenuItem>
-                          <MenuItem value="UG3rdyear">UG 3rd Year</MenuItem>
-                          <MenuItem value="PG1styear">PG 1st Year</MenuItem>
-                          <MenuItem value="PG2ndyear">PG 2nd Year</MenuItem>
-                        </Select>
-                      </FormControl>
-                    </Grid>
+  <FormControl fullWidth margin="normal">
+    <InputLabel>Department</InputLabel>
+    <Select
+      name="department"
+      value={formData.department}
+      onChange={handleChange("department")}
+      label="Department"
+    >
+      <MenuItem value="">Select One</MenuItem>
+      {departmentOptions[formData.shift]?.map((department, index) => (
+        <MenuItem key={index} value={department}>
+          {department}
+        </MenuItem>
+      ))}
+    </Select>
+  </FormControl>
+</Grid>
           {formData.currentYear != '' && (
                       <>
                         <Grid item xs={12} md={4}>
@@ -575,25 +639,33 @@ const EducationalInformationForm = () => {
                         </Grid>
                       </>
                     )}
+          <Grid item xs={12} md={6}>
+                      <FormControl fullWidth margin="normal">
+                        <InputLabel>Section</InputLabel>
+                        <Select
+                          name="section"
+                          value={formData.section}
+                          onChange={handleChange('section')}
+                          label="section"
+                        >
+                          <MenuItem value="">Select One</MenuItem>
+                          <MenuItem value="A">A</MenuItem>
+                          <MenuItem value="B">B</MenuItem>
+                          <MenuItem value="C">C</MenuItem>
+                          <MenuItem value="D">D</MenuItem>
+                          <MenuItem value="None">None</MenuItem>
+                        </Select>
+                      </FormControl>
+                    </Grid>
           <Grid item xs={12} md={4}>
             <TextField
               fullWidth
-              label="Section"
-              value={formData.section}
-              onChange={handleChange('section')}
-              margin="normal"
-              placeholder="e.g., A, B, C"
-            />
-          </Grid>
-          
-          <Grid item xs={12} md={4}>
-            <TextField
-              fullWidth
-              label="UMI Student Number"
-              value={formData.umiStudentNumber}
-              onChange={handleChange('umiStudentNumber')}
+              label="UMIS Student Number"
+              value={formData.umisStudentNumber}
+              onChange={handleChange('umisStudentNumber')}
               margin="normal"
               placeholder="Enter UMI Student Number"
+              inputProps={{ maxLength: 10 }}
             />
           </Grid>
           
@@ -608,9 +680,9 @@ const EducationalInformationForm = () => {
               >
                 <MenuItem value="">Select One</MenuItem>
                 <MenuItem value="Government">Government</MenuItem>
-                <MenuItem value="Government Aided">Government Aided</MenuItem>
+                <MenuItem value="Government Aided(englishmedium)">Government Aided(English Medium)</MenuItem>
+                <MenuItem value="Government Aided(tamilmedium)">Government Aided(Tamil Medium)</MenuItem>
                 <MenuItem value="Private">Private</MenuItem>
-                <MenuItem value="International">International</MenuItem>
               </Select>
             </FormControl>
           </Grid>
