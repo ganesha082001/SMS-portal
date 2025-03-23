@@ -161,6 +161,23 @@ class StudentService {
         }
         return await response.json();
     }
+    static async createEducationalInfo(personalInfo) {
+        this.checkAuth();
+        const token = await this.gettoken();
+        const response = await fetch(`${baseURL}/Education/EducationalInfo`, {
+            method: 'POST',
+            headers: {
+                'accept': 'text/plain',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(personalInfo),
+        });
+        if (!response.ok) {
+            throw new Error('Failed to save personal info');
+        }
+        return await response.json();
+    }
 
     // function to fetch the student's scholarship information
     static async getScholarshipInfo(studentId) {

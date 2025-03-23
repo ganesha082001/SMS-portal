@@ -220,6 +220,8 @@ const EducationalInformationForm = () => {
     firstGraduateFilePath: '',
     schoolType: '',
     umiStudentNumber: '',
+    department: '',
+    previousYearMarks: '',
   };
 
   const [formData, setFormData] = useState(defaultFormState);
@@ -409,6 +411,7 @@ const EducationalInformationForm = () => {
         // Update existing educational information
         response = await StudentService.updateEducationalInfo(submissionData);
       } else {
+        delete submissionData.educationalId;
         // Create new educational information
         response = await StudentService.createEducationalInfo(submissionData);
       }
@@ -538,21 +541,40 @@ const EducationalInformationForm = () => {
               </Select>
             </FormControl>
           </Grid>
-          
-          <Grid item xs={12} md={4}>
-            <TextField
-              fullWidth
-              label="Current Year"
-              value={formData.currentYear}
-              onChange={handleNumberChange('currentYear')}
-              margin="normal"
-              required
-              error={!!errors.currentYear}
-              helperText={errors.currentYear || "Enter your current year (e.g., 1, 2, 3)"}
-              inputProps={{ maxLength: 1 }}
-            />
-          </Grid>
-          
+          <Grid item xs={12} md={6}>
+                      <FormControl fullWidth margin="normal">
+                        <InputLabel>Current Year</InputLabel>
+                        <Select
+                          name="currentYear"
+                          value={formData.currentYear}
+                          onChange={handleChange('currentYear')}
+                          label="Current Year"
+                        >
+                          <MenuItem value="">Select One</MenuItem>
+                          <MenuItem value="UG1styear">UG 1st year</MenuItem>
+                          <MenuItem value="UG2ndyear">UG 2nd Year</MenuItem>
+                          <MenuItem value="UG3rdyear">UG 3rd Year</MenuItem>
+                          <MenuItem value="PG1styear">PG 1st Year</MenuItem>
+                          <MenuItem value="PG2ndyear">PG 2nd Year</MenuItem>
+                        </Select>
+                      </FormControl>
+                    </Grid>
+          {formData.currentYear != '' && (
+                      <>
+                        <Grid item xs={12} md={4}>
+                          <TextField
+                            fullWidth
+                            label="Previous Year Marks"
+                            value={formData.previousYearMarks || ''}
+                            onChange={handleChange('previousYearMarks')}
+                            margin="normal"
+                            required
+                            error={!!errors.previousYearMarks}
+                            helperText={errors.previousYearMarks}
+                          />
+                        </Grid>
+                      </>
+                    )}
           <Grid item xs={12} md={4}>
             <TextField
               fullWidth
