@@ -18,6 +18,8 @@ namespace scholarship_portal_server.Models
         public string FirstGraduateFilePath { get; set; }
         public string SchoolType { get; set; }
         public string UMIStudentNumber { get; set; }
+        public string Department { get; set; }
+        public decimal PreviousYearMarks { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;

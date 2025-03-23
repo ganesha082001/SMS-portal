@@ -15,6 +15,13 @@ namespace scholarship_portal_server.Models
         public decimal ScholarshipAmountReceived { get; set; }
         public string SiblingsDetails { get; set; }
         public Guid StudentID { get; set; }
+        public bool IsSingleParentChild { get; set; }
+        public string RaisedBy { get; set; }
+        public string ParentName { get; set; }
+        public string ParentOccupation { get; set; }
+        public decimal AnnualIncome { get; set; }
+        public string ParentDeathCertificateFilePath { get; set; }
+
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
         public bool IsDeleted { get; set; } = false;

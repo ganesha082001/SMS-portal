@@ -18,6 +18,11 @@ namespace scholarship_portal_server.Models
         public bool IsDonePartTime { get; set; }
         public string PartTimeProofFilePath { get; set; }
         public DateTime? IncomeCertificateIssuedDate { get; set; }
+        public string BankName { get; set; }
+        public string AccountHolderName { get; set; }
+        public string AccountNumber { get; set; }
+        public string IFSCCode { get; set; }
+        public DateTime DOB { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
         public bool IsDeleted { get; set; } = false;
