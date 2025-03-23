@@ -640,7 +640,7 @@ const ScholarshipInfoForm = () => {
               </Select>
             </FormControl>
           </Grid>
-              <Grid item xs={12} md={4}>
+              <Grid item xs={12} md={6}>
                 <TextField
                   fullWidth
                   label="Parent Name"
@@ -671,7 +671,7 @@ const ScholarshipInfoForm = () => {
             </FormControl>
           </Grid>
                 
-              <Grid item xs={12} md={4}>
+              <Grid item xs={12} md={6}>
                 <TextField
                   fullWidth
                   label="Annual Income"

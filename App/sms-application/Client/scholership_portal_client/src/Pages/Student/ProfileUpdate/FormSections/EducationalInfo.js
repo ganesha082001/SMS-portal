@@ -657,7 +657,7 @@ const EducationalInformationForm = () => {
                         </Select>
                       </FormControl>
                     </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} md={6}>
             <TextField
               fullWidth
               label="UMIS Student Number"
@@ -669,7 +669,7 @@ const EducationalInformationForm = () => {
             />
           </Grid>
           
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} md={6}>
             <FormControl fullWidth margin="normal">
               <InputLabel>School Type</InputLabel>
               <Select
