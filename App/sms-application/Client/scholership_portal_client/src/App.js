@@ -12,6 +12,7 @@ import DevelopmentPage from './Pages/development';
 import StaffManagement from './Pages/Admin/staffsList';
 import ScholarshipList from './Pages/Admin/ScholarshipListing';
 import ProfileUpdateFormNew from './Pages/Student/ProfileUpdate/ProfileUpdateForm';
+import NotificationManagement from './Pages/Admin/NotificationManage';
 function App() {
   return (
     <Router>
@@ -30,6 +31,8 @@ function App() {
           <Route path="/staff/home" element={<StaffHomepge />} />
           <Route path="/staff/scholarshiplist" element={<ScholarshipList/>} />
           <Route path="/staff/stafflist" element={<StaffManagement />} />
+          <Route path="/staff/notifications" element={<NotificationManagement />} />
+          
 
         </Routes>
       </div>

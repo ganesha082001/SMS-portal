@@ -207,10 +207,10 @@ function StudentHomepage() {
 
   // Mock data for dashboard metrics
   const dashboardMetrics = [
-    { label: 'Applied Scholarships', value: '3', icon: <SchoolIcon />, color: theme.palette.primary.main },
-    { label: 'Upcoming Deadlines', value: '2', icon: <CalendarTodayIcon />, color: theme.palette.warning.main },
-    { label: 'Total Scholarships', value: '7', icon: <BookmarkIcon />, color: theme.palette.secondary.main },
-    { label: 'Approved Scholarships', value: '1', icon: <TrendingUpIcon />, color: theme.palette.success.main },
+    { label: 'Applied Scholarships', value: '0', icon: <SchoolIcon />, color: theme.palette.primary.main },
+    { label: 'Upcoming Deadlines', value: '1', icon: <CalendarTodayIcon />, color: theme.palette.warning.main },
+    { label: 'Total Scholarships', value: '1', icon: <BookmarkIcon />, color: theme.palette.secondary.main },
+    { label: 'Approved Scholarships', value: '0', icon: <TrendingUpIcon />, color: theme.palette.success.main },
   ];
 
   // Sidebar content for desktop

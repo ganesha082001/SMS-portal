@@ -66,14 +66,7 @@ const StaffHeader = () => {
                 <Nav.Link href="/staff/home">Home</Nav.Link>
                 {( privilage === 2 ) ? <Nav.Link href="/staff/stafflist">Manage Staffs</Nav.Link> : null}
                 <Nav.Link href="/staff/Scholarshiplist">Manage Scholarships</Nav.Link>
-                {/* <NavDropdown title="Scholarships" id="collapsible-nav-dropdown">
-                  <NavDropdown.Item href="/ScholarshipLayout">View Scholarships</NavDropdown.Item>
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item href="">
-                    Check Status
-                  </NavDropdown.Item>
-                </NavDropdown>
-                <Nav.Link href="/ProfileUpdateForm">Profile</Nav.Link> */}
+                <Nav.Link href="/ProfileUpdateForm">Check Status</Nav.Link>
               </Nav>
               <Nav className="ms-auto">
                 <IconButton color="inherit">

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import StaffHeader from '../../Components/StaffHeader';
 import StaffDashboardComponent from '../../Components/StaffDashboardComponent';
 import StaffService from '../../Services/staffService'; 
+import { Container } from '@mui/material';
 
 const StaffHomepage = () => {
     const [privilage, setPrivilage] = useState([]);
@@ -24,6 +25,7 @@ const StaffHomepage = () => {
 
   return (
     <div>
+ 
       <StaffHeader />
       <StaffDashboardComponent />
     </div>

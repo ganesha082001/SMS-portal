@@ -84,6 +84,7 @@ import { Line, Bar, Pie, Doughnut } from 'react-chartjs-2';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Chart from 'chart.js/auto';
 import { Container } from 'react-bootstrap';
+import NotificationManagement from '../Pages/Admin/NotificationManage';
 
 // Example data
 const scholarshipApplications = [
@@ -965,7 +966,9 @@ const StaffDashboardComponent = () => {
   // );
 
   const renderProgramsTab = () => (
-    window.location.href = '/staff/Scholarshiplist'
+    <>
+    <NotificationManagement />
+    </>
   );
   const renderEventsTab = () => (
     <>
@@ -990,7 +993,7 @@ const StaffDashboardComponent = () => {
   return (
     <Box sx={{ display: 'flex' }}>
       {/* // create a container with mobile responsive design */}
-      <Container fluid>
+      <Container>
       <Box
         component="main"
         sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}
@@ -1004,7 +1007,7 @@ const StaffDashboardComponent = () => {
           sx={{ mb: 3 }}
         >
           <Tab label="Dashboard" />
-          <Tab label="Scholarship Programs" />
+          <Tab label="Notifications " />
           <Tab label="Applications" />
           <Tab label="Events" />
         </Tabs>

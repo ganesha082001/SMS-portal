@@ -241,6 +241,76 @@ class StaffService {
         }
         return await response.json();
     }
+
+    // create a function to add a notification
+    static async addNotification(notificationData) {
+        this.checkAuth();
+        const token = await this.gettoken();
+        const response = await fetch(`${baseURL}/Notification`, {
+            method: 'POST',
+            headers: {
+                'accept': 'text/plain',
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(notificationData)
+        });
+        if (!response.ok) {
+            throw new Error('Failed to add notification');
+        }
+        return await response.json();
+    }
+
+    // fetch notifications
+    static async getNotifications() {
+        this.checkAuth();
+        const token = await this.gettoken();
+        const response = await fetch(`${baseURL}/Notification`, {
+            headers: {
+                'accept': 'text/plain',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        if (!response.ok) {
+            throw new Error('Failed to fetch notifications');
+        }
+        return await response.json();
+    }
+
+    // fetch notification by id 
+    static async getNotificationById(notificationId) {
+        this.checkAuth();
+        const token = await this.gettoken();
+        const response = await fetch(`${baseURL}/Notification/${notificationId}`, {
+            headers: {
+                'accept': 'text/plain',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        if (!response.ok) {
+            throw new Error('Failed to fetch notification');
+        }
+        return await response.json();
+    }
+
+    // update notification
+    static async updateNotification(notificationData) {
+        this.checkAuth();
+        const token = await this.gettoken();
+        const response = await fetch(`${baseURL}/Notification/${notificationData.notificationId}`, {
+            method: 'PUT',
+            headers: {
+                'accept': '*/*',
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(notificationData)
+        });
+        if (!response.ok) {
+            throw new Error('Failed to update notification');
+        }
+        return await response.json();
+    }
 }
 
 export default StaffService;
