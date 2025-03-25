@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "AIs0yy5337A=",
+  "dgSpecHash": "wqJjiz8KKYA=",
   "success": true,
-  "projectFilePath": "D:\\New folder\\New folder\\SMS-portal\\App\\sms-application\\Server\\scholarship_portal_server\\scholarship_portal_server.csproj",
+  "projectFilePath": "D:\\New folder\\V2\\SMS-portal\\App\\sms-application\\Server\\scholarship_portal_server\\scholarship_portal_server.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ganesh.annadurai\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\ganesh.annadurai\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",

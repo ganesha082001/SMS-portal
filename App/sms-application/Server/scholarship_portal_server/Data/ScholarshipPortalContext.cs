@@ -10,15 +10,14 @@ namespace scholarship_portal_server.Models
         {
         }
 
-        public DbSet<DropdownGroup> DropdownGroups { get; set; }
-        public DbSet<DropdownValue> DropdownValues { get; set; }
-
         public DbSet<Scholarship> Scholarships { get; set; }
         public DbSet<Student> Students { get; set; }
         public DbSet<Staff> Staffs { get; set; }
         public DbSet<PersonalInfo> PersonalInfo { get; set; }
         public DbSet<ScholarshipInfo> ScholarshipsInfo { get; set; }
         public DbSet<EducationalInfo> EducationalInfo { get; set; }
+        public DbSet<StudentProfile> StudentProfiles { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
 
 
     }

@@ -18,7 +18,6 @@ namespace scholarship_portal_server.Models
         public bool IsDeleted { get; set; } = false;
         public bool IsSelfEnrollable { get; set; } = false;
         public string SelfEnrollUrl { get; set; }
-
         public Staff? ContactStaff { get; set; }
     }
 }
