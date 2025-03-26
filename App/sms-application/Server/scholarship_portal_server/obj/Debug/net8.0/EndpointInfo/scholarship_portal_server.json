@@ -580,7 +580,7 @@
         }
       }
     },
-    "/Personal/PersonalInfo/profile/{studentId}": {
+    "/Personal/PersonalInfo/fullprofile/{studentId}": {
       "get": {
         "tags": [
           "PersonalInfo"
@@ -1796,14 +1796,16 @@
             }
           }
         }
-      },
+      }
+    },
+    "/StudentProfile/review/{studentId}": {
       "put": {
         "tags": [
           "StudentProfile"
         ],
         "parameters": [
           {
-            "name": "id",
+            "name": "studentId",
             "in": "path",
             "required": true,
             "schema": {
@@ -1816,17 +1818,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/StudentProfile"
+                "$ref": "#/components/schemas/ReviewInputModel"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/StudentProfile"
+                "$ref": "#/components/schemas/ReviewInputModel"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/StudentProfile"
+                "$ref": "#/components/schemas/ReviewInputModel"
               }
             }
           }
@@ -1834,6 +1836,61 @@
         "responses": {
           "200": {
             "description": "OK"
+          }
+        }
+      }
+    },
+    "/StudentProfile/CheckInfo/{studentId}": {
+      "get": {
+        "tags": [
+          "StudentProfile"
+        ],
+        "parameters": [
+          {
+            "name": "studentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/StudentProfile/ReviewList": {
+      "get": {
+        "tags": [
+          "StudentProfile"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": { }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { }
+                }
+              }
+            }
           }
         }
       }
@@ -2086,6 +2143,9 @@
       "ProfileInfoDTO": {
         "type": "object",
         "properties": {
+          "studentInfo": {
+            "$ref": "#/components/schemas/Student"
+          },
           "personalInfo": {
             "$ref": "#/components/schemas/PersonalInfo"
           },
@@ -2094,6 +2154,24 @@
           },
           "scholarshipInfo": {
             "$ref": "#/components/schemas/ScholarshipInfo"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ReviewInputModel": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "reviewerId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false

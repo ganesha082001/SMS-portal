@@ -69,9 +69,10 @@ namespace scholarship_portal_server.Controllers
         }
 
         // Get profile info by studentID
-        [HttpGet("profile/{studentId}")]
+        [HttpGet("fullprofile/{studentId}")]
         public async Task<ActionResult<ProfileInfoDTO>> GetProfileInfo(Guid studentId)
         {
+            var studentInfo = await _context.Students.FirstOrDefaultAsync(m => m.StudentId == studentId && !m.isDeleted);
             var personalInfo = await _context.PersonalInfo.FirstOrDefaultAsync(p => p.StudentId == studentId && !p.IsDeleted);
             var educationalInfo = await _context.EducationalInfo.FirstOrDefaultAsync(e => e.StudentId == studentId && !e.IsDeleted);
             var scholarshipInfo = await _context.ScholarshipsInfo.FirstOrDefaultAsync(s => s.StudentID == studentId && !s.IsDeleted);
@@ -83,6 +84,7 @@ namespace scholarship_portal_server.Controllers
 
             var profileInfo = new ProfileInfoDTO
             {
+                StudentInfo = studentInfo,
                 PersonalInfo = personalInfo,
                 EducationalInfo = educationalInfo,
                 ScholarshipInfo = scholarshipInfo

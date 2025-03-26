@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("scholarship_portal_server")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5129d319af6a72fab3c657d72db7755ccca60594")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9ff231a6876b85962a792a1d7824545df13b95e3")]
 [assembly: System.Reflection.AssemblyProductAttribute("scholarship_portal_server")]
 [assembly: System.Reflection.AssemblyTitleAttribute("scholarship_portal_server")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

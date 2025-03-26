@@ -12,9 +12,9 @@ namespace scholarship_portal_server.Models
         public Guid EducationalInfoId { get; set; }
         public Guid ScholarshipInfoId { get; set; }
         public Guid StudentId { get; set; }
-        public string ProfileStatus { get; set; }
-        public string ReviewerId { get; set; }
-        public string ReviewerComments { get; set; }
+        public string ProfileStatus { get; set; } // to be changed to INT
+        public string? ReviewerId { get; set; } // to be changed into GUID
+        public string? ReviewerComments { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
         public bool IsDeleted { get; set; } = false;

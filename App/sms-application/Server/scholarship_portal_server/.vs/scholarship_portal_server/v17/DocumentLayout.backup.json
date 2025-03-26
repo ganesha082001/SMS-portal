@@ -3,6 +3,46 @@
   "WorkspaceRootPath": "D:\\New folder\\V2\\SMS-portal\\App\\sms-application\\Server\\scholarship_portal_server\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{608B7481-9CDD-4FF3-A658-C9DFCC751A37}|scholarship_portal_server.csproj|d:\\new folder\\v2\\sms-portal\\app\\sms-application\\server\\scholarship_portal_server\\controllers\\studentprofilecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{608B7481-9CDD-4FF3-A658-C9DFCC751A37}|scholarship_portal_server.csproj|solutionrelative:controllers\\studentprofilecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{608B7481-9CDD-4FF3-A658-C9DFCC751A37}|scholarship_portal_server.csproj|d:\\new folder\\v2\\sms-portal\\app\\sms-application\\server\\scholarship_portal_server\\controllers\\personalinfocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{608B7481-9CDD-4FF3-A658-C9DFCC751A37}|scholarship_portal_server.csproj|solutionrelative:controllers\\personalinfocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{608B7481-9CDD-4FF3-A658-C9DFCC751A37}|scholarship_portal_server.csproj|d:\\new folder\\v2\\sms-portal\\app\\sms-application\\server\\scholarship_portal_server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{608B7481-9CDD-4FF3-A658-C9DFCC751A37}|scholarship_portal_server.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{608B7481-9CDD-4FF3-A658-C9DFCC751A37}|scholarship_portal_server.csproj|d:\\new folder\\v2\\sms-portal\\app\\sms-application\\server\\scholarship_portal_server\\models\\studentprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{608B7481-9CDD-4FF3-A658-C9DFCC751A37}|scholarship_portal_server.csproj|solutionrelative:models\\studentprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{608B7481-9CDD-4FF3-A658-C9DFCC751A37}|scholarship_portal_server.csproj|d:\\new folder\\v2\\sms-portal\\app\\sms-application\\server\\scholarship_portal_server\\dto\\profileinfodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{608B7481-9CDD-4FF3-A658-C9DFCC751A37}|scholarship_portal_server.csproj|solutionrelative:dto\\profileinfodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{608B7481-9CDD-4FF3-A658-C9DFCC751A37}|scholarship_portal_server.csproj|d:\\new folder\\v2\\sms-portal\\app\\sms-application\\server\\scholarship_portal_server\\models\\student.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{608B7481-9CDD-4FF3-A658-C9DFCC751A37}|scholarship_portal_server.csproj|solutionrelative:models\\student.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{608B7481-9CDD-4FF3-A658-C9DFCC751A37}|scholarship_portal_server.csproj|d:\\new folder\\v2\\sms-portal\\app\\sms-application\\server\\scholarship_portal_server\\models\\personalinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{608B7481-9CDD-4FF3-A658-C9DFCC751A37}|scholarship_portal_server.csproj|solutionrelative:models\\personalinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{608B7481-9CDD-4FF3-A658-C9DFCC751A37}|scholarship_portal_server.csproj|d:\\new folder\\v2\\sms-portal\\app\\sms-application\\server\\scholarship_portal_server\\models\\scholarshipinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{608B7481-9CDD-4FF3-A658-C9DFCC751A37}|scholarship_portal_server.csproj|solutionrelative:models\\scholarshipinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{608B7481-9CDD-4FF3-A658-C9DFCC751A37}|scholarship_portal_server.csproj|d:\\new folder\\v2\\sms-portal\\app\\sms-application\\server\\scholarship_portal_server\\controllers\\educationalinfocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{608B7481-9CDD-4FF3-A658-C9DFCC751A37}|scholarship_portal_server.csproj|solutionrelative:controllers\\educationalinfocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{608B7481-9CDD-4FF3-A658-C9DFCC751A37}|scholarship_portal_server.csproj|d:\\new folder\\v2\\sms-portal\\app\\sms-application\\server\\scholarship_portal_server\\controllers\\notificationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{608B7481-9CDD-4FF3-A658-C9DFCC751A37}|scholarship_portal_server.csproj|solutionrelative:controllers\\notificationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{608B7481-9CDD-4FF3-A658-C9DFCC751A37}|scholarship_portal_server.csproj|d:\\new folder\\v2\\sms-portal\\app\\sms-application\\server\\scholarship_portal_server\\data\\scholarshipportalcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{608B7481-9CDD-4FF3-A658-C9DFCC751A37}|scholarship_portal_server.csproj|solutionrelative:data\\scholarshipportalcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -19,24 +59,8 @@
       "RelativeMoniker": "D:0:0:{608B7481-9CDD-4FF3-A658-C9DFCC751A37}|scholarship_portal_server.csproj|solutionrelative:controllers\\scholarshipinfocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{608B7481-9CDD-4FF3-A658-C9DFCC751A37}|scholarship_portal_server.csproj|d:\\new folder\\v2\\sms-portal\\app\\sms-application\\server\\scholarship_portal_server\\models\\personalinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{608B7481-9CDD-4FF3-A658-C9DFCC751A37}|scholarship_portal_server.csproj|solutionrelative:models\\personalinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{608B7481-9CDD-4FF3-A658-C9DFCC751A37}|scholarship_portal_server.csproj|d:\\new folder\\v2\\sms-portal\\app\\sms-application\\server\\scholarship_portal_server\\models\\scholarshipinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{608B7481-9CDD-4FF3-A658-C9DFCC751A37}|scholarship_portal_server.csproj|solutionrelative:models\\scholarshipinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{608B7481-9CDD-4FF3-A658-C9DFCC751A37}|scholarship_portal_server.csproj|d:\\new folder\\v2\\sms-portal\\app\\sms-application\\server\\scholarship_portal_server\\models\\educationalinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{608B7481-9CDD-4FF3-A658-C9DFCC751A37}|scholarship_portal_server.csproj|solutionrelative:models\\educationalinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{608B7481-9CDD-4FF3-A658-C9DFCC751A37}|scholarship_portal_server.csproj|d:\\new folder\\v2\\sms-portal\\app\\sms-application\\server\\scholarship_portal_server\\controllers\\educationalinfocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{608B7481-9CDD-4FF3-A658-C9DFCC751A37}|scholarship_portal_server.csproj|solutionrelative:controllers\\educationalinfocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{608B7481-9CDD-4FF3-A658-C9DFCC751A37}|scholarship_portal_server.csproj|d:\\new folder\\v2\\sms-portal\\app\\sms-application\\server\\scholarship_portal_server\\controllers\\personalinfocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{608B7481-9CDD-4FF3-A658-C9DFCC751A37}|scholarship_portal_server.csproj|solutionrelative:controllers\\personalinfocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{608B7481-9CDD-4FF3-A658-C9DFCC751A37}|scholarship_portal_server.csproj|d:\\new folder\\v2\\sms-portal\\app\\sms-application\\server\\scholarship_portal_server\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
@@ -53,10 +77,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{608B7481-9CDD-4FF3-A658-C9DFCC751A37}|scholarship_portal_server.csproj|d:\\new folder\\v2\\sms-portal\\app\\sms-application\\server\\scholarship_portal_server\\scholarship_portal_server.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
       "RelativeMoniker": "D:0:0:{608B7481-9CDD-4FF3-A658-C9DFCC751A37}|scholarship_portal_server.csproj|solutionrelative:scholarship_portal_server.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{608B7481-9CDD-4FF3-A658-C9DFCC751A37}|scholarship_portal_server.csproj|d:\\new folder\\v2\\sms-portal\\app\\sms-application\\server\\scholarship_portal_server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{608B7481-9CDD-4FF3-A658-C9DFCC751A37}|scholarship_portal_server.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{608B7481-9CDD-4FF3-A658-C9DFCC751A37}|scholarship_portal_server.csproj|d:\\new folder\\v2\\sms-portal\\app\\sms-application\\server\\scholarship_portal_server\\models\\staff.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -79,10 +99,6 @@
       "RelativeMoniker": "D:0:0:{608B7481-9CDD-4FF3-A658-C9DFCC751A37}|scholarship_portal_server.csproj|solutionrelative:models\\dropdowngroup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{608B7481-9CDD-4FF3-A658-C9DFCC751A37}|scholarship_portal_server.csproj|d:\\new folder\\v2\\sms-portal\\app\\sms-application\\server\\scholarship_portal_server\\models\\student.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{608B7481-9CDD-4FF3-A658-C9DFCC751A37}|scholarship_portal_server.csproj|solutionrelative:models\\student.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{608B7481-9CDD-4FF3-A658-C9DFCC751A37}|scholarship_portal_server.csproj|d:\\new folder\\v2\\sms-portal\\app\\sms-application\\server\\scholarship_portal_server\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{608B7481-9CDD-4FF3-A658-C9DFCC751A37}|scholarship_portal_server.csproj|solutionrelative:controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
@@ -94,7 +110,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 361,
-          "SelectedChildIndex": 24,
+          "SelectedChildIndex": 9,
           "Children": [
             {
               "$type": "Bookmark",
@@ -130,7 +146,59 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
+              "Title": "ProfileInfoDTO.cs",
+              "DocumentMoniker": "D:\\New folder\\V2\\SMS-portal\\App\\sms-application\\Server\\scholarship_portal_server\\DTO\\ProfileInfoDTO.cs",
+              "RelativeDocumentMoniker": "DTO\\ProfileInfoDTO.cs",
+              "ToolTip": "D:\\New folder\\V2\\SMS-portal\\App\\sms-application\\Server\\scholarship_portal_server\\DTO\\ProfileInfoDTO.cs",
+              "RelativeToolTip": "DTO\\ProfileInfoDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-26T02:33:00.318Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "StudentProfileController.cs",
+              "DocumentMoniker": "D:\\New folder\\V2\\SMS-portal\\App\\sms-application\\Server\\scholarship_portal_server\\Controllers\\StudentProfileController.cs",
+              "RelativeDocumentMoniker": "Controllers\\StudentProfileController.cs",
+              "ToolTip": "D:\\New folder\\V2\\SMS-portal\\App\\sms-application\\Server\\scholarship_portal_server\\Controllers\\StudentProfileController.cs",
+              "RelativeToolTip": "Controllers\\StudentProfileController.cs",
+              "ViewState": "AgIAADQAAADgmZmZmdkwwE4AAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-25T23:35:12.734Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "StudentProfile.cs",
+              "DocumentMoniker": "D:\\New folder\\V2\\SMS-portal\\App\\sms-application\\Server\\scholarship_portal_server\\Models\\StudentProfile.cs",
+              "RelativeDocumentMoniker": "Models\\StudentProfile.cs",
+              "ToolTip": "D:\\New folder\\V2\\SMS-portal\\App\\sms-application\\Server\\scholarship_portal_server\\Models\\StudentProfile.cs",
+              "RelativeToolTip": "Models\\StudentProfile.cs",
+              "ViewState": "AgIAAAcAAACwmZmZmVklwBcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-25T23:33:36.613Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "NotificationController.cs",
+              "DocumentMoniker": "D:\\New folder\\V2\\SMS-portal\\App\\sms-application\\Server\\scholarship_portal_server\\Controllers\\NotificationController.cs",
+              "RelativeDocumentMoniker": "Controllers\\NotificationController.cs",
+              "ToolTip": "D:\\New folder\\V2\\SMS-portal\\App\\sms-application\\Server\\scholarship_portal_server\\Controllers\\NotificationController.cs",
+              "RelativeToolTip": "Controllers\\NotificationController.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAmwBwAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-25T13:29:20.445Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
               "Title": "StudentController.cs",
               "DocumentMoniker": "D:\\New folder\\V2\\SMS-portal\\App\\sms-application\\Server\\scholarship_portal_server\\Controllers\\StudentController.cs",
               "RelativeDocumentMoniker": "Controllers\\StudentController.cs",
@@ -138,24 +206,24 @@
               "RelativeToolTip": "Controllers\\StudentController.cs",
               "ViewState": "AgIAAHEAAAAAAAAAAAAIwIIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-17T19:02:01.179Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-17T19:02:01.179Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 1,
               "Title": "PersonalInfoController.cs",
               "DocumentMoniker": "D:\\New folder\\V2\\SMS-portal\\App\\sms-application\\Server\\scholarship_portal_server\\Controllers\\PersonalInfoController.cs",
               "RelativeDocumentMoniker": "Controllers\\PersonalInfoController.cs",
               "ToolTip": "D:\\New folder\\V2\\SMS-portal\\App\\sms-application\\Server\\scholarship_portal_server\\Controllers\\PersonalInfoController.cs",
               "RelativeToolTip": "Controllers\\PersonalInfoController.cs",
-              "ViewState": "AgIAAB8AAADAZmZmZiYowDsAAAARAAAAAAAAAA==",
+              "ViewState": "AgIAADoAAAAAAAAAAAAAwEoAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-20T15:22:45.458Z"
+              "WhenOpened": "2025-03-20T15:22:45.458Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 15,
               "Title": "appsettings.json",
               "DocumentMoniker": "D:\\New folder\\V2\\SMS-portal\\App\\sms-application\\Server\\scholarship_portal_server\\appsettings.json",
               "RelativeDocumentMoniker": "appsettings.json",
@@ -167,7 +235,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 17,
               "Title": "scholarship_portal_server.csproj",
               "DocumentMoniker": "D:\\New folder\\V2\\SMS-portal\\App\\sms-application\\Server\\scholarship_portal_server\\scholarship_portal_server.csproj",
               "RelativeDocumentMoniker": "scholarship_portal_server.csproj",
@@ -179,7 +247,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 16,
               "Title": "TokenService.cs",
               "DocumentMoniker": "D:\\New folder\\V2\\SMS-portal\\App\\sms-application\\Server\\scholarship_portal_server\\Services\\TokenService.cs",
               "RelativeDocumentMoniker": "Services\\TokenService.cs",
@@ -191,19 +259,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "EducationalInfoController.cs",
               "DocumentMoniker": "D:\\New folder\\V2\\SMS-portal\\App\\sms-application\\Server\\scholarship_portal_server\\Controllers\\EducationalInfoController.cs",
               "RelativeDocumentMoniker": "Controllers\\EducationalInfoController.cs",
               "ToolTip": "D:\\New folder\\V2\\SMS-portal\\App\\sms-application\\Server\\scholarship_portal_server\\Controllers\\EducationalInfoController.cs",
               "RelativeToolTip": "Controllers\\EducationalInfoController.cs",
-              "ViewState": "AgIAAEMAAAAAAAAAAAAAAFEAAAAFAAAAAAAAAA==",
+              "ViewState": "AgIAAAsAAAAAAAAAAAApwBsAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-20T16:53:08.576Z"
+              "WhenOpened": "2025-03-20T16:53:08.576Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 12,
               "Title": "ScholarshipController.cs",
               "DocumentMoniker": "D:\\New folder\\V2\\SMS-portal\\App\\sms-application\\Server\\scholarship_portal_server\\Controllers\\ScholarshipController.cs",
               "RelativeDocumentMoniker": "Controllers\\ScholarshipController.cs",
@@ -211,11 +280,12 @@
               "RelativeToolTip": "Controllers\\ScholarshipController.cs",
               "ViewState": "AgIAAHIAAAAANDMzM7MowJYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-17T04:45:37.841Z"
+              "WhenOpened": "2025-03-17T04:45:37.841Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 19,
               "Title": "Staff.cs",
               "DocumentMoniker": "D:\\New folder\\V2\\SMS-portal\\App\\sms-application\\Server\\scholarship_portal_server\\Models\\Staff.cs",
               "RelativeDocumentMoniker": "Models\\Staff.cs",
@@ -227,7 +297,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 13,
               "Title": "ScholarshipInfoController.cs",
               "DocumentMoniker": "D:\\New folder\\V2\\SMS-portal\\App\\sms-application\\Server\\scholarship_portal_server\\Controllers\\ScholarshipInfoController.cs",
               "RelativeDocumentMoniker": "Controllers\\ScholarshipInfoController.cs",
@@ -239,7 +309,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 18,
               "Title": "scholarship_portal_server.http",
               "DocumentMoniker": "D:\\New folder\\V2\\SMS-portal\\App\\sms-application\\Server\\scholarship_portal_server\\scholarship_portal_server.http",
               "RelativeDocumentMoniker": "scholarship_portal_server.http",
@@ -251,7 +321,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 14,
               "Title": "EducationalInfo.cs",
               "DocumentMoniker": "D:\\New folder\\V2\\SMS-portal\\App\\sms-application\\Server\\scholarship_portal_server\\Models\\EducationalInfo.cs",
               "RelativeDocumentMoniker": "Models\\EducationalInfo.cs",
@@ -263,19 +333,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 2,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\New folder\\V2\\SMS-portal\\App\\sms-application\\Server\\scholarship_portal_server\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "D:\\New folder\\V2\\SMS-portal\\App\\sms-application\\Server\\scholarship_portal_server\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAADcAAAAAAAAAAAAAADcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-20T17:14:49.903Z"
+              "WhenOpened": "2025-03-20T17:14:49.903Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 20,
               "Title": "Scholarship.cs",
               "DocumentMoniker": "D:\\New folder\\V2\\SMS-portal\\App\\sms-application\\Server\\scholarship_portal_server\\Models\\Scholarship.cs",
               "RelativeDocumentMoniker": "Models\\Scholarship.cs",
@@ -287,31 +358,33 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "PersonalInfo.cs",
               "DocumentMoniker": "D:\\New folder\\V2\\SMS-portal\\App\\sms-application\\Server\\scholarship_portal_server\\Models\\PersonalInfo.cs",
               "RelativeDocumentMoniker": "Models\\PersonalInfo.cs",
               "ToolTip": "D:\\New folder\\V2\\SMS-portal\\App\\sms-application\\Server\\scholarship_portal_server\\Models\\PersonalInfo.cs",
               "RelativeToolTip": "Models\\PersonalInfo.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAxwA8AAAA2AAAAAAAAAA==",
+              "ViewState": "AgIAAAgAAAA0MzMzMzMxwBcAAAAsAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-20T15:13:41.662Z"
+              "WhenOpened": "2025-03-20T15:13:41.662Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 7,
               "Title": "ScholarshipInfo.cs",
               "DocumentMoniker": "D:\\New folder\\V2\\SMS-portal\\App\\sms-application\\Server\\scholarship_portal_server\\Models\\ScholarshipInfo.cs",
               "RelativeDocumentMoniker": "Models\\ScholarshipInfo.cs",
               "ToolTip": "D:\\New folder\\V2\\SMS-portal\\App\\sms-application\\Server\\scholarship_portal_server\\Models\\ScholarshipInfo.cs",
               "RelativeToolTip": "Models\\ScholarshipInfo.cs",
-              "ViewState": "AgIAAAMAAABYAAAAAIAlwBcAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAgAAAAAAQAAAAAZwAoAAAA8AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-20T15:16:06.09Z"
+              "WhenOpened": "2025-03-20T15:16:06.09Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 21,
               "Title": "StaffsController.cs",
               "DocumentMoniker": "D:\\New folder\\V2\\SMS-portal\\App\\sms-application\\Server\\scholarship_portal_server\\Controllers\\StaffsController.cs",
               "RelativeDocumentMoniker": "Controllers\\StaffsController.cs",
@@ -323,20 +396,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 10,
               "Title": "ScholarshipPortalContext.cs",
               "DocumentMoniker": "D:\\New folder\\V2\\SMS-portal\\App\\sms-application\\Server\\scholarship_portal_server\\Data\\ScholarshipPortalContext.cs",
               "RelativeDocumentMoniker": "Data\\ScholarshipPortalContext.cs",
               "ToolTip": "D:\\New folder\\V2\\SMS-portal\\App\\sms-application\\Server\\scholarship_portal_server\\Data\\ScholarshipPortalContext.cs",
               "RelativeToolTip": "Data\\ScholarshipPortalContext.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAswBUAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAswBAAAABEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-07T13:48:14.895Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 22,
               "Title": "DropdownValue.cs",
               "DocumentMoniker": "D:\\New folder\\V2\\SMS-portal\\App\\sms-application\\Server\\scholarship_portal_server\\Models\\DropdownValue.cs",
               "RelativeDocumentMoniker": "Models\\DropdownValue.cs",
@@ -348,7 +421,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 23,
               "Title": "DropdownGroup.cs",
               "DocumentMoniker": "D:\\New folder\\V2\\SMS-portal\\App\\sms-application\\Server\\scholarship_portal_server\\Models\\DropdownGroup.cs",
               "RelativeDocumentMoniker": "Models\\DropdownGroup.cs",
@@ -360,19 +433,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 5,
               "Title": "Student.cs",
               "DocumentMoniker": "D:\\New folder\\V2\\SMS-portal\\App\\sms-application\\Server\\scholarship_portal_server\\Models\\Student.cs",
               "RelativeDocumentMoniker": "Models\\Student.cs",
               "ToolTip": "D:\\New folder\\V2\\SMS-portal\\App\\sms-application\\Server\\scholarship_portal_server\\Models\\Student.cs",
               "RelativeToolTip": "Models\\Student.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAArAAAAAAAAAA==",
+              "ViewState": "AgIAAAkAAACAZmZmZkY+wAsAAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-15T17:48:48.773Z"
+              "WhenOpened": "2025-03-15T17:48:48.773Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 24,
               "Title": "AuthController.cs",
               "DocumentMoniker": "D:\\New folder\\V2\\SMS-portal\\App\\sms-application\\Server\\scholarship_portal_server\\Controllers\\AuthController.cs",
               "RelativeDocumentMoniker": "Controllers\\AuthController.cs",

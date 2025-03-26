@@ -345,7 +345,7 @@
   {
     "ContainingType": "scholarship_portal_server.Controllers.PersonalInfoController",
     "Method": "GetProfileInfo",
-    "RelativePath": "Personal/PersonalInfo/profile/{studentId}",
+    "RelativePath": "Personal/PersonalInfo/fullprofile/{studentId}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -1035,23 +1035,59 @@
   },
   {
     "ContainingType": "scholarship_portal_server.Controllers.StudentProfileController",
+    "Method": "CheckInfo",
+    "RelativePath": "StudentProfile/CheckInfo/{studentId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "studentId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "scholarship_portal_server.Controllers.StudentProfileController",
     "Method": "PutStudentProfile",
-    "RelativePath": "StudentProfile/{id}",
+    "RelativePath": "StudentProfile/review/{studentId}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "id",
+        "Name": "studentId",
         "Type": "System.Guid",
         "IsRequired": true
       },
       {
-        "Name": "studentProfile",
-        "Type": "scholarship_portal_server.Models.StudentProfile",
+        "Name": "input",
+        "Type": "scholarship_portal_server.Controllers.StudentProfileController\u002BReviewInputModel",
         "IsRequired": true
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "scholarship_portal_server.Controllers.StudentProfileController",
+    "Method": "GetReviewList",
+    "RelativePath": "StudentProfile/ReviewList",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   }
 ]
