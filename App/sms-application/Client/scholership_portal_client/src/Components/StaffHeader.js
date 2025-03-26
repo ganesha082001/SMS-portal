@@ -66,7 +66,7 @@ const StaffHeader = () => {
                 <Nav.Link href="/staff/home">Home</Nav.Link>
                 {( privilage === 2 ) ? <Nav.Link href="/staff/stafflist">Manage Staffs</Nav.Link> : null}
                 <Nav.Link href="/staff/Scholarshiplist">Manage Scholarships</Nav.Link>
-                <Nav.Link href="/ProfileUpdateForm">Check Status</Nav.Link>
+                <Nav.Link href="/staff/review">Review Applications</Nav.Link>
               </Nav>
               <Nav className="ms-auto">
                 <IconButton color="inherit">

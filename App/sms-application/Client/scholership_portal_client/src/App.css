@@ -127,3 +127,13 @@
     display: none;
   }
 }
+
+/* Hide scroll bar but allow scrolling */
+.hidden-scrollbar {
+  overflow-y: auto;
+  scrollbar-width: none; /* For Firefox */
+}
+
+.hidden-scrollbar::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari, and Edge */
+}

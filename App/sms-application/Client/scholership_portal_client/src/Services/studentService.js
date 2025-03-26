@@ -231,6 +231,75 @@ class StudentService {
         }
         return await response.json();
     }
+
+    static async createEducationalInfo(personalInfo) {
+        this.checkAuth();
+        const token = await this.gettoken();
+        const response = await fetch(`${baseURL}/Education/EducationalInfo`, {
+            method: 'POST',
+            headers: {
+                'accept': 'text/plain',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(personalInfo),
+        });
+        if (!response.ok) {
+            throw new Error('Failed to save personal info');
+        }
+        return await response.json();
+    }
+
+    // function to check student profile information
+    static async canShowAcknowledge(studentId) {
+        this.checkAuth();
+        const token = await this.gettoken();
+        const response = await fetch(`${baseURL}/StudentProfile/CheckInfo/${studentId}`, {
+            headers: {
+                'accept': '*/*',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        if (!response.ok) {
+            throw new Error('Failed to check student profile information');
+        }
+        return await response.json();
+    }
+
+    // function to submit the student's profile for review
+    static async submitProfileForReview(ProfileData) {
+        this.checkAuth();
+        const token = await this.gettoken();
+        const response = await fetch(`${baseURL}/StudentProfile`, {
+            method: 'POST',
+            headers: {
+                'accept': 'text/plain',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                personalInfoId: ProfileData.personalInfoId,
+                educationalInfoId: ProfileData.educationalInfoId,
+                scholarshipInfoId: ProfileData.scholarshipInfoId,
+                studentId: ProfileData.studentId,
+                profileStatus: ProfileData.profileStatus || "Under Review",
+                reviewerId: ProfileData.reviewerId || "",
+                reviewerComments: ProfileData.reviewerComments || "",
+                createdAt: ProfileData.createdAt || new Date().toISOString(),
+                updatedAt: ProfileData.updatedAt || new Date().toISOString(),
+                isDeleted: ProfileData.isDeleted || false
+            }),
+        });
+        if (!response.ok) {
+            throw new Error('Failed to submit profile for review');
+        }
+        return await response.json();
+    }
+
+    
+
+
+    
 }
 
 export default StudentService;

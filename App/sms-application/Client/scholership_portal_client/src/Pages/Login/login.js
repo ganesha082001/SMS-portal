@@ -550,7 +550,7 @@ const Login = () => {
                     color: '#333',
                     border: captchaError ? '1px solid #f44336' : '1px solid #e0e0e0',
                     position: 'relative',
-                    width: isTablet ? '50%' : '40%',
+                    width: isTablet ? '60%' : '50%',
                     height: '45px',
                     justifyContent: 'center'
                   }}>

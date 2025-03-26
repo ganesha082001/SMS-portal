@@ -85,7 +85,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Chart from 'chart.js/auto';
 import { Container } from 'react-bootstrap';
 import NotificationManagement from '../Pages/Admin/NotificationManage';
-
+import StudentProfileTable from '../Pages/Admin/ProfileValidate/ProfileValidateList'
 // Example data
 const scholarshipApplications = [
   { id: 1, student: 'Priya Sharma', course: 'BSc Computer Science', type: 'Merit-based', amount: '₹25,000', gpa: '9.3', date: '2025-03-06', status: 'Pending', avatar: '/api/placeholder/40/40' },
@@ -393,7 +393,7 @@ const StaffDashboardComponent = () => {
                     Pending Applications
                   </Typography>
                   <Typography variant="h4" component="div" fontWeight="bold" sx={{ mt: 0.5 }}>
-                    138
+                    0
                   </Typography>
                 </Box>
                 <Avatar sx={{ bgcolor: 'rgba(164, 20, 33, 0.1)', color: '#a41421' }}>
@@ -430,7 +430,7 @@ const StaffDashboardComponent = () => {
                     Active Scholarships
                   </Typography>
                   <Typography variant="h4" component="div" fontWeight="bold" sx={{ mt: 0.5 }}>
-                    {programs.length}
+                    0
                   </Typography>
                 </Box>
                 <Avatar sx={{ bgcolor: 'rgba(33, 150, 243, 0.1)', color: '#2196f3' }}>
@@ -464,10 +464,10 @@ const StaffDashboardComponent = () => {
               <Box sx={{ mb: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                 <Box>
                   <Typography color="text.secondary" fontSize={14} fontWeight="500">
-                    Approved This Week
+                    Approved Applications
                   </Typography>
                   <Typography variant="h4" component="div" fontWeight="bold" sx={{ mt: 0.5 }}>
-                    42
+                    0
                   </Typography>
                 </Box>
                 <Avatar sx={{ bgcolor: 'rgba(76, 175, 80, 0.1)', color: '#4caf50' }}>
@@ -525,7 +525,7 @@ const StaffDashboardComponent = () => {
       </Grid>
 
       {/* Charts Section */}
-      <Grid container spacing={3} sx={{ mb: 4 }}>
+      {/* <Grid container spacing={3} sx={{ mb: 4 }}>
         <Grid item xs={12} md={8}>
           <Card 
             sx={{ 
@@ -627,7 +627,7 @@ const StaffDashboardComponent = () => {
             </CardContent>
           </Card>
         </Grid>
-      </Grid>
+      </Grid> */}
 
       {/* Latest Applications and Upcoming Events */}
       {/* <Grid container spacing={3}>
@@ -793,102 +793,7 @@ const StaffDashboardComponent = () => {
 
   const renderApplicationsTab = () => (
     <>
-      <Box sx={{ mb: 3, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Typography variant="h6" component="h2" fontWeight="bold">
-          Scholarship Applications
-        </Typography>
-        {/* <Button 
-          variant="contained" 
-          color="primary" 
-          startIcon={<FilterIcon />} 
-          onClick={handleFilterClick}
-        >
-          Filter
-        </Button> */}
-      </Box>
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} size="medium">
-          <TableHead>
-            <TableRow>
-              <TableCell sx={{ fontWeight: 'bold' }}>Student</TableCell>
-              <TableCell sx={{ fontWeight: 'bold' }}>Course</TableCell>
-              <TableCell sx={{ fontWeight: 'bold' }}>Type</TableCell>
-              {/* <TableCell sx={{ fontWeight: 'bold' }}>Amount</TableCell> */}
-              <TableCell sx={{ fontWeight: 'bold' }}>Status</TableCell>
-              <TableCell sx={{ fontWeight: 'bold' }} align="right">Actions</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {filteredApplications.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((app) => (
-              <TableRow key={app.id}>
-                <TableCell>
-                  <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                    <Avatar src={app.avatar} sx={{ mr: 2, width: 30, height: 30 }} />
-                    <Typography variant="body2">{app.student}</Typography>
-                  </Box>
-                </TableCell>
-                <TableCell>{app.course}</TableCell>
-                <TableCell>{app.type}</TableCell>
-                {/* <TableCell>{app.amount}</TableCell> */}
-                <TableCell>
-                  <Chip 
-                    label={app.status} 
-                    size="small"
-                    sx={{ 
-                      backgroundColor: getStatusColor(app.status).bg,
-                      color: getStatusColor(app.status).color,
-                      fontWeight: 'medium',
-                      borderRadius: 1
-                    }} 
-                  />
-                </TableCell>
-                <TableCell align="right">
-                  <Tooltip title="View Details">
-                    <IconButton 
-                      size="small" 
-                      sx={{ mr: 1 }}
-                      onClick={() => handleViewDetails(app)}
-                    >
-                      <InfoIcon fontSize="small" />
-                    </IconButton>
-                  </Tooltip>
-                  {app.status === 'Pending' && (
-                    <>
-                      <Tooltip title="Approve">
-                        <IconButton 
-                          size="small" 
-                          sx={{ color: '#4caf50', mr: 1 }}
-                          onClick={() => handleApprove(app.id)}
-                        >
-                          <CheckCircleIcon fontSize="small" />
-                        </IconButton>
-                      </Tooltip>
-                      <Tooltip title="Reject">
-                        <IconButton 
-                          size="small" 
-                          sx={{ color: '#f44336' }}
-                          onClick={() => handleReject(app.id)}
-                        >
-                          <CancelIcon fontSize="small" />
-                        </IconButton>
-                      </Tooltip>
-                    </>
-                  )}
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[5, 10, 25]}
-        component="div"
-        count={filteredApplications.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
+      <StudentProfileTable/> 
     </>
   );
 
@@ -978,14 +883,19 @@ const StaffDashboardComponent = () => {
         </Typography>
       </Box>
       <List>
-        {upcomingEvents.map((event) => (
+        {/* {upcomingEvents.map((event) => (
           <ListItem key={event.id} disableGutters>
             <ListItemText 
               primary={event.title}
               secondary={`${event.date} | ${event.time} | ${event.location}`}
             />
           </ListItem>
-        ))}
+        ))} */}
+        <ListItem disableGutters>
+            <ListItemText 
+              primary={"No Events scheduled"}
+            />
+          </ListItem>
       </List>
     </>
   );

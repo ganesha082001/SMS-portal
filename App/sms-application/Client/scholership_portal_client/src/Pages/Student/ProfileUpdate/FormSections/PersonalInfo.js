@@ -216,6 +216,11 @@ const StudentInformationForm = () => {
     isDonePartTime: 'false',
     partTimeProofFilePath: '',
     incomeCertificateIssuedDate: '',
+    bankName:'',
+    accountHolderName:'',
+    accountNumber:'',
+    ifscCode:'',
+    dob:'',
   };
 
   const [formData, setFormData] = useState(defaultFormState);
@@ -589,7 +594,7 @@ const StudentInformationForm = () => {
           <input type="hidden" name="studentId" value={formData.studentId} />
           <input type="hidden" name="personalId" value={formData.personalId} />
           
-          <Grid item xs={12} md={12}>
+          <Grid item xs={12} md={6}>
             <FormControl fullWidth margin="normal">
               <InputLabel>Community</InputLabel>
               <Select
@@ -600,15 +605,25 @@ const StudentInformationForm = () => {
                 required
               >
                 <MenuItem value="">Select One</MenuItem>
-                <MenuItem value="BC">BC</MenuItem>
-                <MenuItem value="MBC">MBC</MenuItem>
-                <MenuItem value="SC">SC</MenuItem>
-                <MenuItem value="ST">ST</MenuItem>
-                <MenuItem value="General">General</MenuItem>
+                <MenuItem value="BC/BCM">BC/BCM</MenuItem>
+                <MenuItem value="MBC/BNC">MBC/BNC</MenuItem>
+                <MenuItem value="SC/ST/SCA">SC/ST/SCA</MenuItem>
+                <MenuItem value="OC">OC</MenuItem>
               </Select>
             </FormControl>
           </Grid>
-          
+          <Grid item xs={12} md={6} >
+          <TextField
+                  fullWidth
+                  label="Date of Birth"
+                  type="date"
+                  value={formData.dob ? formData.dob.split('T')[0] : ''}
+                  onChange={handleChange('dob')}
+                  margin="normal"
+                  InputLabelProps={{ shrink: true }}
+                  required
+                />
+          </Grid>
           <Grid item xs={12} md={6}>
             <TextField
               fullWidth
@@ -735,6 +750,61 @@ const StudentInformationForm = () => {
                 disabled={false}
               />
             )}
+          </Grid>
+          {/* Bank Details Section */}
+          <Grid item xs={12}>
+            <Typography variant="h6" component="h2" sx={{ mt: 2, mb: 2, borderBottom: '1px solid #eee', pb: 1 }}>
+              Bank Details
+            </Typography>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <TextField
+              fullWidth
+              label="Bank Name"
+              value={formData.bankName}
+              onChange={handleChange('bankName')}
+              margin="normal"
+              required
+              error={!!errors.bankName}
+              helperText={errors.bankName || "Bank Name is mandatory"}
+            />
+          </Grid>
+          
+          <Grid item xs={12} md={6}>
+            <TextField
+              fullWidth
+              label="Account Holder Name"
+              value={formData.accountHolderName}
+              onChange={handleChange('accountHolderName')}
+              margin="normal"
+              required
+              error={!!errors.accountHolderName}
+              helperText={errors.accountHolderName || "Account Holder Name is mandatory"}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <TextField
+              fullWidth
+              label="Account Number"
+              value={formData.accountNumber}
+              onChange={handleChange('accountNumber')}
+              margin="normal"
+              required
+              error={!!errors.accountNumber}
+              helperText={errors.accountNumber || "Account Number is mandatory"}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <TextField
+              fullWidth
+              label="IFSC Code"
+              value={formData.ifscCode}
+              onChange={handleChange('ifscCode')}
+              margin="normal"
+              required
+              error={!!errors.ifscCode}
+              helperText={errors.ifscCode || "IFSC Code is mandatory"}
+            />
           </Grid>
           
           {/* Submit Button */}

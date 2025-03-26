@@ -13,7 +13,7 @@ class StaffService {
 
     static checkAuth() {
         const responseCode = SessionStorageUtil.getParticularData('responseCode');
-        if ( !responseCode || !responseCode === "allowed" ) {
+        if (!responseCode || !responseCode === "allowed") {
             alert('Login expired. Please login again.');
             SessionStorageUtil.clearAppData();
             window.location.href = '/';
@@ -310,6 +310,59 @@ class StaffService {
             throw new Error('Failed to update notification');
         }
         return await response.json();
+    }
+
+    // function to fetch the list of student profiles for review
+    static async getReviewList() {
+        this.checkAuth();
+        const token = await this.gettoken();
+        const response = await fetch(`${baseURL}/StudentProfile/ReviewList`, {
+            headers: {
+                'accept': 'text/plain',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        if (!response.ok) {
+            throw new Error('Failed to fetch review list');
+        }
+        return await response.json();
+    }
+
+    // function to get the student profile for review
+    static async getFullProfile(studentId) {
+        this.checkAuth();
+        const token = await this.gettoken();
+        const response = await fetch(`${baseURL}/Personal/PersonalInfo/fullprofile/${studentId}`, {
+            headers: {
+                'accept': 'text/plain',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        if (!response.ok) {
+            throw new Error('Failed to fetch full profile');
+        }
+        return await response.json();
+    }
+
+    // function to review a student profile
+    static async reviewStudentProfile(studentId, reviewData) {
+        let operationstatus = false;
+        this.checkAuth();
+        const token = await this.gettoken();
+        const response = await fetch(`${baseURL}/StudentProfile/review/${studentId}`, {
+            method: 'PUT',
+            headers: {
+                'accept': '*/*',
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(reviewData)
+        });
+        if (!response.ok) {
+            operationstatus = false
+        }
+        operationstatus = true;
+        return operationstatus;
     }
 }
 

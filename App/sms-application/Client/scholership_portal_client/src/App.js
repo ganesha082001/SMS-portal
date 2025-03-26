@@ -13,27 +13,27 @@ import StaffManagement from './Pages/Admin/staffsList';
 import ScholarshipList from './Pages/Admin/ScholarshipListing';
 import ProfileUpdateFormNew from './Pages/Student/ProfileUpdate/ProfileUpdateForm';
 import NotificationManagement from './Pages/Admin/NotificationManage';
+import StudentProfileTable from './Pages/Admin/ProfileValidate/ProfileValidateList';
 function App() {
   return (
     <Router>
       <div className="App">
         <Routes>
           {/* For students */}
-          <Route path="*" element={ <DevelopmentPage/>} />
+          <Route path="*" element={<DevelopmentPage />} />
           <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/student/home" element={<StudentHomepage />} />
-          <Route path="/student/profileold" element={<ProfileUpdateForm/>} />
-          <Route path="/student/profile" element={<ProfileUpdateFormNew/>} />
-          <Route path="/student/scholarshiplist" element={<ScholarshipLayout/>} />
+          <Route path="/student/profileold" element={<ProfileUpdateForm />} />
+          <Route path="/student/profile" element={<ProfileUpdateFormNew />} />
+          <Route path="/student/scholarshiplist" element={<ScholarshipLayout />} />
 
           {/* For staffs */}
           <Route path="/staff/home" element={<StaffHomepge />} />
-          <Route path="/staff/scholarshiplist" element={<ScholarshipList/>} />
+          <Route path="/staff/scholarshiplist" element={<ScholarshipList />} />
           <Route path="/staff/stafflist" element={<StaffManagement />} />
           <Route path="/staff/notifications" element={<NotificationManagement />} />
-          
-
+          <Route path="/staff/review/:id" element={<StudentProfileTable />} />
         </Routes>
       </div>
     </Router>

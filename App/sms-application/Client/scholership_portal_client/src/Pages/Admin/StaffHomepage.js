@@ -3,6 +3,7 @@ import StaffHeader from '../../Components/StaffHeader';
 import StaffDashboardComponent from '../../Components/StaffDashboardComponent';
 import StaffService from '../../Services/staffService'; 
 import { Container } from '@mui/material';
+import Footer from '../Student/Components/Footer'; // Adjust the path as needed
 
 const StaffHomepage = () => {
     const [privilage, setPrivilage] = useState([]);
@@ -28,6 +29,8 @@ const StaffHomepage = () => {
  
       <StaffHeader />
       <StaffDashboardComponent />
+      < Footer/>
+
     </div>
   );
 };

@@ -16,6 +16,8 @@ import {
   Snackbar,
   Alert,
   IconButton,
+  Select,
+  MenuItem,
   InputLabel
 } from '@mui/material';
 import { CloudUpload, Visibility, Delete, Refresh } from '@mui/icons-material';
@@ -215,6 +217,12 @@ const ScholarshipInfoForm = () => {
     scholarshipName: '',
     scholarshipAmountReceived: '',
     siblingsDetails: '',
+    isSingleParentChild: 'false',
+    raisedBy: '',
+    parentName: '',
+    parentOccupation: '',
+    annualIncome: '',
+    parentDeathCertificateFilePath: ''
   };
 
   const [formData, setFormData] = useState(defaultFormState);
@@ -381,7 +389,9 @@ const ScholarshipInfoForm = () => {
         isParentDivorced: formData.isParentDivorced === 'true',
         isParentPhysicallyDisabled: formData.isParentPhysicallyDisabled === 'true',
         isReceivedAnyScholarship: formData.isReceivedAnyScholarship === 'true',
-        scholarshipAmountReceived: formData.scholarshipAmountReceived ? parseInt(formData.scholarshipAmountReceived, 10) : 0,
+        isSingleParentChild: formData.isSingleParentChild === 'true',
+        scholarshipAmountReceived: formData.scholarshipAmountReceived ? parseFloat(formData.scholarshipAmountReceived) : 0.0,
+        annualIncome: formData.annualIncome ? parseFloat(formData.annualIncome) : 0.0,
         createdAt: formData.createdAt || new Date().toISOString(),
         updatedAt: new Date().toISOString(),
         isDeleted: false
@@ -392,6 +402,7 @@ const ScholarshipInfoForm = () => {
         // Update existing scholarship information
         response = await StudentService.updateScholarshipInfo(submissionData);
       } else {
+        delete submissionData.scholarshipInfoID;
         // Create new scholarship information
         response = await StudentService.createScholarshipInfo(submissionData);
       }
@@ -591,6 +602,86 @@ const ScholarshipInfoForm = () => {
                   required
                   error={!!errors.scholarshipAmountReceived}
                   helperText={errors.scholarshipAmountReceived || "Enter amount in rupees"}
+                  InputProps={{
+                    startAdornment: '₹',
+                  }}
+                />
+              </Grid>
+            </>
+          )}
+           <Grid item xs={12} md={4}>
+            <FormControl component="fieldset" sx={{ mb: 2 }}>
+              <FormLabel component="legend">Is Single Parent child?</FormLabel>
+              <RadioGroup
+                row
+                name="isSingleParentChild"
+                value={formData.isSingleParentChild}
+                onChange={handleChange('isSingleParentChild')}
+              >
+                <FormControlLabel value="true" control={<Radio />} label="Yes" />
+                <FormControlLabel value="false" control={<Radio />} label="No" />
+              </RadioGroup>
+            </FormControl>
+          </Grid>
+          
+          {formData.isSingleParentChild === 'true' && (
+            <>
+            <Grid item xs={12} md={6}>
+            <FormControl fullWidth margin="normal">
+              <InputLabel>Raised By</InputLabel>
+              <Select
+                name="raisedBy"
+                value={formData.raisedBy}
+                onChange={handleChange('raisedBy')}
+                label="Raised By"
+              >
+                <MenuItem value="">Select One</MenuItem>
+                <MenuItem value="Father">Father</MenuItem>
+                <MenuItem value="Mother">Mother</MenuItem>
+                <MenuItem value="Gaurdian">Gaurdian</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+              <Grid item xs={12} md={6}>
+                <TextField
+                  fullWidth
+                  label="Parent Name"
+                  value={formData.parentName || ''}
+                  onChange={handleChange('parentName')}
+                  margin="normal"
+                  required
+                  error={!!errors.parentName}
+                  helperText={errors.parentName}
+                />
+              </Grid>
+              
+              <Grid item xs={12} md={6}>
+            <FormControl fullWidth margin="normal">
+              <InputLabel>Parent Occupation</InputLabel>
+              <Select
+                name="parentOccupation"
+                value={formData.parentOccupation}
+                onChange={handleChange('parentOccupation')}
+                label="Parent Occupation"
+              >
+                <MenuItem value="">Select One</MenuItem>
+                <MenuItem value="Governmentjob">Government Job</MenuItem>
+                <MenuItem value="Privatejob">Private Job</MenuItem>
+                <MenuItem value="ExService">Government ExService</MenuItem>
+                <MenuItem value="Other">Other</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+                
+              <Grid item xs={12} md={6}>
+                <TextField
+                  fullWidth
+                  label="Annual Income"
+                  value={formData.annualIncome || ''}
+                  onChange={handleChange('annualIncome')}
+                  margin="normal"
+                  error={!!errors.annualIncome}
+                  helperText={errors.annualIncome || "Enter amount in rupees"}
                   InputProps={{
                     startAdornment: '₹',
                   }}
