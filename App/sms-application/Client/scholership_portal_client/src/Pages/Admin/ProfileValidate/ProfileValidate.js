@@ -212,7 +212,7 @@ const StudentInfoReview = ({ studentId }) => {
                             {studentInfo.studentName || 'Student Name Not Available'}
                         </Typography>
                         <Chip 
-                            label={`Student ID: ${studentInfo.studentId || 'N/A'}`} 
+                            label={`Student ID: ${studentInfo.studentRollnumber || 'N/A'}`} 
                             color="primary" 
                             variant="outlined" 
                             sx={{ mt: 1 }}
@@ -239,11 +239,11 @@ const StudentInfoReview = ({ studentId }) => {
                                 value={studentInfo.studentName}
                                 icon={<PersonIcon />}
                             />
-                            <InfoRow 
+                            {/* <InfoRow 
                                 label="Student ID" 
                                 value={studentInfo.studentId}
                                 icon={<BadgeIcon />}
-                            />
+                            /> */}
                             <InfoRow 
                                 label="Email" 
                                 value={studentInfo.studentEmail}
@@ -287,17 +287,65 @@ const StudentInfoReview = ({ studentId }) => {
                                 icon={<BadgeIcon />}
                                 color={green[500]}
                             />
+                             <InfoRow 
+                                label="Aadhar Linked Mobile Number" 
+                                value={personalInfo.aadharMobileNumber}
+                                icon={<BadgeIcon />}
+                                color={green[500]}
+                            />
                             <InfoRow 
                                 label="Date of Birth" 
                                 value={personalInfo.dob ? new Date(personalInfo.dob).toLocaleDateString() : null}
                                 icon={<PersonIcon />}
                                 color={green[500]}
                             />
+                             <InfoRow 
+                                label="Community Certificate" 
+                                value={personalInfo.hasCommunityCertificate ? 'Available' : 'Not Available'}
+                                icon={<WarningIcon />}
+                                color={personalInfo.hasCommunityCertificate ? green[500] : orange[500]}
+                            />
                             <InfoRow 
                                 label="Income Certificate" 
                                 value={personalInfo.hasIncomeCertificate ? 'Available' : 'Not Available'}
                                 icon={<WarningIcon />}
                                 color={personalInfo.hasIncomeCertificate ? green[500] : orange[500]}
+                            />
+                            <InfoRow 
+                                label="Income Certificate issued date" 
+                                value={personalInfo.incomeCertificateIssuedDate ? new Date(personalInfo.dob).toLocaleDateString() : null}
+                                icon={<PersonIcon />}
+                                color={green[500]}
+                            />
+                            <InfoRow 
+                                label="Part Time proof" 
+                                value={personalInfo.isDonePartTime ? 'Available' : 'Not Available'}
+                                icon={<WarningIcon />}
+                                color={personalInfo.isDonePartTime ? green[500] : orange[500]}
+                            />
+                             <InfoRow 
+                                label="Bank Name" 
+                                value={personalInfo.bankName}
+                                icon={<BadgeIcon />}
+                                color={green[500]}
+                            />
+                             <InfoRow 
+                                label="Account Holder Name" 
+                                value={personalInfo.accountHolderName}
+                                icon={<BadgeIcon />}
+                                color={green[500]}
+                            />
+                            <InfoRow 
+                                label="Account Number" 
+                                value={personalInfo.accountNumber}
+                                icon={<BadgeIcon />}
+                                color={green[500]}
+                            />
+                            <InfoRow 
+                                label="IFSC Code" 
+                                value={personalInfo.ifscCode}
+                                icon={<BadgeIcon />}
+                                color={green[500]}
                             />
                         </Box>
                     </AccordionDetails>
@@ -328,8 +376,20 @@ const StudentInfoReview = ({ studentId }) => {
                                 color={orange[500]}
                             />
                             <InfoRow 
+                                label="Start Year" 
+                                value={educationalInfo.startYear}
+                                icon={<BadgeIcon />}
+                                color={orange[500]}
+                            />
+                            <InfoRow 
                                 label="Batch" 
                                 value={educationalInfo.batch}
+                                icon={<BadgeIcon />}
+                                color={orange[500]}
+                            />
+                            <InfoRow 
+                                label="Shift" 
+                                value={educationalInfo.shift}
                                 icon={<BadgeIcon />}
                                 color={orange[500]}
                             />
@@ -357,6 +417,24 @@ const StudentInfoReview = ({ studentId }) => {
                                 icon={<WarningIcon />}
                                 color={educationalInfo.isFirstGraduate ? green[500] : orange[500]}
                             />
+                            <InfoRow 
+                                label="UMIS Number" 
+                                value={educationalInfo.umiStudentNumber}
+                                icon={<BadgeIcon />}
+                                color={orange[500]}
+                            />
+                            <InfoRow 
+                                label="School Type" 
+                                value={educationalInfo.schoolType}
+                                icon={<BadgeIcon />}
+                                color={orange[500]}
+                            />
+                            <InfoRow 
+                                label="Hosteler" 
+                                value={educationalInfo.isHosteler == true? 'Yes' : 'No'}
+                                icon={<BadgeIcon />}
+                                color={orange[500]}
+                            />
                         </Box>
                     </AccordionDetails>
                 </Accordion>
@@ -373,6 +451,30 @@ const StudentInfoReview = ({ studentId }) => {
                     </AccordionSummary>
                     <AccordionDetails>
                         <Box>
+                            <InfoRow 
+                                label="Is Parent Divorced" 
+                                value={scholarshipInfo.isParentDivorced ? 'Yes' : 'No'}
+                                icon={<BadgeIcon />}
+                                color={red[500]}
+                            />
+                            <InfoRow 
+                                label="Is Parent Physically Disabled" 
+                                value={scholarshipInfo.isParentPhysicallyDisabled ? 'Yes' : 'No'}
+                                icon={<BadgeIcon />}
+                                color={red[500]}
+                            />
+                            <InfoRow 
+                                        label="Sibling Details" 
+                                        value={scholarshipInfo.siblingsDetails}
+                                        icon={<BadgeIcon />}
+                                        color={red[500]}
+                                    />
+                            <InfoRow 
+                                label="Is Parent Divorced" 
+                                value={scholarshipInfo.isParentDivorced ? 'Yes' : 'No'}
+                                icon={<BadgeIcon />}
+                                color={red[500]}
+                            />  
                             <InfoRow 
                                 label="Scholarship Received" 
                                 value={scholarshipInfo.isReceivedAnyScholarship ? 'Yes' : 'No'}
@@ -401,6 +503,30 @@ const StudentInfoReview = ({ studentId }) => {
                                 icon={<WarningIcon />}
                                 color={scholarshipInfo.isSingleParentChild ? green[500] : orange[500]}
                             />
+                             <InfoRow 
+                                        label="Raised by" 
+                                        value={scholarshipInfo.raisedBy}
+                                        icon={<BadgeIcon />}
+                                        color={red[500]}
+                                    />
+                                     <InfoRow 
+                                        label="Parent Name" 
+                                        value={scholarshipInfo.parentName}
+                                        icon={<BadgeIcon />}
+                                        color={red[500]}
+                                    />
+                                     <InfoRow 
+                                        label="Parent Occupation" 
+                                        value={scholarshipInfo.parentOccupation}
+                                        icon={<BadgeIcon />}
+                                        color={red[500]}
+                                    />
+                                     <InfoRow 
+                                        label="Annual Income" 
+                                        value={scholarshipInfo.annualIncome}
+                                        icon={<BadgeIcon />}
+                                        color={red[500]}
+                                    />
                         </Box>
                     </AccordionDetails>
                 </Accordion>

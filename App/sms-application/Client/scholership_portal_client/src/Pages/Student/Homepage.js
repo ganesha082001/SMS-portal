@@ -61,7 +61,7 @@ import './style.css';
 import StudentHeader from '../../Components/StudentHeader';
 import ProfileUpdateFormNew from '../Student/ProfileUpdate/ProfileUpdateForm';
 import Footer from './Components/Footer';
-
+import staffService from '../../Services/staffService';
 // Enhanced theme with more design considerations
 const theme = createTheme({
   palette: {
@@ -141,7 +141,7 @@ function StudentHomepage() {
   // New state for profile update dialog
   const [openProfileDialog, setOpenProfileDialog] = useState(false);
   const [profileNeedsUpdate, setProfileNeedsUpdate] = useState(false);
-
+ const [notifications, setNotifications] = useState([]);
   useEffect(() => {
     const fetchStudentData = async () => {
       try {
@@ -164,8 +164,16 @@ function StudentHomepage() {
     };
 
     fetchStudentData();
+    fetchNotifications();
   }, []);
-
+  const fetchNotifications = async () => {
+    try {
+        const response = await staffService.getNotifications();
+        setNotifications(response);
+    } catch (error) {
+        console.error('Failed to fetch notifications', error);
+    }
+};
   // Function to check if profile needs update
   const checkProfileUpdateStatus = async (studentId) => {
     try {
@@ -345,7 +353,7 @@ function StudentHomepage() {
               </Typography>
               <Divider sx={{ mb: 2 }} />
               <ScholarshipLayout/>
-              <ScholarshipList enhanced={true} />
+              {/* <ScholarshipList enhanced={true} /> */}
             </Paper>
           </Fade>
         );
