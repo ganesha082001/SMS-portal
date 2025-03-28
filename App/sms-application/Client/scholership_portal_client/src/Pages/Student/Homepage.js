@@ -266,9 +266,9 @@ function StudentHomepage() {
         </ListItem>
         <ListItem button selected={tabValue === 3} onClick={() => setTabValue(3)}>
           <ListItemIcon>
-            <Badge badgeContent={notificationCount} color="error">
+            {/* <Badge badgeContent={notificationCount} color="error"> */}
               <NotificationsIcon />
-            </Badge>
+            {/* </Badge> */}
           </ListItemIcon>
           <ListItemText primary="Notifications" />
         </ListItem>
@@ -329,9 +329,9 @@ function StudentHomepage() {
                       </Button>
                     </Box>
                     <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                      <Badge badgeContent={notificationCount} color="error">
+                      {/* <Badge badgeContent={notificationCount} color="error"> */}
                         <NotificationsIcon color="action" />
-                      </Badge>
+                      {/* </Badge> */}
                       <Typography variant="h6" sx={{ ml: 1 }}>
                         Recent Notifications
                       </Typography>

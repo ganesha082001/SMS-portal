@@ -14,6 +14,7 @@ import ScholarshipList from './Pages/Admin/ScholarshipListing';
 import ProfileUpdateFormNew from './Pages/Student/ProfileUpdate/ProfileUpdateForm';
 import NotificationManagement from './Pages/Admin/NotificationManage';
 import StudentProfileTable from './Pages/Admin/ProfileValidate/ProfileValidateList';
+import ScholarshipDashboard from './Pages/Admin/ScholarshipMap/ScholarshipApplicationModal';
 function App() {
   return (
     <Router>
@@ -34,6 +35,9 @@ function App() {
           <Route path="/staff/stafflist" element={<StaffManagement />} />
           <Route path="/staff/notifications" element={<NotificationManagement />} />
           <Route path="/staff/review/:id" element={<StudentProfileTable />} />
+          <Route path="/staff/application" element={<ScholarshipDashboard />} />
+
+          
         </Routes>
       </div>
     </Router>
