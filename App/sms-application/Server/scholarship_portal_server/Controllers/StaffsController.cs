@@ -225,5 +225,22 @@ namespace scholarship_portal_server.Controllers
 
             return Ok(privilegedStaffs);
         }
+        [HttpGet("dashboard")]
+        public async Task<ActionResult<object>> GetDashboard()
+        {
+            if (!ValidateToken())
+                return Unauthorized();
+
+            var appliedScholarships = await _context.Scholarships.CountAsync(s => !s.IsDeleted);
+            var approvedScholarships = await _context.Scholarships.CountAsync(s => s.CanNotify && !s.IsDeleted);
+            var totalScholarships = await _context.Scholarships.CountAsync();
+
+            return Ok(new
+            {
+                AppliedScholarshipsCount = appliedScholarships,
+                ApprovedScholarshipsCount = approvedScholarships,
+                TotalScholarshipsCount = totalScholarships
+            });
+        }
     }
 }

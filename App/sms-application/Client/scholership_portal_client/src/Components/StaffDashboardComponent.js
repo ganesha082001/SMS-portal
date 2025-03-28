@@ -88,9 +88,9 @@ import NotificationManagement from '../Pages/Admin/NotificationManage';
 import StudentProfileTable from '../Pages/Admin/ProfileValidate/ProfileValidateList'
 // Example data
 const scholarshipApplications = [
-  { id: 1, student: 'Priya Sharma', course: 'BSc Computer Science', type: 'Merit-based', amount: '₹25,000', gpa: '9.3', date: '2025-03-06', status: 'Pending', avatar: '/api/placeholder/40/40' },
+  { id: 1, student: 'Priya Sharma', course: 'BSc Computer Science', type: 'Public Scholarships', amount: '₹25,000', gpa: '9.3', date: '2025-03-06', status: 'Pending', avatar: '/api/placeholder/40/40' },
   { id: 2, student: 'Ananya Singh', course: 'BA Economics', type: 'Need-based', amount: '₹30,000', gpa: '8.7', date: '2025-03-07', status: 'Approved', avatar: '/api/placeholder/40/40' },
-  { id: 3, student: 'Kavita Patel', course: 'BSc Mathematics', type: 'Merit-based', amount: '₹25,000', gpa: '9.1', date: '2025-03-07', status: 'Pending', avatar: '/api/placeholder/40/40' },
+  { id: 3, student: 'Kavita Patel', course: 'BSc Mathematics', type: 'Public Scholarships', amount: '₹25,000', gpa: '9.1', date: '2025-03-07', status: 'Pending', avatar: '/api/placeholder/40/40' },
   { id: 4, student: 'Meera Reddy', course: 'BCom', type: 'First-generation', amount: '₹35,000', gpa: '8.5', date: '2025-03-08', status: 'Rejected', avatar: '/api/placeholder/40/40' },
   { id: 5, student: 'Neha Joshi', course: 'BTech Computer Science', type: 'STEM Innovation', amount: '₹40,000', gpa: '9.5', date: '2025-03-08', status: 'Approved', avatar: '/api/placeholder/40/40' }
 ];

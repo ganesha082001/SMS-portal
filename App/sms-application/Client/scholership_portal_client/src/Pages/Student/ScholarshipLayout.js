@@ -123,8 +123,8 @@ const ScholarshipLayout = () => {
                   <div 
                     style={{ 
                       backgroundColor: 
-                        (scholarship.scholarshipType === 'Merit-based') ? '#B22222' : 
-                        (scholarship.scholarshipType === 'STEM') ? '#1E88E5' :
+                        (scholarship.scholarshipType === 'Public Scholarships') ? '#B22222' : 
+                        (scholarship.scholarshipType === 'Private Scholarships') ? '#1E88E5' :
                         (scholarship.scholarshipType === 'Leadership') ? '#43A047' :
                         (scholarship.scholarshipType === 'Community Service') ? '#9C27B0' : '#FF8F00',
                       color: 'white',
@@ -194,7 +194,7 @@ const ScholarshipLayout = () => {
             <Box 
               style={{ 
                 backgroundColor: 
-                  (selectedScholarship.scholarshipType === 'Merit-based') ? '#B22222' : 
+                  (selectedScholarship.scholarshipType === 'Public Scholarships') ? '#B22222' : 
                   (selectedScholarship.scholarshipType === 'STEM') ? '#1E88E5' :
                   (selectedScholarship.scholarshipType === 'Leadership') ? '#43A047' :
                   (selectedScholarship.scholarshipType === 'Community Service') ? '#9C27B0' : '#FF8F00',

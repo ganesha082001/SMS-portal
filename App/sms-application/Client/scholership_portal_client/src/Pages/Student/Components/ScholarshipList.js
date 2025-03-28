@@ -139,7 +139,7 @@ const ScholarshipList = () => {
               <Box sx={{ mt: 1 }}>
                 {selectedScholarship.isMeritBased && (
                   <Chip 
-                    label="Merit-based" 
+                    label="Public Scholarships" 
                     size="small" 
                     sx={{ 
                       bgcolor: 'rgba(255,255,255,0.2)', 

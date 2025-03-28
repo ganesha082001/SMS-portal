@@ -193,7 +193,7 @@ function ScholarshipModal({ open, handleClose, scholarship }) {
                     }}
                     startIcon={<LinkIcon />}
                   >
-                    Apply Now
+                    Enroll Now
                   </Button>
                 )}
               </Paper>
@@ -239,7 +239,7 @@ function NoticeBoard({ title, items, ref, height = '450px' }) {
       eligibility_criteria: "Minimum GPA of 3.5 or equivalent\nEnrolled as a full-time student\nDemonstrated leadership qualities\nFinancial need may be considered\nMust be a citizen or permanent resident",
       application_start_date: item.details.split('|')[0].split(':')[1].trim(),
       application_end_date: item.details.split('|')[1].split(':')[1].trim(),
-      scholarship_type: "Merit-based",
+      scholarship_type: "Public Scholarships",
       contact_incharge: "Dr. Scholarship Coordinator",
       isself_enrollable: true,
       self_enroll_url: "#apply-now",

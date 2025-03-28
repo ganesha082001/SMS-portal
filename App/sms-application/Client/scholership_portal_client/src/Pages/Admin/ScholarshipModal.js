@@ -17,15 +17,8 @@ import {
 import { Box } from '@mui/material';
 
 const scholarshipTypes = [
-  'Merit-Based',
-  'Need-Based',
-  'Research',
-  'Athletic',
-  'Community Service',
-  'Diversity',
-  'International',
-  'Career-Specific',
-  'Other'
+  'Public',
+  'Private'
 ];
 
 const ScholarshipModal = ({ show, handleClose, scholarshipData, saveScholarship, staffList }) => {

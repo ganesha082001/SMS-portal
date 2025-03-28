@@ -139,23 +139,26 @@ const CollegeInfo = () => {
               </Typography>
             </Box>
 
-            {/* Action Button */}
-            {!isMobile && (
-              <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 2 }}>
-                <Button 
-                  variant="contained" 
-                  color="primary" 
-                  size={isMobile ? "small" : "medium"}
-                >
-                  See More
-                </Button>
-              </Box>
-            )}
-          </CardContent>
-        </Grid>
-      </Grid>
+                  {!isMobile && (
+                    <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 2 }}>
+                    <Button 
+                      variant="contained" 
+                      color="primary" 
+                      size={isMobile ? "small" : "medium"}
+                      component="a"
+                      href="https://www.sdnbvc.edu.in"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      See More
+                    </Button>
+                    </Box>
+                  )}
+                  </CardContent>
+                </Grid>
+                </Grid>
 
-      {/* Mobile-only Action Button */}
+                {/* Mobile-only Action Button */}
       {isMobile && (
         <Box sx={{ p: 2, pt: 0 }}>
           <Button 

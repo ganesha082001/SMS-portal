@@ -236,7 +236,7 @@ function StudentHomepage() {
           {studentData?.studentName || 'Student'}
         </Typography>
         <Typography variant="body2" color="textSecondary">
-          ID: {studentData?.studentId || 'Loading...'}
+          ID: {studentData?.studentRollnumber || 'Loading...'}
         </Typography>
         <Button 
           variant="outlined" 
@@ -278,10 +278,7 @@ function StudentHomepage() {
 
   // Custom announcement data with multiple items
   const announcements = [
-    "New Scholarship Arrived - Last date to apply is 15th April 2025",
-    "Congratulations to the 250 students who received scholarships last month!",
-    "Career Fair: Meet representatives from top universities on May 5th",
-    "New courses added to the summer program - Register now!"
+    "New Scholarship Arrived - Register now!"
   ];
 
   // Render content based on selected tab

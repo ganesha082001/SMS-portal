@@ -18,7 +18,6 @@ namespace scholarship_portal_server.Models
         public DbSet<EducationalInfo> EducationalInfo { get; set; }
         public DbSet<StudentProfile> StudentProfiles { get; set; }
         public DbSet<Notification> Notifications { get; set; }
-
-
+        public DbSet<ScholarshipApplication> ScholarshipApplications { get; internal set; }
     }
 }

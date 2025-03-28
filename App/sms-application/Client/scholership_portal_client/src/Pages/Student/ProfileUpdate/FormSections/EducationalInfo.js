@@ -489,7 +489,7 @@ const EducationalInformationForm = () => {
 
         if (!isEdit) {
           // If this was an add operation, get the new data to update the form
-          const newData = await response.json();
+          const newData = await response;
           setFormData({
             ...newData,
             isHosteler: newData.isHosteler ? 'true' : 'false',
