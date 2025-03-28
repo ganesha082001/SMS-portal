@@ -534,7 +534,6 @@ const EducationalInformationForm = () => {
       <Box component="form" onSubmit={handleSubmit}>
         <Grid container spacing={3}>
 
-          {/* Hidden fields for IDs - they're still in the state but not visible in UI */}
           <input type="hidden" name="educationalId" value={formData.educationalId} />
           <input type="hidden" name="studentId" value={formData.studentId} />
 
@@ -633,9 +632,19 @@ const EducationalInformationForm = () => {
                 label="Current Year"
               >
                 <MenuItem value="">Select One</MenuItem>
-                <MenuItem value="1">1st Year</MenuItem>
-                <MenuItem value="2">2nd Year</MenuItem>
-                <MenuItem value="3">3rd Year</MenuItem>
+                {formData.courseType === "UG" && (
+                  <>
+                    <MenuItem value="1">1st Year</MenuItem>
+                    <MenuItem value="2">2nd Year</MenuItem>
+                    <MenuItem value="3">3rd Year</MenuItem>
+                  </>
+                )}
+                {formData.courseType === "PG" && (
+                  <>
+                    <MenuItem value="1">1st Year</MenuItem>
+                    <MenuItem value="2">2nd Year</MenuItem>
+                  </>
+                )}
               </Select>
             </FormControl>
           </Grid>
@@ -654,11 +663,16 @@ const EducationalInformationForm = () => {
                           : "Previous Year Marks"
                   }
                   value={formData.previousYearMarks || ''}
-                  onChange={handleChange('previousYearMarks')}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    if (value === '' || (Number(value) >= 0 && Number(value) <= 100)) {
+                      handleChange('previousYearMarks')(e);
+                    }
+                  }}
                   margin="normal"
                   required
                   error={!!errors.previousYearMarks}
-                  helperText={errors.previousYearMarks}
+                  helperText={errors.previousYearMarks || "Enter a value between 0 and 100"}
                 />
               </Grid>
             </>

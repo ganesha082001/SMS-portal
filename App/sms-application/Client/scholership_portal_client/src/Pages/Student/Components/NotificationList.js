@@ -167,150 +167,156 @@ const NotificationList = () => {
         }}
       >
         <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', p: 2 }}>
-          
-          {/* Marquee container */}
-          <Box
-            ref={listContainerRef}
-            sx={{
-              height: getResponsiveHeight(),
-              overflow: 'hidden',
-              position: 'relative',
-              flexGrow: 1,
-              '&::-webkit-scrollbar': {
-                width: '8px',
-              },
-              '&::-webkit-scrollbar-track': {
-                backgroundColor: '#f1f1f1',
-                borderRadius: '10px',
-              },
-              '&::-webkit-scrollbar-thumb': {
-                backgroundColor: theme.palette.primary.light,
-                borderRadius: '10px',
-                '&:hover': {
-                  backgroundColor: theme.palette.primary.main,
+          {notifications.length === 0 ? (
+            // No notifications state
+            <Box
+              sx={{
+                height: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexDirection: 'column',
+                gap: 2
+              }}
+            >
+              <Typography variant="h6" color="text.secondary">
+                No Notifications Available
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                Check back later for updates
+              </Typography>
+            </Box>
+          ) : (
+            // Existing marquee container and notification list
+            <Box
+              ref={listContainerRef}
+              sx={{
+                height: getResponsiveHeight(),
+                overflow: 'hidden',
+                position: 'relative',
+                flexGrow: 1,
+                '&::-webkit-scrollbar': {
+                  width: '8px',
                 },
-              },
-            }}
-            onMouseEnter={() => setIsPaused(true)}
-            onMouseLeave={() => setIsPaused(false)}
-          >
-                  <List 
-                    ref={listRef}
-                    disablePadding 
-                    sx={{ 
-                    width: '100%'
-                    }}
-                  >
-                    {enhancedNotificationData.map((notification, index) => (
-                    <React.Fragment key={index}>
-                      <ListItem 
+                '&::-webkit-scrollbar-track': {
+                  backgroundColor: '#f1f1f1',
+                  borderRadius: '10px',
+                },
+                '&::-webkit-scrollbar-thumb': {
+                  backgroundColor: theme.palette.primary.light,
+                  borderRadius: '10px',
+                  '&:hover': {
+                    backgroundColor: theme.palette.primary.main,
+                  },
+                },
+              }}
+              onMouseEnter={() => setIsPaused(true)}
+              onMouseLeave={() => setIsPaused(false)}
+            >
+              <List 
+                ref={listRef}
+                disablePadding 
+                sx={{ 
+                  width: '100%'
+                }}
+              >
+                {enhancedNotificationData.map((notification, index) => (
+                  <React.Fragment key={index}>
+                    <ListItem 
                       alignItems="flex-start"
                       button 
-                      // onClick={() => handleClickOpen(notification)}
                       sx={{ 
                         cursor: 'pointer',
                         transition: 'background-color 0.2s',
                         '&:hover': {
-                        backgroundColor: 'rgba(0, 0, 0, 0.04)',
+                          backgroundColor: 'rgba(0, 0, 0, 0.04)',
                         }
                       }}
-                      >
+                    >
                       <ListItemText
                         primary={
-                        <Typography variant="subtitle1" component="div" fontWeight="medium">
-                          {index + 1}. {notification.messageTitle}
-                        </Typography>
+                          <Typography variant="subtitle1" component="div" fontWeight="medium">
+                            {index + 1}. {notification.messageTitle}
+                          </Typography>
                         }
                         secondary={
-                        <Box sx={{ mt: 0.5 }}>
-                          <Box component="span" sx={{ display: 'inline-flex', alignItems: 'center', mr: 2 }}>
-                          <EventIcon fontSize="small" sx={{ mr: 0.5, fontSize: '0.875rem' }} />
-                          <Typography variant="body2" component="span">
-                            {new Date(notification.endDate).toLocaleDateString('en-GB')}
-                          </Typography>
+                          <Box sx={{ mt: 0.5 }}>
+                            <Box component="span" sx={{ display: 'inline-flex', alignItems: 'center', mr: 2 }}>
+                              <EventIcon fontSize="small" sx={{ mr: 0.5, fontSize: '0.875rem' }} />
+                              <Typography variant="body2" component="span">
+                                {new Date(notification.endDate).toLocaleDateString('en-GB')}
+                              </Typography>
+                            </Box>
+                            {notification.notificationType === 1 && (
+                              <Chip 
+                                label="Required" 
+                                size="small" 
+                                color="primary"
+                                sx={{ ml: 1, height: '20px', fontSize: '0.7rem' }} 
+                              />
+                            )}
                           </Box>
-                          {/* <Box component="span" sx={{ display: 'inline-flex', alignItems: 'center' }}>
-                          <LocationOnIcon fontSize="small" sx={{ mr: 0.5, fontSize: '0.875rem' }} />
-                          <Typography variant="body2" component="span">
-                            {notification.venue}
-                          </Typography>
-                          </Box> */}
-                          {notification.notificationType === 1 && (
-                          <Chip 
-                            label="Required" 
-                            size="small" 
-                            color="primary"
-                            sx={{ ml: 1, height: '20px', fontSize: '0.7rem' }} 
-                          />
-                          )}
-                        </Box>
                         }
                       />
-                      </ListItem>
-                      {index < enhancedNotificationData.length - 1 && <Divider />}
-                    </React.Fragment>
-                    ))}
-                  </List>
-                  
-                  {/* Duplicated list for continuous scrolling */}
-            <List 
-              ref={cloneRef}
-              disablePadding 
-              sx={{ 
-                width: '100%'
-              }}
-            >
-              {enhancedNotificationData.map((notification, index) => (
-                <React.Fragment key={`clone-${index}`}>
-                  <ListItem 
-                    alignItems="flex-start"
-                    button 
-                    // onClick={() => handleClickOpen(notification)}
-                    sx={{ 
-                      cursor: 'pointer',
-                      transition: 'background-color 0.2s',
-                      '&:hover': {
-                        backgroundColor: 'rgba(0, 0, 0, 0.04)',
-                      }
-                    }}
-                  >
-                    <ListItemText
-                      primary={
-                        <Typography variant="subtitle1" component="div" fontWeight="medium">
-                          {index + 1}. {notification.messageTitle}
-                        </Typography>
-                      }
-                      secondary={
-                        <Box sx={{ mt: 0.5 }}>
-                          <Box component="span" sx={{ display: 'inline-flex', alignItems: 'center', mr: 2 }}>
-                            <EventIcon fontSize="small" sx={{ mr: 0.5, fontSize: '0.875rem' }} />
-                            <Typography variant="body2" component="span">
-                            {new Date(notification.endDate).toLocaleDateString('en-GB')}
-                            </Typography>
+                    </ListItem>
+                    {index < enhancedNotificationData.length - 1 && <Divider />}
+                  </React.Fragment>
+                ))}
+              </List>
+              
+              {/* Duplicated list for continuous scrolling */}
+              <List 
+                ref={cloneRef}
+                disablePadding 
+                sx={{ 
+                  width: '100%'
+                }}
+              >
+                {enhancedNotificationData.map((notification, index) => (
+                  <React.Fragment key={`clone-${index}`}>
+                    <ListItem 
+                      alignItems="flex-start"
+                      button 
+                      sx={{ 
+                        cursor: 'pointer',
+                        transition: 'background-color 0.2s',
+                        '&:hover': {
+                          backgroundColor: 'rgba(0, 0, 0, 0.04)',
+                        }
+                      }}
+                    >
+                      <ListItemText
+                        primary={
+                          <Typography variant="subtitle1" component="div" fontWeight="medium">
+                            {index + 1}. {notification.messageTitle}
+                          </Typography>
+                        }
+                        secondary={
+                          <Box sx={{ mt: 0.5 }}>
+                            <Box component="span" sx={{ display: 'inline-flex', alignItems: 'center', mr: 2 }}>
+                              <EventIcon fontSize="small" sx={{ mr: 0.5, fontSize: '0.875rem' }} />
+                              <Typography variant="body2" component="span">
+                                {new Date(notification.endDate).toLocaleDateString('en-GB')}
+                              </Typography>
+                            </Box>
+                            {notification.notificationType === 1 && (
+                              <Chip 
+                                label="Required" 
+                                size="small" 
+                                color="primary"
+                                sx={{ ml: 1, height: '20px', fontSize: '0.7rem' }} 
+                              />
+                            )}
                           </Box>
-                          {/* <Box component="span" sx={{ display: 'inline-flex', alignItems: 'center' }}>
-                            <LocationOnIcon fontSize="small" sx={{ mr: 0.5, fontSize: '0.875rem' }} />
-                            <Typography variant="body2" component="span">
-                              {notification.venue}
-                            </Typography>
-                          </Box> */}
-                          {notification.notificationType === 1 && (
-                            <Chip 
-                              label="Required" 
-                              size="small" 
-                              color="primary"
-                              sx={{ ml: 1, height: '20px', fontSize: '0.7rem' }} 
-                            />
-                          )}
-                        </Box>
-                      }
-                    />
-                  </ListItem>
-                  {index < enhancedNotificationData.length - 1 && <Divider />}
-                </React.Fragment>
-              ))}
-            </List>
-          </Box>
+                        }
+                      />
+                    </ListItem>
+                    {index < enhancedNotificationData.length - 1 && <Divider />}
+                  </React.Fragment>
+                ))}
+              </List>
+            </Box>
+          )}
         </CardContent>
       </Card>
 
