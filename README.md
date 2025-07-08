@@ -14,7 +14,7 @@ Scholarship management portal
 
 # Backend Set up
 1) dotnet build - to build the application
-2) dotnet ef add migrations <description_without_space> - for migatin changes 
+2) dotnet ef migrations add <MigrationName> - for migatin changes 
 3) dotnet ef database update - for database update
 
 # front end setup
